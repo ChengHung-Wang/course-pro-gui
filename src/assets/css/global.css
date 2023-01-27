@@ -1,0 +1,50 @@
+.text-primary {
+    color: #409EFF!important;
+}
+.text-black {
+    color: #303133!important;
+}
+p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    color: #7e7e7e;
+    line-height: 25px;
+    font-weight: 350;
+}
+.fcc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.fsc {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+.fac {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.fbc {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.fec {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+.apple-blur {
+    backdrop-filter: blur(30px) saturate(180%)!important;
+}
+.apple-blur-wh {
+    background-color: rgba(255, 255, 255, .8)!important;
+    backdrop-filter: blur(30px) saturate(180%)!important;
+}
