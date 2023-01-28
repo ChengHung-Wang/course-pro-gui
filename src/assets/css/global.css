@@ -11,6 +11,16 @@
 .el-dialog__header {
     margin-right: 0!important;
 }
+/* loading */
+.el-loading-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.el-loading-mask .circular {
+    width: 100% !important;
+}
 
 .text-primary {
     color: #409EFF!important;
