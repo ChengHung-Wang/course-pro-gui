@@ -10,11 +10,11 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './assets/css/global.css'
 import "bootstrap"
 
-const pinia = createPinia()
+
 const app = createApp(App)
+const pinia = createPinia()
 app.use(ElementPlus)
 app.use(pinia)
-
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
 }

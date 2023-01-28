@@ -11,23 +11,25 @@
           <div class="small-form">
             <div class="inner-form">
               <h1 class="title mb-3 text-dark">登入系統</h1>
-              <el-form
-                  label-position="top"
-                  label-width="100px"
-                  :model="formData">
+              <el-form label-position="top" label-width="100px">
                 <el-form-item label="電子信箱">
-                  <el-input size="large" v-model="formData.account" />
+                  <el-input type="email" size="large" v-model="fields.login.account" />
                 </el-form-item>
                 <el-form-item label="密碼">
-                  <el-input type="password" size="large" v-model="formData.password" />
+                  <el-input type="password" size="large" v-model="fields.login.password" />
                 </el-form-item>
-                <el-button size="large" class="w-100 mt-3" type="primary">登入</el-button>
+                <p class="text-danger">
+                  <span v-if="loginFail">
+                  登入失敗！<br/> 注意：你的電子信箱不應是@mail.ntust.edu.tw的信箱
+                  </span>
+                </p>
+                <el-button @click="login()" size="large" class="w-100 mt-1" type="primary" :loading="submitDisable">登入</el-button>
               </el-form>
               <div class="fcc mt-3">
                 <div>
-                  <el-link href="#" type="primary" @click="status_id=1">註冊帳戶</el-link>
+                  <el-link href="#" type="primary" @click="displayStatus.register = true">註冊帳戶</el-link>
                   <span class="text-primary m-2">|</span>
-                  <el-link href="#" type="primary">忘記密碼</el-link>
+                  <el-link href="#" type="primary" @click="displayStatus.forget = true">忘記密碼</el-link>
                 </div>
               </div>
             </div>
@@ -40,19 +42,42 @@
 
 <script>
 import Logo from "@/components/Logo";
+// store
+import { storeToRefs } from 'pinia'
+import { useLoginStore } from "@/store/login";
 export default {
   name: "LoginForm",
   data() {
     return {
-      formData: {
-        account: "",
-        password: ""
+      submitDisable: false,
+      loginFail: false
+    }
+  },
+  setup() {
+    const { displayStatus, fields } = storeToRefs(useLoginStore());
+    const loginStore = useLoginStore();
+    return {
+      displayStatus,
+      fields,
+      loginStore
+    }
+  },
+  methods: {
+    async login() {
+      this.submitDisable = true;
+      if (await this.loginStore.login(this.fields.login.account, this.fields.login.password))
+      {
+        this.loginFail = false;
+        this.$router.push('/');
+      }else {
+        this.loginFail = true;
+        this.submitDisable = false;
       }
     }
   },
   components: {
     Logo
-  }
+  },
 }
 </script>
 
@@ -81,6 +106,12 @@ export default {
   }
   .inner-form {
     width: 100%;
+    text-align: left!important;
+  }
+  .inner-form .text-danger {
+    font-size: 12px;
+    line-height: 1.2;
+    margin-top: 6px;
   }
   .sub-title {
     color: white;

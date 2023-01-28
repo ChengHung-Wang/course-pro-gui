@@ -1,3 +1,17 @@
+* {
+    font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+    touch-action: manipulation;
+}
+
+/* for Element-Plus */
+.el-dialog__headerbtn {
+    left: 0!important;
+}
+.el-dialog__header {
+    margin-right: 0!important;
+}
+
 .text-primary {
     color: #409EFF!important;
 }
@@ -10,6 +24,7 @@ p {
     color: #7e7e7e;
     line-height: 25px;
     font-weight: 350;
+    text-align: left;
 }
 .fcc {
     display: flex;

@@ -1,23 +1,32 @@
 <template>
   <div id="login">
-    <LoginForm />
+    <LoginForm v-if="displayStatus.login" />
     <Register />
   </div>
 </template>
 
 <script>
+// components
 import LoginForm from "@/components/Login/LoginForm";
 import Register from "@/components/Login/Register";
+// store
+import { storeToRefs } from 'pinia'
+import { useLoginStore } from "@/store/login";
+
 export default {
   name: "Login",
+  setup() {
+    const loginStore = useLoginStore();
+    const { displayStatus } = storeToRefs(useLoginStore());
+    return {
+      loginStore,
+      displayStatus
+    }
+  },
+  async created() {
+  },
   data() {
     return {
-      status: [
-          "login",
-          "register",
-          "forget"
-      ],
-      status_id: 0
     }
   },
   components: {
