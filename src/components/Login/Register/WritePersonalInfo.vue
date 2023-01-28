@@ -29,17 +29,28 @@
             <div class="container-fluid m-0 p-0">
               <div class="row">
                 <el-form-item class="col-12" label="學號">
-                  <el-input type="email" size="large" v-model="fields.register.student_no" />
+                  <el-input type="email" size="large" placeholder="BXXXXXXXX" v-model="fields.register.student_no" />
                 </el-form-item>
                 <el-form-item class="col-12" label="Email 密碼 (用於發送通知)">
                   <el-input type="password" size="large" v-model="fields.register.ntust_email_password" />
                 </el-form-item>
-                <el-form-item class="col-12" label="SSO 密碼">
+                <el-form-item class="col-12 fsc" label="SSO 密碼">
                   <el-input type="password" size="large" v-model="fields.register.ntust_sso_password" />
                 </el-form-item>
               </div>
             </div>
           </el-form>
+          <span>
+            注意：您的 <strong>Email 密碼</strong> 應該要能夠在
+            <el-link icon="link" style="margin-top: -2.5px;" class="text-primary" target="_blank" href="https://mail.ntust.edu.tw/">
+              這個連結
+            </el-link>
+            登入並且<br> 您的 <strong> SSO 密碼 </strong> 應該要能夠在
+            <el-link icon="link" style="margin-top: -2.5px" class="text-primary" target="_blank" href="https://stuinfosys.ntust.edu.tw/NTUSTSSOServ/SSO/Login/CourseSelection">
+              這個連結
+            </el-link>
+            登入才能完成註冊。
+          </span>
         </div>
       </div>
     </div>
@@ -50,7 +61,8 @@
 import {useLoginStore} from "@/store/login";
 import {storeToRefs} from "pinia";
 import Logo from "@/components/Logo";
-export default {
+import {defineComponent} from "vue";
+export default defineComponent({
   name: "WritePersonalInfo",
   setup() {
     const loginStore = useLoginStore();
@@ -63,7 +75,7 @@ export default {
   components: {
     Logo
   }
-}
+})
 </script>
 
 <style scoped>

@@ -1,7 +1,7 @@
 <template>
-  <div class="home-app-item">
-    <img :src="require('/src/assets/appIcons/course_table.png')" alt="">
-    <p>課程</p>
+  <div class="home-app-item fcc">
+    <img :src="icon" alt="">
+    <p>{{ appName }}</p>
   </div>
 </template>
 
@@ -9,12 +9,14 @@
 import {defineComponent} from "vue";
 
 export default defineComponent({
-  name: "App"
+  name: "AppItem",
+  props: {
+    icon: String,
+    appName: String
+  }
 })
 </script>
 
-<style scoped>
-  .home-app-item {
+<style>
 
-  }
 </style>

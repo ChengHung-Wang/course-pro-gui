@@ -14,18 +14,19 @@
         <WritePersonalInfo v-if="registerSteps.now === 1"/>
         <CoursePlan v-if="registerSteps.now === 2"/>
         <CompletePersonalInfo v-if="registerSteps.now === 3"/>
-        <Config v-if="registerSteps.now === 4"/>
-        <Finish v-if="registerSteps.now === 5"/>
+        <AccountSecurity v-if="registerSteps.now === 4"/>
+        <Config v-if="registerSteps.now === 5"/>
+        <Finish v-if="registerSteps.now === 6"/>
         <!--   footer   -->
         <div class="footer fec">
           <div>
-            <el-button type="primary" plain v-if="registerSteps.now < 1" @click="displayStatus.register=false">
+            <el-button type="primary" plain v-if="registerSteps.now < 1" @click="loginStore.register_cancel()">
               取消
             </el-button>
             <el-button type="primary" plain v-if="registerSteps.now >= 1" @click="registerSteps.now --">
               上一步
             </el-button>
-            <el-button type="primary" :disabled="!fields.register.accept" @click="registerSteps.now ++">
+            <el-button type="primary" :disabled="!fields.register.accept" @click="loginStore.register_next()">
               下一步
             </el-button>
           </div>
@@ -42,24 +43,28 @@ import Rule from "@/components/Login/Register/Rule";
 import WritePersonalInfo from "@/components/Login/Register/WritePersonalInfo";
 import CoursePlan from "@/components/Login/Register/CoursePlan";
 import CompletePersonalInfo from "@/components/Login/Register/CompletePersonalInfo";
+import AccountSecurity from "@/components/Login/Register/AccountSecurity";
 import Config from "@/components/Login/Register/Config";
 import Finish from "@/components/Login/Register/Finish";
 
 // store
 import {storeToRefs} from 'pinia'
 import {useLoginStore} from "@/store/login";
+import {defineComponent} from "vue";
 
-export default {
+export default defineComponent({
   name: "Register",
   data() {
     return {}
   },
   setup() {
     const {displayStatus, fields, registerSteps} = storeToRefs(useLoginStore());
+    const loginStore = useLoginStore();
     return {
       displayStatus,
       fields,
-      registerSteps
+      registerSteps,
+      loginStore
     }
   },
   components: {
@@ -68,6 +73,7 @@ export default {
     CoursePlan,
     CompletePersonalInfo,
     Config,
+    AccountSecurity,
     Finish
   },
   created() {
@@ -77,7 +83,7 @@ export default {
     //   passive: false
     // });
   }
-}
+})
 </script>
 
 <style>

@@ -51,19 +51,20 @@
 <script>
 import {useLoginStore} from "@/store/login";
 import {storeToRefs} from "pinia";
+import {defineComponent} from "vue";
 
-export default {
+export default defineComponent({
   name: "Rule",
   setup() {
     const loginStore = useLoginStore();
-    const { fields } = storeToRefs(useLoginStore());
+    const {fields} = storeToRefs(useLoginStore());
     return {
       fields,
       loginStore
     }
 
   }
-}
+})
 </script>
 
 <style scoped>

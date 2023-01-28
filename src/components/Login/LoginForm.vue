@@ -18,11 +18,6 @@
                 <el-form-item label="密碼">
                   <el-input type="password" size="large" v-model="fields.login.password" />
                 </el-form-item>
-                <p class="text-danger">
-                  <span v-if="loginFail">
-                  登入失敗！<br/> 注意：你的電子信箱不應是@mail.ntust.edu.tw的信箱
-                  </span>
-                </p>
                 <el-button @click="login()" size="large" class="w-100 mt-1" type="primary" :loading="submitDisable">登入</el-button>
               </el-form>
               <div class="fcc mt-3">
@@ -41,6 +36,7 @@
 </template>
 
 <script>
+import {ElMessage} from 'element-plus';
 import Logo from "@/components/Logo";
 // store
 import { storeToRefs } from 'pinia'
@@ -70,7 +66,11 @@ export default {
         this.loginFail = false;
         this.$router.push('/');
       }else {
-        this.loginFail = true;
+        ElMessage({
+          showClose: true,
+          message: '登入失敗，請注意你的電子信箱不應是 @mail.ntust.edu.tw的信箱',
+          type: 'error',
+        })
         this.submitDisable = false;
       }
     }
@@ -82,45 +82,5 @@ export default {
 </script>
 
 <style scoped>
-  .title {
-    font-size: 30px;
-  }
-  .component-root {
-    position: absolute;
-    width: 100vw;
-    height: 100%;
-    z-index: 2;
-    inset: 0;
-    display: flex;
-    align-items: center;
-  }
-  .small-form {
-    background: white;
-    min-width: 355px;
-    height: 65vh;
-    max-height: 550px;
-    border-radius: 24px;
-    padding: 24px;
-    display: flex;
-    align-items: center;
-  }
-  .inner-form {
-    width: 100%;
-    text-align: left!important;
-  }
-  .inner-form .text-danger {
-    font-size: 12px;
-    line-height: 1.2;
-    margin-top: 6px;
-  }
-  .sub-title {
-    color: white;
-  }
-  .sub-title h2 {
-    font-weight: 800;
-    font-size: 40px;
-  }
-  .sub-title .logo {
-    width: 180px;
-  }
+  @import "/src/assets/css/login.css";
 </style>
