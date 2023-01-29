@@ -64,7 +64,9 @@ export default {
       if (await this.loginStore.login(this.fields.login.account, this.fields.login.password))
       {
         this.loginFail = false;
-        this.$router.push('/');
+        this.$router.push({
+          name: 'home'
+        });
       }else {
         ElMessage({
           showClose: true,

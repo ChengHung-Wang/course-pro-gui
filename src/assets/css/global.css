@@ -73,3 +73,6 @@ p {
     background-color: rgba(255, 255, 255, .8)!important;
     backdrop-filter: blur(30px) saturate(180%)!important;
 }
+.component-padding {
+    padding: 24px 48px 0;
+}

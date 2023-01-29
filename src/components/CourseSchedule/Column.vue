@@ -1,36 +1,41 @@
 <template>
-  <div class="columns">
-    <p>
-      1
+  <div class="columns" v-bind:style="{'width': `calc(100% / ${size})`}">
+    <p class="m-0 column-text">
+      {{ start }}
       <br>
-      08:10
+      {{ end }}
       <br>
-      09:10
+      {{ num }}
     </p>
   </div>
 </template>
 
 <script>
 export default {
-name: "Column"
+  name: "Column",
+  props: {
+    num: String,
+    start: String,
+    end: String,
+    size: Number
+  }
 }
 </script>
 
-<style>
+<style scoped>
   .columns:first-child {
-    margin-left: 12px;
+    margin-left: 0;
   }
   .columns:last-child {
-    margin-right: 12px;
+    margin-right: 0;
   }
   .columns {
-    text-align: center;
-    width: 100%;
     min-width: 72px;
     margin: 6px;
+    height: 75px;
   }
 
-  p {
+  .column-text {
     text-overflow: clip;
     word-break: break-all;
     text-align: center;

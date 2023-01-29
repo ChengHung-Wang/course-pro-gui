@@ -28,6 +28,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { useGlobalStore } from "@/store/global";
 import { useHomeStore } from "@/store/home";
 // components
 import UserCard from '@/components/UserCard.vue'
@@ -38,9 +39,15 @@ export default defineComponent({
   name: 'HomeView',
   setup() {
     const homeStore = useHomeStore();
+    const globalStore = useGlobalStore();
+    globalStore.checkLogin();
     return {
-      homeStore
+      homeStore,
+      globalStore
     }
+  },
+  created() {
+
   },
   components: {
     UserCard,
@@ -50,6 +57,6 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 @import "/src/assets/css/home.css";
 </style>

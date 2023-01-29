@@ -43,15 +43,16 @@ export const useLoginStore = defineStore('login', {
         login: async (account:string, password:string) =>
         {
             const globalStore = useGlobalStore();
-            const data = await globalStore.send("/api/v2/account/login", "POST", {
+            let data = await globalStore.send("/api/v2/account/login", "POST", {
                 email: account,
                 password: password
             });
-            if (data.success === true) {
+            const res = await data.res;
+            if (await res.success === true) {
                 localStorage.setItem("hasLogin", "1");
-                localStorage.setItem("token", data.data.access_token);
+                localStorage.setItem("token", await res.data.access_token);
             }
-            return data.success === true;
+            return await res.success === true;
         },
         register: async () => {
             // TODO
@@ -68,9 +69,14 @@ export const useLoginStore = defineStore('login', {
         },
         async logout() {
             const loading = ElLoading.service();
+            localStorage.removeItem("token");
+            localStorage.removeItem("hasLogin");
+            // TODO: call logout API
             setTimeout(() => {
                 loading.close();
-                console.log(router.push("/login"));
+                router.push({
+                    name: "login"
+                });
             }, 2000)
         },
         // -----------------------------

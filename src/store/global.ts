@@ -1,33 +1,57 @@
-import { defineStore } from 'pinia'
+import {defineStore} from 'pinia'
+import {ref} from "vue";
+import router from "@/router";
+import {useLoginStore} from "@/store/login";
 // import axios from 'axios';
 
 export const useGlobalStore = defineStore('global', {
     state: () => {
         return {
-            api_base: "http://10.71.74.87:8000"
+            api_base: "http://10.71.74.87:8000",
+            loading: ref(false)
         }
     },
     getters: {
-        hasLogin: ():null | boolean => localStorage.getItem("hasLogin") == "1",
+        hasLogin: (): null | boolean => localStorage.getItem("hasLogin") == "1",
         token: (): null | string => localStorage.getItem("token")
     },
     actions: {
-        async send(path:string, method:string = "GET", body:object = {})
-        {
-            const uri:string = this.api_base + path;
-            let headers:any = {
+        async send(path: string, method: string = "GET", body: object = {}, location: boolean = false): Promise<ApiResponse> {
+            const uri: string = this.api_base + path;
+            let headers: any = {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
             };
             if (this.hasLogin && this.token != null) {
-                headers["Authorization"] = this.token;
+                headers.Authorization = "Bearer " + this.token;
             }
-            const res = await fetch(uri, {
+            let option: any = {
                 method: method,
                 headers: headers,
-                body: JSON.stringify(body)
-            });
-            return await res.json();
+            }
+            if (method !== "GET" && method !== "HEAD") {
+                option.body = JSON.stringify(body)
+            }
+            const data = await fetch(uri, option);
+            if (location && data.status !== 200) {
+                const loginStore = useLoginStore();
+                loginStore.logout();
+            }
+            return {
+                status: data.status,
+                res: await data.json()
+            };
+        },
+        checkLogin(): false | void {
+            if (!this.hasLogin) {
+                router.push({
+                    name: "login"
+                })
+                return false;
+            }
+        },
+        logout() {
+
         }
     }
 })
