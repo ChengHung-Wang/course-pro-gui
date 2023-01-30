@@ -9,6 +9,10 @@
 </template>
 
 <script>
+import { useCourseStore } from "@/store/course";
+import {storeToRefs} from "pinia";
+import {toRaw} from "vue";
+
 export default {
   name: "CourseCard",
   props: {
@@ -38,14 +42,30 @@ export default {
       this.size = 1
     }
   },
+  setup() {
+    const { schedule } = storeToRefs(useCourseStore());
+    return {
+      schedule
+    }
+  },
   methods: {
     getStyle() {
-      const offset = parseInt(this.col / 4) * 12 - parseInt(this.col / 4);
+      const colAmount = toRaw(this.schedule).colAmount;
+      // const offset = parseInt(this.col / 4) * 12 - parseInt(this.col / 4);
+      const offset = parseInt(this.col / 4) + 4;
+      const componentPadding = 24
       return {
-        width: `calc((((100% - 24px) / 14) - 12px) * ${this.size} + (12px * ${this.size - 1}))`,
+        width: `calc((((100% - ${componentPadding / 2}px) / ${colAmount}) - 12px) * ${this.size} + (12px * ${this.size - 1}))`,
         top: `calc((92px + 24px) * ${this.row})`,
-        left: `calc(((100% / 14) * ${this.col}) - (12px / 4 * (${this.col % 4})) - ${this.col >= 4 ? offset : 0}px)`
+        left: `calc((((100% - ${componentPadding / 2}px) / ${colAmount}) - 12px) * ${this.col} + (12px * ${this.col - 1}) + 12px)`
       };
+      // const cardWidth = window.document.getElementsByClassName("schedule-card")[0].offsetWidth;
+      // console.log(cardWidth);
+      // return {
+      //   width: `calc((((100% - 24px) / ${colAmount}) - 12px) * ${this.size} + (12px * ${this.size - 1}))`,
+      //     top: `calc((92px + 24px) * ${this.row})`,
+      //     left: `calc((${cardWidth}px + 12px) * ${this.col})`
+      // }
     }
   }
 }

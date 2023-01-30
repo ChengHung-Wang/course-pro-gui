@@ -1,39 +1,35 @@
 <template>
   <div id="app-root">
     <div id="app-nav">
+      <Menu></Menu>
     </div>
     <div id="app-frame">
       <div class="frame-inner">
-        <div class="container-fluid component-padding m-0">
-          <div class="row">
-            <div class="col-12 fbc">
-              <h3 class="m-0">課表預覽</h3>
-              <el-link href="#" class="text-primary m-0">在課表中查看</el-link>
-            </div>
-          </div>
-        </div>
-        <CourseSchedule />
+        <router-view />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Menu from "@/components/CourseSchedule/Menu";
+import CourseDashboard from "@/components/CourseSchedule/CourseDashboard";
 import CourseSchedule from "@/components/CourseSchedule/CourseSchedule";
 import { useCourseStore } from "@/store/course";
-import {storeToRefs} from "pinia";
+import { storeToRefs } from "pinia";
 import {ElLoading} from "element-plus";
-import {ref, toRaw} from "vue";
 
 export default {
-  name: "Course",
+  name: "CourseView",
   data() {
     return {
       loadingObj: null
     }
   },
   components: {
-    CourseSchedule
+    CourseDashboard,
+    CourseSchedule,
+    Menu
   },
   setup() {
     const courseStore = useCourseStore();
@@ -45,7 +41,6 @@ export default {
     }
   },
   async created() {
-    // this.openLoading();
     const data = await this.courseStore.get_schedule_summary();
     // console.log(toRaw(this.schedule.timeline));
     // console.log(toRaw(this.schedule.courses));
@@ -75,13 +70,13 @@ export default {
     position: fixed;
     left: 0;
     width: 300px;
-    height: 100vh;
-    background: #eee;
+    height: calc(var(--vh) * 100);
+    z-index: 1;
   }
   #app-frame {
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: calc(var(--vh) * 100);
   }
   #app-frame> .frame-inner {
     width: calc(100% - 300px);

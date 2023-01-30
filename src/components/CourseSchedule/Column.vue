@@ -40,5 +40,6 @@ export default {
     word-break: break-all;
     text-align: center;
     color: #979797;
+    font-weight: 500;
   }
 </style>

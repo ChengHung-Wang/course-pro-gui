@@ -73,14 +73,14 @@ export default {
   }
   #CourseSchedule .schedule-contain {
     width: 100%;
-    padding-left: 36px;
+    padding-left: 24px;
   }
   #CourseSchedule .schedule-headers {
     display: flex;
   }
   .course-empty-card {
     position: absolute;
-    padding-right: 48px;
+    padding-right: 24px;
     display: flex;
     flex-wrap: wrap;
   }
