@@ -46,7 +46,6 @@ export default {
   data() {
     return {
       submitDisable: false,
-      loginFail: false
     }
   },
   setup() {
@@ -63,10 +62,7 @@ export default {
       this.submitDisable = true;
       if (await this.loginStore.login(this.fields.login.account, this.fields.login.password))
       {
-        this.loginFail = false;
-        this.$router.push({
-          name: 'home'
-        });
+        this.$router.push("/");
       }else {
         ElMessage({
           showClose: true,

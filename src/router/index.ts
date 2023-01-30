@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from "@/views/HomeView.vue";
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -21,8 +22,34 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/course',
-    name: 'course',
-    component: () => import('@/views/CourseView.vue')
+    component: () => import('@/views/Course/CourseView.vue'),
+    children: [
+      {
+        path: '/course',
+        name: 'course-summary',
+        component: () => import('@/views/Course/Summary.vue')
+      },
+      {
+        path: 'plan',
+        component: () => import('@/views/Course/Plan.vue')
+      },
+      {
+        path: 'transfer',
+        component: () => import('@/views/Course/Transfer.vue')
+      },
+      {
+        path: 'history',
+        component: () => import('@/views/Course/History.vue')
+      },
+      {
+        path: 'setting',
+        component: () => import('@/views/Course/SelectorConfig.vue')
+      },
+      {
+        path: 'instance',
+        component: () => import('@/views/Course/SelectorInstance.vue')
+      }
+    ]
   }
 ]
 

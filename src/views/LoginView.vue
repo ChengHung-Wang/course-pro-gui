@@ -39,7 +39,7 @@ export default {
 <style scoped>
   #login {
     width: 100vw;
-    height: 100vh;
+    height: calc(var(--vh) * 100);
     background-image: url('../assets/login_banner_korean_girl_study_2x.jpeg');
     background-size: cover;
     background-position: center;
@@ -49,7 +49,7 @@ export default {
   #login::after {
     content: '';
     width: 100vw;
-    height: 100vh;
+    height: calc(var(--vh) * 100);
     background-color: rgba(0, 0, 0, 0.3);
     position: absolute;
     z-index: 1;

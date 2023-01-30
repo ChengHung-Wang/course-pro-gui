@@ -7,7 +7,7 @@ import {useLoginStore} from "@/store/login";
 export const useGlobalStore = defineStore('global', {
     state: () => {
         return {
-            api_base: "http://10.71.74.87:8000",
+            api_base: "http://10.71.74.4:8000",
             loading: ref(false),
             userInfo: ref({
                 name: "",
@@ -17,8 +17,7 @@ export const useGlobalStore = defineStore('global', {
         }
     },
     getters: {
-        hasLogin: (): null | boolean => localStorage.getItem("hasLogin") == "1",
-        token: (): null | string => localStorage.getItem("token")
+
     },
     actions: {
         async send(path: string, method: string = "GET", body: object = {}, location: boolean = false): Promise<ApiResponse> {
@@ -27,8 +26,8 @@ export const useGlobalStore = defineStore('global', {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
             };
-            if (this.hasLogin && this.token != null) {
-                headers.Authorization = "Bearer " + this.token;
+            if (localStorage.getItem("hasLogin") == "1" && localStorage.getItem("token") != null) {
+                headers.Authorization = "Bearer " + localStorage.getItem("token");
             }
             let option: any = {
                 method: method,
@@ -47,16 +46,18 @@ export const useGlobalStore = defineStore('global', {
                 res: await data.json()
             };
         },
-        checkLogin(): false | void {
-            if (!this.hasLogin) {
+        checkLogin() {
+            if (localStorage.getItem("hasLogin") != "1") {
                 router.push({
                     name: "login"
+                }).then(() => {
+                    this.clearAccessSession();
                 })
-                return false;
             }
         },
-        logout() {
-
+        clearAccessSession() {
+            localStorage.removeItem("token");
+            localStorage.removeItem("hasLogin");
         }
     }
 })

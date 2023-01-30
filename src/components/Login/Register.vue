@@ -50,7 +50,8 @@ import Finish from "@/components/Login/Register/Finish";
 // store
 import {storeToRefs} from 'pinia'
 import {useLoginStore} from "@/store/login";
-import {defineComponent} from "vue";
+import {defineComponent, toRaw} from "vue";
+import {ElMessage} from "element-plus";
 
 export default defineComponent({
   name: "Register",
@@ -82,6 +83,11 @@ export default defineComponent({
     // }, {
     //   passive: false
     // });
+  },
+  methods: {
+    async register() {
+
+    }
   }
 })
 </script>

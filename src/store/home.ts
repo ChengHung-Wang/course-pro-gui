@@ -13,7 +13,7 @@ export const  useHomeStore = defineStore('home', {
                     name: "Course",
                     displayName: "課程",
                     icon: require("/src/assets/appIcons/course_table.png"),
-                    click: () => { router.push({name: 'course'})}
+                    click: () => { router.push({name: 'course-summary'})}
                 },
                 {
                     name: "CourseSafari",

@@ -1,8 +1,8 @@
-import {defineStore} from 'pinia'
+import { defineStore } from 'pinia'
 import {ref, toRaw} from 'vue'
 import router from "@/router";
-import {useGlobalStore} from "@/store/global";
-import {ElLoading} from 'element-plus'
+import { useGlobalStore } from "@/store/global";
+import { ElLoading, ElMessage } from 'element-plus'
 
 export const useLoginStore = defineStore('login', {
     state: () => ({
@@ -51,7 +51,8 @@ export const useLoginStore = defineStore('login', {
         // -----------------------------
         // ------------ API ------------
         // -----------------------------
-        login: async (account: string, password: string) => {
+        login: async (account:string, password:string) =>
+        {
             const globalStore = useGlobalStore();
             let data = await globalStore.send("/api/v2/account/login", "POST", {
                 email: account,
@@ -64,17 +65,21 @@ export const useLoginStore = defineStore('login', {
             }
             return await res.success === true;
         },
-        register: async () => {
-            // TODO
-            return new Promise(function (resolve) {
+        async register() {
+            return new Promise<ApiResponse>(async (resolve) => {
                 const loading = ElLoading.service({
                     lock: true,
                     text: "正在驗證您的身份，這可能會花上30秒甚至更久的時間。",
                 })
-                setTimeout(() => {
-                    loading.close();
-                    resolve(true);
-                }, 3000)
+                const registerResponse = await useGlobalStore().send("/api/v2/account/register", "PUT", {
+                    email: this.fields.register.email,
+                    password: this.fields.register.password,
+                    student_no: this.fields.register.student_no,
+                    ntust_email_password: this.fields.register.ntust_email_password,
+                    ntust_sso_password: this.fields.register.ntust_sso_password
+                });
+                loading.close();
+                resolve(registerResponse);
             })
         },
         async logout() {
@@ -106,9 +111,28 @@ export const useLoginStore = defineStore('login', {
         },
         async register_next() {
             if (this.registerSteps.now == 1) {
-                const loginResult = await this.register();
                 // TODO handle error message
-                this.registerSteps.now++;
+                const fields = toRaw(this.fields).register;
+                if (fields.password !== fields.re_password && fields.password !== "") {
+                    ElMessage({
+                        showClose: true,
+                        message: '密碼不一致',
+                        type: 'warning'
+                    })
+                } else {
+                    const registerResponse = await this.register();
+                    if (registerResponse.status === 200) {
+                        this.registerSteps.now++;
+                        localStorage.setItem("hasLogin", "1");
+                        localStorage.setItem("token", registerResponse.res.data.token);
+                    }else {
+                        ElMessage({
+                            showClose: true,
+                            message: registerResponse.res.data.reason,
+                            type: 'error'
+                        })
+                    }
+                }
             } else if (this.registerSteps.now < this.registerSteps.items.length) {
                 this.registerSteps.now++;
             }
