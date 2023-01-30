@@ -1,6 +1,13 @@
+:root {
+    --primary-bg-light: #dcecff;
+    --primary-color: #409EFF;
+    --text-dark: #303133;
+    --vh: 0; /* auto fill when App.vue mounted */
+    --normal-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
 * {
-    font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
-    'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+    font-family: '.SF Arabic', 'SF Pro', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Helvetica Neue', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
     touch-action: manipulation;
 }
 
@@ -74,5 +81,5 @@ p {
     backdrop-filter: blur(30px) saturate(180%)!important;
 }
 .component-padding {
-    padding: 24px 48px 0;
+    padding: 24px 24px 0;
 }
