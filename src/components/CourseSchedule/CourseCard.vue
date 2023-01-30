@@ -46,13 +46,6 @@ export default {
         top: `calc((92px + 24px) * ${this.row})`,
         left: `calc(((100% / 14) * ${this.col}) - (12px / 4 * (${this.col % 4})) - ${this.col >= 4 ? offset : 0}px)`
       };
-      // const cardWidth = window.document.getElementsByClassName("schedule-card")[0].offsetWidth;
-      // console.log(cardWidth);
-      // return {
-      //   width: `calc((((100% - 24px) / 14) - 12px) * ${this.size} + (12px * ${this.size - 1}))`,
-      //     top: `calc((92px + 24px) * ${this.row})`,
-      //     left: `calc((${cardWidth}px + 12px) * ${this.col})`
-      // }
     }
   }
 }

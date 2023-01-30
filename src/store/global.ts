@@ -8,7 +8,12 @@ export const useGlobalStore = defineStore('global', {
     state: () => {
         return {
             api_base: "http://10.71.74.87:8000",
-            loading: ref(false)
+            loading: ref(false),
+            userInfo: ref({
+                name: "",
+                avatars: [],
+                email: ""
+            })
         }
     },
     getters: {

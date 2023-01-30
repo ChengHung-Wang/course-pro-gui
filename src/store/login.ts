@@ -1,47 +1,57 @@
-import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import {defineStore} from 'pinia'
+import {ref, toRaw} from 'vue'
 import router from "@/router";
-import { useGlobalStore } from "@/store/global";
-import { ElLoading } from 'element-plus'
+import {useGlobalStore} from "@/store/global";
+import {ElLoading} from 'element-plus'
 
 export const useLoginStore = defineStore('login', {
-    state: () => {
-        return {
-            displayStatus: ref({
-                register: false,
-                forget: false,
-                login: true
-            }),
-            fields: ref({
-                login: {
-                    account: "",
-                    password: ""
-                },
-                register: {
-                    accept: false,
-                    email: "",
-                    password: "",
-                    re_password: "",
-                    student_no: "",
-                    ntust_email_password: "",
-                    ntust_sso_password: ""
-                },
-                forget: {
-                    // TODO
-                }
-            }),
-            registerSteps: ref({
-                items: ["使用條款", "基本註冊資訊", "課程規劃", "完善個人信息", "帳戶安全", "系統偏好設置", "完成"],
-                now: 0
-            })
+    state: () => ({
+        displayStatus: ref({
+            register: false,
+            forget: false,
+            login: true
+        }),
+        fields: ref({
+            login: {
+                account: "",
+                password: ""
+            },
+            register: {
+                accept: false,
+                email: "",
+                password: "",
+                re_password: "",
+                student_no: "",
+                ntust_email_password: "",
+                ntust_sso_password: ""
+            },
+            forget: {
+                // TODO
+            }
+        }),
+        registerSteps: ref({
+            items: ["使用條款", "基本註冊資訊", "課程規劃", "完善個人信息", "帳戶安全", "系統偏好設置", "完成"],
+            now: 0
+        })
+    }),
+    getters: {
+        registerFormRule(state) {
+            return {
+                email: {required: true, message: '請輸入您常用的 email', trigger: 'blur'},
+                password: {required: true, message: '請輸入密碼', trigger: 'change'},
+                re_password: {required: true, message: '密碼不一致', validator: true, trigger: 'change' },
+                student_no: {required: true, message: '請輸入學號', trigger: 'change'},
+                ntust_email_password: {required: true, message: '請輸入台科電子信箱密碼', trigger: 'change'},
+                ntust_sso_password: {required: true, message: '請輸入您登入台科校務系統的密碼', trigger: 'change'}
+            };
         }
+
     },
     actions: {
         // -----------------------------
         // ------------ API ------------
         // -----------------------------
-        login: async (account:string, password:string) =>
-        {
+        login: async (account: string, password: string) => {
             const globalStore = useGlobalStore();
             let data = await globalStore.send("/api/v2/account/login", "POST", {
                 email: account,
@@ -98,8 +108,8 @@ export const useLoginStore = defineStore('login', {
             if (this.registerSteps.now == 1) {
                 const loginResult = await this.register();
                 // TODO handle error message
-                this.registerSteps.now ++;
-            }else if (this.registerSteps.now < this.registerSteps.items.length){
+                this.registerSteps.now++;
+            } else if (this.registerSteps.now < this.registerSteps.items.length) {
                 this.registerSteps.now++;
             }
         },
