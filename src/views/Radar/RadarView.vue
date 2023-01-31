@@ -11,24 +11,22 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Menu from "@/components/CourseSchedule/Menu";
-import {useRadarStore} from "@/store/radar";
+import { useRadarStore } from "@/store/radar";
 
 export default {
   name: "radar",
   setup() {
     const radarStore = useRadarStore();
     return {
-      radarStore
-    }
+      radarStore,
+    };
   },
   components: {
-    Menu
-  }
-}
+    Menu,
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

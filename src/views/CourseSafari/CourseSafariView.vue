@@ -11,23 +11,21 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Menu from "@/components/CourseSchedule/Menu";
-import {useCourseSafariStore} from "@/store/courseSafari";
+import { useCourseSafariStore } from "@/store/courseSafari";
 export default {
   name: "CourseSafariView",
   setup() {
     const courseSafariStore = useCourseSafariStore();
     return {
-      courseSafariStore
-    }
+      courseSafariStore,
+    };
   },
   components: {
-    Menu
-  }
-}
+    Menu,
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

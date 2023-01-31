@@ -5,12 +5,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 // components
 import LoginForm from "@/components/Login/LoginForm";
 import Register from "@/components/Login/Register";
 // store
-import { storeToRefs } from 'pinia'
+import { storeToRefs } from "pinia";
 import { useLoginStore } from "@/store/login";
 
 export default {
@@ -20,38 +20,36 @@ export default {
     const { displayStatus } = storeToRefs(useLoginStore());
     return {
       loginStore,
-      displayStatus
-    }
+      displayStatus,
+    };
   },
-  async created() {
-  },
+  async created() {},
   data() {
-    return {
-    }
+    return {};
   },
   components: {
     LoginForm,
-    Register
-  }
-}
+    Register,
+  },
+};
 </script>
 
 <style scoped>
-  #login {
-    width: 100vw;
-    height: calc(var(--vh) * 100);
-    background-image: url('../assets/login_banner_korean_girl_study_2x.jpeg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: relative;
-  }
-  #login::after {
-    content: '';
-    width: 100vw;
-    height: calc(var(--vh) * 100);
-    background-color: rgba(0, 0, 0, 0.3);
-    position: absolute;
-    z-index: 1;
-  }
+#login {
+  width: 100vw;
+  height: calc(var(--vh) * 100);
+  background-image: url("../assets/login_banner_korean_girl_study_2x.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+#login::after {
+  content: "";
+  width: 100vw;
+  height: calc(var(--vh) * 100);
+  background-color: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  z-index: 1;
+}
 </style>

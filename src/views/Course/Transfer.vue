@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { useCourseStore } from "@/store/course";
 
 export default {
@@ -16,15 +16,13 @@ export default {
   setup() {
     const courseStore = useCourseStore();
     return {
-      courseStore
-    }
+      courseStore,
+    };
   },
   mounted() {
     this.courseStore.menu.active = 2;
-  }
-}
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

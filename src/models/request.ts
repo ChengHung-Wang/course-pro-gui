@@ -1,4 +1,4 @@
-type ApiResponse = {
-    status: Number,
-    res: any
-}
+export type ApiResponse = {
+  status: Number;
+  res: any;
+};

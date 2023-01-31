@@ -2,7 +2,7 @@
   <div class="register-contain">
     <h3 class="text-dark">帳戶安全</h3>
     <span>
-      當你忘記密碼時，這些問題可以幫助你找回帳戶。<br>
+      當你忘記密碼時，這些問題可以幫助你找回帳戶。<br />
       這些問題只有你能知道。
     </span>
     <div class="container-fluid m-0 p-0">
@@ -32,14 +32,12 @@
   </div>
 </template>
 
-<script>
-import {defineComponent} from "vue";
+<script lang="ts">
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "AccountSecurity"
-})
+  name: "AccountSecurity",
+});
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

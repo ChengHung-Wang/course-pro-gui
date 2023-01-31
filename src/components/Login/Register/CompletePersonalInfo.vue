@@ -37,11 +37,11 @@
   </div>
 </template>
 
-<script>
-import {useLoginStore} from "@/store/login";
-import {storeToRefs} from "pinia";
+<script lang="ts">
+import { useLoginStore } from "@/store/login";
+import { storeToRefs } from "pinia";
 import UserCard from "@/components/UserCard";
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "CompletePersonalInfo",
@@ -50,16 +50,16 @@ export default defineComponent({
     const { fields } = storeToRefs(useLoginStore());
     return {
       fields,
-      loginStore
-    }
+      loginStore,
+    };
   },
   components: {
-    UserCard
-  }
-})
+    UserCard,
+  },
+});
 </script>
 <style scoped>
-  .col-6:first-child {
-    border-right: .2px rgba(0, 0, 0, .3) solid;
-  }
+.col-6:first-child {
+  border-right: 0.2px rgba(0, 0, 0, 0.3) solid;
+}
 </style>

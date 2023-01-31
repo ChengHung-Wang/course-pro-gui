@@ -11,7 +11,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Menu from "@/components/CourseSchedule/Menu";
 import { useLogsStore } from "@/store/logs";
 
@@ -20,15 +20,13 @@ export default {
   setup() {
     const logsStore = useLogsStore();
     return {
-      logsStore
-    }
+      logsStore,
+    };
   },
   components: {
-    Menu
-  }
-}
+    Menu,
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
