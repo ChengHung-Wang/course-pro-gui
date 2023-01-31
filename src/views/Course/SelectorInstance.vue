@@ -20,7 +20,7 @@ export default {
     }
   },
   mounted() {
-    this.courseStore.menu.active = 5;
+    this.courseStore.menu.active = 6;
   }
 }
 </script>

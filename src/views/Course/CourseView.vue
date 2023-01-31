@@ -1,7 +1,7 @@
 <template>
   <div id="app-root">
     <div id="app-nav">
-      <Menu></Menu>
+      <Menu :app-id="0" :menu="courseStore.menu" />
     </div>
     <div id="app-frame">
       <div class="frame-inner">
@@ -18,6 +18,7 @@ import CourseSchedule from "@/components/CourseSchedule/CourseSchedule";
 import { useCourseStore } from "@/store/course";
 import { storeToRefs } from "pinia";
 import {ElLoading} from "element-plus";
+import {toRaw} from "vue";
 
 export default {
   name: "CourseView",
@@ -41,10 +42,9 @@ export default {
     }
   },
   async created() {
-    const data = await this.courseStore.get_schedule_summary();
-    // console.log(toRaw(this.schedule.timeline));
-    // console.log(toRaw(this.schedule.courses));
-    // this.courseStore.get_schedule_table();
+    if (toRaw(this.courseStore.schedule).totalCredit === -1) {
+      const data = await this.courseStore.get_schedule_summary();
+    }
   },
   methods: {
     openLoading() {
@@ -64,26 +64,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-  #app-nav {
-    position: fixed;
-    left: 0;
-    width: 300px;
-    height: calc(var(--vh) * 100);
-    z-index: 1;
-  }
-  #app-frame {
-    position: relative;
-    width: 100%;
-    height: calc(var(--vh) * 100);
-  }
-  #app-frame> .frame-inner {
-    width: calc(100% - 300px);
-    max-width: calc(100% - 300px);
-    left: 300px;
-    height: 100%;
-    position: absolute;
-    overflow: auto;
-  }
-</style>

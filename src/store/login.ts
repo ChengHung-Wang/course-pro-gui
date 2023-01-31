@@ -84,15 +84,11 @@ export const useLoginStore = defineStore('login', {
         },
         async logout() {
             const loading = ElLoading.service();
+            await useGlobalStore().send('/api/v2/account/logout', 'DELETE');
             localStorage.removeItem("token");
             localStorage.removeItem("hasLogin");
-            // TODO: call logout API
-            setTimeout(() => {
-                loading.close();
-                router.push({
-                    name: "login"
-                });
-            }, 2000)
+            loading.close();
+            window.location.href = "/login";
         },
         // -----------------------------
         // ---------- feature ----------

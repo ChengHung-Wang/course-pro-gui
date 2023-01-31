@@ -20,7 +20,11 @@ export const useAccountStore = defineStore('account', {
             if (response.status === 200)
             {
                 this.userData = response.res.data;
-                console.log(this.userData);
+            }
+            if (response.status === 401)
+            {
+                useGlobalStore().clearAccessSession();
+                window.location.reload();
             }
         }
     }

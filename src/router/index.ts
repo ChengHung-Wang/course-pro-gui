@@ -50,6 +50,21 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/Course/SelectorInstance.vue')
       }
     ]
+  },
+  {
+    path: '/safari',
+    name: 'course-safari',
+    component: () => import('@/views/CourseSafari/CourseSafariView.vue')
+  },
+  {
+    path: '/radar',
+    name: 'radar',
+    component: () => import('@/views/Radar/RadarView.vue')
+  },
+  {
+    path: '/logs',
+    name: 'logs',
+    component: () => import('@/views/Logs/LogsView.vue')
   }
 ]
 

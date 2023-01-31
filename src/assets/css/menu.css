@@ -1,7 +1,7 @@
 #menu {
     padding: 24px;
     height: calc(var(--vh) * 100);
-    background: rgb(245, 245, 245);
+    background: rgb(250, 250, 252);
     position: relative;
 }
 #menu .app-icon {

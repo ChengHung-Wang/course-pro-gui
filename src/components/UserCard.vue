@@ -8,16 +8,16 @@
                 class="avatar" shape="circle"
                 :src="getAvatars()"
                 :size="size === undefined ? 80 : parseInt(size)">
-              <h3>{{ noAvatarText }}</h3>
+              <h3 class="m-0">{{ noAvatarText }}</h3>
             </el-avatar>
           </template>
         </el-popconfirm>
         <el-avatar
             v-if="!logoutButton"
             :src="getAvatars()"
-            class="avatar" shape="circle"
+            class="avatar fcc" shape="circle"
             :size="size === undefined ? 80 : parseInt(size)">
-          <h3>{{ noAvatarText }}</h3>
+          <h3 class="m-0">{{ noAvatarText }}</h3>
         </el-avatar>
       </div>
       <div class="description">
@@ -59,8 +59,6 @@ export default {
     if (this.accountStore.userData.name === undefined)
     {
       await this.accountStore.getAccountInfo();
-      console.log(toRaw(this.accountStore.userData));
-
     }
   },
   methods: {

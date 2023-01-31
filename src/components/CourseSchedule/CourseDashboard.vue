@@ -7,7 +7,7 @@
             <div class="badge-header">
               <div class="left-text">
                 <div class="title">
-                  31 / 26
+                  31 / {{ courseStore.schedule.totalCredit }}
                 </div>
                 <span class="description">可選學分 / 已選學分</span>
               </div>
@@ -44,8 +44,17 @@
 </template>
 
 <script>
+import { useCourseStore } from "@/store/course";
+
 export default {
-name: "CourseDashboard"
+  name: "CourseDashboard",
+  setup() {
+    const courseStore = useCourseStore();
+    return {
+      courseStore
+    }
+  }
+
 }
 </script>
 
