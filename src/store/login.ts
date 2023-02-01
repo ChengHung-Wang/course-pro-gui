@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref, toRaw } from "vue";
 import { useGlobalStore } from "@/store/global";
+import { useAccountStore } from "@/store/account";
 import { ElLoading, ElMessage } from "element-plus";
 
 export const useLoginStore = defineStore("login", {

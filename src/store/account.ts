@@ -10,18 +10,23 @@ export const useAccountStore = defineStore("account", {
     };
   },
   actions: {
-    async getAccountInfo() {
-      const loading = ElLoading.service();
-      useGlobalStore().checkLogin();
-      const response = await useGlobalStore().send("/api/v2/account", "GET");
-      loading.close();
-      if (response.status === 200) {
-        this.userData = response.res.data;
+      async getAccountInfo() {
+          const loading = ElLoading.service();
+          useGlobalStore().checkLogin();
+          const response = await useGlobalStore().send("/api/v2/account", "GET");
+          loading.close();
+          if (response.status === 200)
+          {
+              this.userData = response.res.data;
+          }
+          if (response.status === 401)
+          {
+              useGlobalStore().clearAccessSession();
+              window.location.reload();
+          }
+      },
+      async uploadAvatar() {
+
       }
-      if (response.status === 401) {
-        useGlobalStore().clearAccessSession();
-        window.location.reload();
-      }
-    },
-  },
+  }
 });
