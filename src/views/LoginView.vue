@@ -7,8 +7,8 @@
 
 <script lang="ts">
 // components
-import LoginForm from "@/components/Login/LoginForm";
-import Register from "@/components/Login/Register";
+import LoginForm from "@/components/Login/LoginForm.vue";
+import Register from "@/components/Login/Register.vue";
 // store
 import { storeToRefs } from "pinia";
 import { useLoginStore } from "@/store/login";

@@ -12,7 +12,6 @@
 
 <script lang="ts">
 export default {
-  name: "Column",
   props: {
     num: String,
     start: String,

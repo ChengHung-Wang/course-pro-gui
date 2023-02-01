@@ -36,10 +36,10 @@
 </template>
 
 <script lang="ts">
-import Column from "@/components/CourseSchedule/Column";
-import ScheduleRowIcon from "@/components/CourseSchedule/ScheduleRowIcon";
-import EmptyCard from "@/components/CourseSchedule/EmptyCard";
-import CourseCard from "@/components/CourseSchedule/CourseCard";
+import Column from "@/components/CourseSchedule/Column.vue";
+import ScheduleRowIcon from "@/components/CourseSchedule/ScheduleRowIcon.vue";
+import EmptyCard from "@/components/CourseSchedule/EmptyCard.vue";
+import CourseCard from "@/components/CourseSchedule/CourseCard.vue";
 import { useCourseStore } from "@/store/course";
 import { storeToRefs } from "pinia";
 export default {

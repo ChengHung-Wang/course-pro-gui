@@ -1,3 +1,36 @@
+<script setup lang="ts">
+import { useLoginStore } from "@/store/login";
+import { useAccountStore } from "@/store/account";
+import { toRaw, onMounted } from "vue";
+
+interface Props {
+  size?: number;
+  fontSize?: string;
+  logoutButton?: boolean;
+  noAvatarText?: string;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  fontSize: "20px",
+  noAvatarText: "?",
+});
+
+const loginStore = useLoginStore();
+const accountStore = useAccountStore();
+
+onMounted(async () => {
+  if (accountStore.userData.name === undefined) {
+    await accountStore.getAccountInfo();
+  }
+});
+
+const getAvatars = () => {
+  if (toRaw(accountStore.userData).avatars.length <= 0) return "";
+  const avatars = toRaw(accountStore.userData).avatars;
+  return avatars[avatars.length - 1].avatar;
+};
+</script>
+
 <template>
   <div class="user-card" v-if="accountStore.userData.name !== undefined">
     <div class="inner fsc">
@@ -12,7 +45,7 @@
               class="avatar"
               shape="circle"
               :src="getAvatars()"
-              :size="size === undefined ? 80 : parseInt(size)"
+              :size="size === undefined ? 80 : size"
             >
               <h3 class="m-0">{{ noAvatarText }}</h3>
             </el-avatar>
@@ -23,7 +56,7 @@
           :src="getAvatars()"
           class="avatar fcc"
           shape="circle"
-          :size="size === undefined ? 80 : parseInt(size)"
+          :size="size === undefined ? 80 : size"
         >
           <h3 class="m-0">{{ noAvatarText }}</h3>
         </el-avatar>
@@ -37,48 +70,6 @@
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import { useLoginStore } from "@/store/login";
-import { useAccountStore } from "@/store/account";
-import { toRaw } from "vue";
-
-export default {
-  name: "UserCard",
-  props: {
-    size: Number | String,
-    fontSize: {
-      type: String,
-      default: "20px",
-    },
-    logoutButton: Boolean,
-    noAvatarText: {
-      type: String,
-      default: "?",
-    },
-  },
-  setup() {
-    const loginStore = useLoginStore();
-    const accountStore = useAccountStore();
-    return {
-      loginStore,
-      accountStore,
-    };
-  },
-  async mounted() {
-    if (this.accountStore.userData.name === undefined) {
-      await this.accountStore.getAccountInfo();
-    }
-  },
-  methods: {
-    getAvatars() {
-      if (toRaw(this.accountStore.userData).avatars.length <= 0) return "";
-      const avatars = toRaw(this.accountStore.userData).avatars;
-      return avatars[avatars.length - 1].avatar;
-    },
-  },
-};
-</script>
 
 <style scoped>
 .user-card {

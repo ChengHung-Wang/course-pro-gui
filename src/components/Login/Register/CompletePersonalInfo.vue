@@ -40,11 +40,10 @@
 <script lang="ts">
 import { useLoginStore } from "@/store/login";
 import { storeToRefs } from "pinia";
-import UserCard from "@/components/UserCard";
+import UserCard from "@/components/UserCard.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "CompletePersonalInfo",
   setup() {
     const loginStore = useLoginStore();
     const { fields } = storeToRefs(useLoginStore());

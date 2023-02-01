@@ -36,11 +36,6 @@ export default {
       default: "",
     },
   },
-  created() {
-    if (this.size === undefined) {
-      this.size = 1;
-    }
-  },
   setup() {
     const { schedule } = storeToRefs(useCourseStore());
     return {
@@ -50,8 +45,6 @@ export default {
   methods: {
     getStyle() {
       const colAmount = toRaw(this.schedule).colAmount;
-      // const offset = parseInt(this.col / 4) * 12 - parseInt(this.col / 4);
-      const offset = parseInt(this.col / 4) + 4;
       const componentPadding = 24;
       return {
         width: `calc((((100% - ${

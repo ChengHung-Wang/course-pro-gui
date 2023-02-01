@@ -62,7 +62,7 @@
 
 <script lang="ts">
 import { ElMessage } from "element-plus";
-import Logo from "@/components/Logo";
+import Logo from "@/components/Logo.vue";
 // store
 import { storeToRefs } from "pinia";
 import { useLoginStore } from "@/store/login";

@@ -58,19 +58,18 @@
 
 <script lang="ts">
 // components
-import Rule from "@/components/Login/Register/Rule";
-import WritePersonalInfo from "@/components/Login/Register/WritePersonalInfo";
-import CoursePlan from "@/components/Login/Register/CoursePlan";
-import CompletePersonalInfo from "@/components/Login/Register/CompletePersonalInfo";
-import AccountSecurity from "@/components/Login/Register/AccountSecurity";
-import Config from "@/components/Login/Register/Config";
-import Finish from "@/components/Login/Register/Finish";
+import Rule from "@/components/Login/Register/Rule.vue";
+import WritePersonalInfo from "@/components/Login/Register/WritePersonalInfo.vue";
+import CoursePlan from "@/components/Login/Register/CoursePlan.vue";
+import CompletePersonalInfo from "@/components/Login/Register/CompletePersonalInfo.vue";
+import AccountSecurity from "@/components/Login/Register/AccountSecurity.vue";
+import Config from "@/components/Login/Register/Config.vue";
+import Finish from "@/components/Login/Register/Finish.vue";
 
 // store
 import { storeToRefs } from "pinia";
 import { useLoginStore } from "@/store/login";
-import { defineComponent, toRaw } from "vue";
-import { ElMessage } from "element-plus";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "Register",

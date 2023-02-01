@@ -6,9 +6,7 @@ import { ref } from "vue";
 export const useAccountStore = defineStore("account", {
   state: () => {
     return {
-      userData: ref({
-        birthday: "",
-      }),
+      userData: ref<any>({}),
     };
   },
   actions: {

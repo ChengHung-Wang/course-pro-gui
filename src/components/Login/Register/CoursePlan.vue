@@ -60,7 +60,7 @@
             size="large"
             :min="16"
             :max="31"
-            @change=""
+            @change="() => {}"
             class="w-100 mt-2"
           />
         </div>
@@ -84,7 +84,7 @@
             size="large"
             :min="16"
             :max="31"
-            @change=""
+            @change="() => {}"
             class="w-100 mt-2"
           />
         </div>

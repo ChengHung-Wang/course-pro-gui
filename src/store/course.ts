@@ -3,6 +3,7 @@ import { ref, toRaw } from "vue";
 import { useGlobalStore } from "@/store/global";
 import { ElLoading, ElMessage } from "element-plus";
 import router from "@/router";
+import type { MenusConfig } from "@/models/menu";
 
 const globalStore = useGlobalStore();
 
@@ -10,7 +11,7 @@ export const useCourseStore = defineStore("course", {
   state() {
     return {
       appLoading: ref(true),
-      schedule: ref({
+      schedule: ref<any>({
         timeline: {},
         courses: [],
         totalCredit: -1,
@@ -115,7 +116,7 @@ export const useCourseStore = defineStore("course", {
         C: 13,
         D: 14,
       };
-      toRaw(this.schedule).courses.map((e) => {
+      toRaw(this.schedule).courses.map((e: any) => {
         const hold_on = e.hold_on.sort((a: String, b: String) => {
           if (days.indexOf(a.charAt(0)) == days.indexOf(b.charAt(0))) {
             return parseInt(a.substring(1)) - parseInt(b.substring(1));
@@ -124,7 +125,7 @@ export const useCourseStore = defineStore("course", {
         });
         // group
         let cache: any = [];
-        hold_on.map((el) => {
+        hold_on.map((el: any) => {
           if (parseInt(el.substring(1), 16) > 9) {
             el = String(el).charAt(0) + momentMap[String(el).substring(1)];
           }

@@ -12,9 +12,9 @@
 </template>
 
 <script lang="ts">
-import Menu from "@/components/CourseSchedule/Menu";
-import CourseDashboard from "@/components/CourseSchedule/CourseDashboard";
-import CourseSchedule from "@/components/CourseSchedule/CourseSchedule";
+import Menu from "@/components/CourseSchedule/Menu.vue";
+import CourseDashboard from "@/components/CourseSchedule/CourseDashboard.vue";
+import CourseSchedule from "@/components/CourseSchedule/CourseSchedule.vue";
 import { useCourseStore } from "@/store/course";
 import { storeToRefs } from "pinia";
 import { ElLoading } from "element-plus";

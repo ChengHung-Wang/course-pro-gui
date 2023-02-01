@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import Menu from "@/components/CourseSchedule/Menu";
+import Menu from "@/components/CourseSchedule/Menu.vue";
 import { useRadarStore } from "@/store/radar";
 
 export default {
