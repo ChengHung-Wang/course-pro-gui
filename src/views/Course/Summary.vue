@@ -20,25 +20,25 @@
   </div>
 </template>
 
-<script>
-import CourseDashboard from "@/components/CourseSchedule/CourseDashboard";
-import CourseSchedule from "@/components/CourseSchedule/CourseSchedule";
+<script lang="ts">
+import CourseDashboard from "@/components/CourseSchedule/CourseDashboard.vue";
+import CourseSchedule from "@/components/CourseSchedule/CourseSchedule.vue";
 import { useCourseStore } from "@/store/course";
 
 export default {
   name: "Summary",
   components: {
     CourseDashboard,
-    CourseSchedule
+    CourseSchedule,
   },
   setup() {
     const courseStore = useCourseStore();
     return {
-      courseStore
-    }
+      courseStore,
+    };
   },
   mounted() {
     this.courseStore.menu.active = 0;
-  }
-}
+  },
+};
 </script>

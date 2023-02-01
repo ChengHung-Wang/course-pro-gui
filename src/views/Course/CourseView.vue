@@ -11,26 +11,26 @@
   </div>
 </template>
 
-<script>
-import Menu from "@/components/CourseSchedule/Menu";
-import CourseDashboard from "@/components/CourseSchedule/CourseDashboard";
-import CourseSchedule from "@/components/CourseSchedule/CourseSchedule";
+<script lang="ts">
+import Menu from "@/components/CourseSchedule/Menu.vue";
+import CourseDashboard from "@/components/CourseSchedule/CourseDashboard.vue";
+import CourseSchedule from "@/components/CourseSchedule/CourseSchedule.vue";
 import { useCourseStore } from "@/store/course";
 import { storeToRefs } from "pinia";
-import {ElLoading} from "element-plus";
-import {toRaw} from "vue";
+import { ElLoading } from "element-plus";
+import { toRaw } from "vue";
 
 export default {
   name: "CourseView",
   data() {
     return {
-      loadingObj: null
-    }
+      loadingObj: null,
+    };
   },
   components: {
     CourseDashboard,
     CourseSchedule,
-    Menu
+    Menu,
   },
   setup() {
     const courseStore = useCourseStore();
@@ -38,8 +38,8 @@ export default {
     return {
       courseStore,
       appLoading,
-      schedule
-    }
+      schedule,
+    };
   },
   async created() {
     if (toRaw(this.courseStore.schedule).totalCredit === -1) {
@@ -50,17 +50,17 @@ export default {
     openLoading() {
       this.loadingObj = ElLoading.service({
         lock: true,
-      })
-    }
+      });
+    },
   },
   watch: {
     appLoading() {
       if (this.appLoading) {
         this.openLoading();
-      }else {
+      } else {
         this.loadingObj.close();
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>

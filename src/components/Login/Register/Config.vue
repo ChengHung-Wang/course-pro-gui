@@ -7,21 +7,19 @@
   </div>
 </template>
 
-<script>
-import {useLoginStore} from "@/store/login";
-import {storeToRefs} from "pinia";
-import {defineComponent} from "vue";
+<script lang="ts">
+import { useLoginStore } from "@/store/login";
+import { storeToRefs } from "pinia";
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "Config",
   setup() {
     const loginStore = useLoginStore();
     const { fields } = storeToRefs(useLoginStore());
     return {
       fields,
-      loginStore
-    }
-
-  }
-})
+      loginStore,
+    };
+  },
+});
 </script>

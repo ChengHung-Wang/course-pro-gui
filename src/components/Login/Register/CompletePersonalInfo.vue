@@ -37,15 +37,13 @@
   </div>
 </template>
 
-<script>
-import {useAccountStore} from "@/store/account";
-import {useLoginStore} from "@/store/login";
-import {storeToRefs} from "pinia";
-import UserCard from "@/components/UserCard";
-import {defineComponent} from "vue";
+<script lang="ts">
+import { useLoginStore } from "@/store/login";
+import { storeToRefs } from "pinia";
+import UserCard from "@/components/UserCard.vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "CompletePersonalInfo",
   setup() {
     const loginStore = useLoginStore();
     const accountStore = useAccountStore();
@@ -54,15 +52,14 @@ export default defineComponent({
       fields,
       loginStore,
       accountStore
-    }
   },
   components: {
-    UserCard
-  }
-})
+    UserCard,
+  },
+});
 </script>
 <style scoped>
-  .col-6:first-child {
-    border-right: .2px rgba(0, 0, 0, .3) solid;
-  }
+.col-6:first-child {
+  border-right: 0.2px rgba(0, 0, 0, 0.3) solid;
+}
 </style>

@@ -5,14 +5,17 @@
       <span>Home</span>
     </router-link>
     <div class="w-100 app-info fcc">
-      <img class="app-icon" :src="getAppInfo().icon" alt="">
+      <img class="app-icon" :src="getAppInfo().icon" alt="" />
       <h5 class="app-name">{{ getAppInfo().displayName }}</h5>
     </div>
     <div class="nav-items">
-      <div class="nav-item"
-           @click="item.click"
-           v-bind:class="{'nav-item-active': key === menu.active}"
-           v-for="(item, key) in menu.items" :key="key">
+      <div
+        class="nav-item"
+        @click="item.click"
+        v-bind:class="{ 'nav-item-active': key === menu.active }"
+        v-for="(item, key) in menu.items"
+        :key="key"
+      >
         <div v-html="item.icon" class="nav-item-icon"></div>
         <span class="nav-item-text">{{ item.displayName }}</span>
       </div>
@@ -21,38 +24,39 @@
   </div>
 </template>
 
-<script>
-import {useHomeStore} from "@/store/home";
-import UserCard from "@/components/UserCard";
+<script lang="ts">
+import { useHomeStore } from "@/store/home";
+import UserCard from "@/components/UserCard.vue";
 export default {
   name: "Menu",
   setup() {
     const homeStore = useHomeStore();
     return {
       homeStore,
-    }
+    };
   },
   methods: {
     getAppInfo() {
       return this.homeStore.apps[this.appId];
-    }
+    },
   },
   components: {
-    UserCard
+    UserCard,
   },
   props: {
-    appId: Number,
+    appId: {
+      type: Number,
+      required: true,
+    },
     menu: {
       type: Object,
-      default: {}
-    }
+      default: {},
+    },
   },
-  created() {
-  }
-}
+  created() {},
+};
 </script>
 
 <style scoped>
 @import "/src/assets/css/menu.css";
-
 </style>

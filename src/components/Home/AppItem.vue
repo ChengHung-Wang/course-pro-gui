@@ -1,22 +1,19 @@
 <template>
   <div class="home-app-item fcc">
-    <img :src="icon" alt="">
+    <img :src="icon.toString()" alt="" />
     <p>{{ appName }}</p>
   </div>
 </template>
 
-<script>
-import {defineComponent} from "vue";
+<script lang="ts">
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "AppItem",
   props: {
-    icon: String,
-    appName: String
-  }
-})
+    icon: { type: URL, required: true },
+    appName: String,
+  },
+});
 </script>
 
-<style>
-
-</style>
+<style></style>
