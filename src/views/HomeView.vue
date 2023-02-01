@@ -58,6 +58,6 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style>
 @import "/src/assets/css/home.css";
 </style>

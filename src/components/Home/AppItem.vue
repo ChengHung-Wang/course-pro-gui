@@ -1,6 +1,6 @@
 <template>
   <div class="home-app-item fcc">
-    <img :src="icon" alt="" />
+    <img :src="icon.toString()" alt="" />
     <p>{{ appName }}</p>
   </div>
 </template>
@@ -9,9 +9,8 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "AppItem",
   props: {
-    icon: String,
+    icon: { type: URL, required: true },
     appName: String,
   },
 });

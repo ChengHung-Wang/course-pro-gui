@@ -1,6 +1,6 @@
 <template>
-  <div class="course-card" v-bind:style="getStyle()">
-    <div class="inner" v-bind:class="{ small: size === 1 }">
+  <div class="course-card" :style="getStyle()">
+    <div class="inner" :class="{ small: size === 1 }">
       <h5>{{ title }}</h5>
       <p>{{ classroom }}</p>
     </div>
