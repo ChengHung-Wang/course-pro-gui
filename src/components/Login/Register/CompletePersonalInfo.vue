@@ -42,6 +42,7 @@ import { useLoginStore } from "@/store/login";
 import { storeToRefs } from "pinia";
 import UserCard from "@/components/UserCard.vue";
 import { defineComponent } from "vue";
+import { useAccountStore } from "@/store/account";
 
 export default defineComponent({
   setup() {
@@ -52,6 +53,7 @@ export default defineComponent({
       fields,
       loginStore,
       accountStore
+    }
   },
   components: {
     UserCard,
