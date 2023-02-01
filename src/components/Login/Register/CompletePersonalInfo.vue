@@ -12,23 +12,23 @@
           <div class="fsc">
             <div class="w-50">
               <h6>學院</h6>
-              <p>電資學院</p>
+              <p>{{ accountStore.userData.college.name_zh }}</p>
             </div>
             <div class="w-50">
               <h6>科系</h6>
-              <p>資訊工程系</p>
+              <p>{{ accountStore.userData.department.name_zh }}</p>
             </div>
             <div class="w-50">
               <h6>生日</h6>
-              <p>2002-04-08</p>
+              <p>{{ accountStore.userData.birthday }}</p>
             </div>
             <div class="w-50">
               <h6>手機</h6>
-              <p>0912-345-678</p>
+              <p>{{ accountStore.userData.mobile_phone }}</p>
             </div>
             <div class="w-50">
               <h6>性別</h6>
-              <p>男</p>
+              <p>{{ accountStore.userData.sex }}</p>
             </div>
           </div>
         </div>
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import {useAccountStore} from "@/store/account";
 import {useLoginStore} from "@/store/login";
 import {storeToRefs} from "pinia";
 import UserCard from "@/components/UserCard";
@@ -47,10 +48,12 @@ export default defineComponent({
   name: "CompletePersonalInfo",
   setup() {
     const loginStore = useLoginStore();
+    const accountStore = useAccountStore();
     const { fields } = storeToRefs(useLoginStore());
     return {
       fields,
-      loginStore
+      loginStore,
+      accountStore
     }
   },
   components: {

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import {ref, toRaw} from 'vue'
-import router from "@/router";
 import { useGlobalStore } from "@/store/global";
+import { useAccountStore } from "@/store/account";
 import { ElLoading, ElMessage } from 'element-plus'
 
 export const useLoginStore = defineStore('login', {
@@ -78,6 +78,8 @@ export const useLoginStore = defineStore('login', {
                     ntust_email_password: this.fields.register.ntust_email_password,
                     ntust_sso_password: this.fields.register.ntust_sso_password
                 });
+                registerResponse.res.data.user.avatars = [];
+                useAccountStore().userData = registerResponse.res.data.user;
                 loading.close();
                 resolve(registerResponse);
             })

@@ -26,6 +26,9 @@ export const useAccountStore = defineStore('account', {
                 useGlobalStore().clearAccessSession();
                 window.location.reload();
             }
+        },
+        async uploadAvatar() {
+
         }
     }
 });
