@@ -109,12 +109,12 @@ export const useCourseStore = defineStore("course", {
     get_schedule_table() {
       const result: any = [];
       const days = Object.keys(this.schedule.timeline);
-      const momentMap = {
-        10: 10,
-        A: 11,
-        B: 12,
-        C: 13,
-        D: 14,
+      const momentMap: { [key: string]: number; } = {
+        "10": 10,
+        "A": 11,
+        "B": 12,
+        "C": 13,
+        "D": 14,
       };
       toRaw(this.schedule).courses.map((e: any) => {
         const hold_on = e.hold_on.sort((a: String, b: String) => {
@@ -127,7 +127,8 @@ export const useCourseStore = defineStore("course", {
         let cache: any = [];
         hold_on.map((el: any) => {
           if (parseInt(el.substring(1), 16) > 9) {
-            el = String(el).charAt(0) + momentMap[String(el).substring(1)];
+            const key: string = String(el).substring(1);
+            el = String(el).charAt(0) + momentMap[key];
           }
           if (cache.length > 0) {
             const last = cache[cache.length - 1];
