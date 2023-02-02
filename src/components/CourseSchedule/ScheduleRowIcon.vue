@@ -1,31 +1,23 @@
+<script setup lang="ts">
+import { useCourseStore } from "@/store/course";
+
+const courseStore = useCourseStore();
+</script>
+
 <template>
   <div
     class="course-schedule-icon"
-    v-if="Object.keys(schedule.timeline).length > 0"
+    v-if="Object.keys(courseStore.schedule.timeline).length > 0"
   >
-    <div class="icon-container" v-for="name in Object.keys(schedule.timeline)">
-      <img :src="courseStore.dayIcons[name]" alt="" />
+    <div
+      class="icon-container"
+      v-for="name in Object.keys(courseStore.schedule.timeline)"
+      :key="name"
+    >
+      <img :src="courseStore.dayIcons[name].toString()" alt="" />
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-import { useCourseStore } from "@/store/course";
-import { storeToRefs } from "pinia";
-
-export default defineComponent({
-  name: "ScheduleRowIcon",
-  setup() {
-    const courseStore = useCourseStore();
-    const { schedule } = storeToRefs(useCourseStore());
-    return {
-      courseStore,
-      schedule,
-    };
-  },
-});
-</script>
 
 <style scoped>
 .course-schedule-icon {
