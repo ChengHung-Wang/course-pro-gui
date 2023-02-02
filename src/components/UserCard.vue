@@ -62,7 +62,7 @@ const getAvatars = () => {
         </el-avatar>
       </div>
       <div class="description">
-        <h5 v-bind:style="{ fontSize: fontSize }">
+        <h5 v-bind:style="{ fontSize: props.fontSize }">
           {{ accountStore.userData.name }}
         </h5>
         <p>{{ accountStore.userData.student_no }}</p>
