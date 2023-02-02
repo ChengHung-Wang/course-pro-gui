@@ -52,8 +52,8 @@ export default defineComponent({
     return {
       fields,
       loginStore,
-      accountStore
-    }
+      accountStore,
+    };
   },
   components: {
     UserCard,

@@ -81,7 +81,7 @@ export const useLoginStore = defineStore("login", {
     // -----------------------------
     login: async (account: string, password: string) => {
       const globalStore = useGlobalStore();
-      let data = await globalStore.send("/api/v2/account/login", "POST", {
+      const data = await globalStore.send("/api/v2/account/login", "POST", {
         email: account,
         password: password,
       });
