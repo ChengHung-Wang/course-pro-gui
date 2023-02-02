@@ -16,7 +16,7 @@ import Menu from "@/components/CourseSchedule/Menu.vue";
 import { useLogsStore } from "@/store/logs";
 
 export default {
-  name: "CourseSafariView",
+  name: "CourseGuideView",
   setup() {
     const logsStore = useLogsStore();
     return {

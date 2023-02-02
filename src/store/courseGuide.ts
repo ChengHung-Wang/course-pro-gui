@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
-export const useCourseSafariStore = defineStore("courseSafari", {
+export const useCourseGuideStore = defineStore("courseGuide", {
   state: () => ({
     menu: ref<MenusConfig>({
       items: [

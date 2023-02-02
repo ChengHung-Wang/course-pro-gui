@@ -1,7 +1,7 @@
 <template>
   <div id="app-root">
     <div id="app-nav">
-      <Menu :app-id="1" :menu="courseSafariStore.menu" />
+      <Menu :app-id="1" :menu="CourseGuideStore.menu" />
     </div>
     <div id="app-frame">
       <div class="frame-inner">
@@ -13,13 +13,13 @@
 
 <script lang="ts">
 import Menu from "@/components/CourseSchedule/Menu.vue";
-import { useCourseSafariStore } from "@/store/courseSafari";
+import { useCourseGuideStore } from "@/store/courseGuide";
 export default {
-  name: "CourseSafariView",
+  name: "CourseGuideView",
   setup() {
-    const courseSafariStore = useCourseSafariStore();
+    const CourseGuideStore = useCourseGuideStore();
     return {
-      courseSafariStore,
+      CourseGuideStore,
     };
   },
   components: {

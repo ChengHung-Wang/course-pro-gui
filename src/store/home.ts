@@ -19,11 +19,11 @@ export const useHomeStore = defineStore("home", {
           },
         },
         {
-          name: "CourseSafari",
+          name: "CourseGuide",
           displayName: "課程指南",
           icon: new URL("/src/assets/appIcons/safari.png", import.meta.url),
           click: () => {
-            router.push({ name: "course-safari" });
+            router.push({ name: "courseGuide" });
           },
         },
         {
