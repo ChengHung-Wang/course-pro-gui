@@ -1,9 +1,7 @@
 import { defineStore } from "pinia";
 import { ref, toRaw } from "vue";
-import { useGlobalStore } from "@/store/global";
-import { useAccountStore } from "@/store/account";
 import { ElLoading, ElMessage } from "element-plus";
-import { send } from "@/api";
+import { request } from "@/api";
 
 export const useLoginStore = defineStore("login", {
   state: () => ({
@@ -81,7 +79,7 @@ export const useLoginStore = defineStore("login", {
     // ------------ API ------------
     // -----------------------------
     login: async (account: string, password: string) => {
-      const data = await send("POST", "/api/v2/account/login", {
+      const data = await request("POST", "/account/login", {
         email: account,
         password: password,
       });
@@ -93,25 +91,23 @@ export const useLoginStore = defineStore("login", {
       return (await res.success) === true;
     },
     async register() {
-      return new Promise<ApiResponse>(async (resolve) => {
-        const loading = ElLoading.service({
-          lock: true,
-          text: "正在驗證您的身份，這可能會花上30秒甚至更久的時間。",
-        });
-        const registerResponse = await send("PUT", "/api/v2/account/register", {
-          email: this.fields.register.email,
-          password: this.fields.register.password,
-          student_no: this.fields.register.student_no,
-          ntust_email_password: this.fields.register.ntust_email_password,
-          ntust_sso_password: this.fields.register.ntust_sso_password,
-        });
-        loading.close();
-        resolve(registerResponse);
+      const loading = ElLoading.service({
+        lock: true,
+        text: "正在驗證您的身份，這可能會花上30秒甚至更久的時間。",
       });
+      const registerResponse = await request("PUT", "/account/register", {
+        email: this.fields.register.email,
+        password: this.fields.register.password,
+        student_no: this.fields.register.student_no,
+        ntust_email_password: this.fields.register.ntust_email_password,
+        ntust_sso_password: this.fields.register.ntust_sso_password,
+      });
+      loading.close();
+      return registerResponse;
     },
     async logout() {
       const loading = ElLoading.service();
-      await send("DELETE", "/api/v2/account/logout");
+      await request("DELETE", "/account/logout");
       localStorage.removeItem("token");
       localStorage.removeItem("hasLogin");
       loading.close();

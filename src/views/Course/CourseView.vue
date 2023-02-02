@@ -43,7 +43,7 @@ export default {
   },
   async created() {
     if (toRaw(this.courseStore.schedule).totalCredit === -1) {
-      const data = await this.courseStore.get_schedule_summary();
+      const data = await this.courseStore.getScheduleSummary();
     }
   },
   methods: {

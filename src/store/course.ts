@@ -1,10 +1,10 @@
 import { defineStore } from "pinia";
-import { ref, toRaw } from "vue";
+import { toRaw } from "vue";
 import { useGlobalStore } from "@/store/global";
+import { useLoginStore } from "@/store/login";
 import { ElLoading, ElMessage } from "element-plus";
 import router from "@/router";
-import type { MenusConfig } from "@/models/menu";
-import { send } from "@/api";
+import { request } from "@/api";
 
 const globalStore = useGlobalStore();
 
@@ -146,14 +146,17 @@ export const useCourseStore = defineStore("course", {
     async getScheduleSummary() {
       globalStore.checkLogin();
       const loading = ElLoading.service();
-      const result = await send("GET", "/api/v2/course/my/schedule", {}, true);
+      const result = await request("GET", "/course/my/schedule");
+      if (result.status != 200) {
+        useLoginStore().logout();
+      }
       this.schedule.courses = result.res.data.courses;
       this.schedule.timeline = result.res.data.timeline;
       this.schedule.totalCredit = result.res.data.total_credit;
       loading.close();
       return result;
     },
-    get_schedule_table() {
+    getScheduleTable() {
       const result: any = [];
       const days = Object.keys(this.schedule.timeline);
       const momentMap: Record<string, number> = {

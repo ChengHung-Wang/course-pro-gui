@@ -1,14 +1,7 @@
-import { useLoginStore } from "@/store/login";
+const endpoint = "http://10.71.74.4:8000";
+const baseURI = endpoint + "/api/v2";
 
-const api_base = "http://10.71.74.4:8000";
-
-export async function send(
-  method: string,
-  path: string,
-  body = {},
-  location = false
-) {
-  const uri = api_base + path;
+export async function request(method: string, path: string, body?: {}) {
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
   headers.append("Accept", "application/json");
@@ -19,16 +12,11 @@ export async function send(
     headers.append("Authorization", "Bearer " + localStorage.getItem("token"));
   }
 
-  const response = await fetch(uri, {
+  const response = await fetch(baseURI + path, {
     method,
     headers,
-    body: JSON.stringify(body),
+    body: body ? JSON.stringify(body) : undefined,
   });
-
-  if (location && !response.ok) {
-    const loginStore = useLoginStore();
-    loginStore.logout();
-  }
 
   return {
     status: response.status,

@@ -21,7 +21,7 @@
           </div>
           <div class="course-card-container" v-if="schedule.courses.length > 0">
             <CourseCard
-              v-for="data in courseStore.get_schedule_table()"
+              v-for="data in courseStore.getScheduleTable()"
               :size="data.size"
               :col="data.col"
               :row="data.row"
