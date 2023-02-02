@@ -4,24 +4,75 @@ import { useGlobalStore } from "@/store/global";
 import { ElLoading, ElMessage } from "element-plus";
 import router from "@/router";
 import type { MenusConfig } from "@/models/menu";
-import type { Dictionary } from "@/types";
+import { send } from "@/api";
 
 const globalStore = useGlobalStore();
+
+interface Course {
+  id: number;
+  name_zh: string;
+  name_en: string;
+  description_zh: string;
+  description_en: string;
+  detail_zh: string;
+  detail_en: string;
+  serial: string;
+  points: string;
+  classroom_on: never[];
+  restrict: {
+    all: number;
+    choose_students: number;
+    three_students: number;
+    first: string;
+    second: string;
+    ntu: string;
+    ntnu: string;
+  };
+  hold_on: string[];
+  original: never;
+  semester_id: number;
+  dimension_id: null;
+  teacher_id: number;
+  created_at: string;
+  updated_at: string;
+}
+
+interface TimelineSession {
+  id: number;
+  name: string;
+  start_at: string;
+  end_at: string;
+  hold_on: string;
+}
+
+interface Schedule {
+  totalCredit: number;
+  courses: Course[];
+  timeline: {
+    M: TimelineSession[];
+    T: TimelineSession[];
+    W: TimelineSession[];
+    R: TimelineSession[];
+    F: TimelineSession[];
+    S: TimelineSession[];
+    U: TimelineSession[];
+  };
+}
 
 export const useCourseStore = defineStore("course", {
   state() {
     return {
-      appLoading: ref(true),
-      schedule: ref<any>({
+      appLoading: true,
+      schedule: {
         timeline: {},
         courses: [],
         totalCredit: -1,
         colAmount: 14,
         rowAmount: 7,
-      }),
-      history: ref({
+      },
+      history: {
         courses: [],
-      }),
+      },
       dayIcons: {
         F: new URL("/src/assets/icons/icons8-friday.svg", import.meta.url),
         M: new URL("/src/assets/icons/icons8-monday.svg", import.meta.url),
@@ -30,8 +81,8 @@ export const useCourseStore = defineStore("course", {
         T: new URL("/src/assets/icons/icons8-tuesday.svg", import.meta.url),
         U: new URL("/src/assets/icons/icons8-sunday.svg", import.meta.url),
         W: new URL("/src/assets/icons/icons8-wednesday.svg", import.meta.url),
-      },
-      menu: ref<MenusConfig>({
+      } as Record<string, URL>,
+      menu: {
         items: [
           {
             displayName: "總覽",
@@ -84,7 +135,7 @@ export const useCourseStore = defineStore("course", {
           },
         ],
         active: 0,
-      }),
+      },
     };
   },
   getters: {},
@@ -92,15 +143,10 @@ export const useCourseStore = defineStore("course", {
     // -----------------------------
     // ------------ API ------------
     // -----------------------------
-    async get_schedule_summary() {
+    async getScheduleSummary() {
       globalStore.checkLogin();
       const loading = ElLoading.service();
-      const result = await globalStore.send(
-        "/api/v2/course/my/schedule",
-        "GET",
-        {},
-        true
-      );
+      const result = await send("GET", "/api/v2/course/my/schedule", {}, true);
       this.schedule.courses = result.res.data.courses;
       this.schedule.timeline = result.res.data.timeline;
       this.schedule.totalCredit = result.res.data.total_credit;
@@ -110,7 +156,7 @@ export const useCourseStore = defineStore("course", {
     get_schedule_table() {
       const result: any = [];
       const days = Object.keys(this.schedule.timeline);
-      const momentMap: Dictionary<number> = {
+      const momentMap: Record<string, number> = {
         "10": 10,
         A: 11,
         B: 12,

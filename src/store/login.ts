@@ -3,6 +3,7 @@ import { ref, toRaw } from "vue";
 import { useGlobalStore } from "@/store/global";
 import { useAccountStore } from "@/store/account";
 import { ElLoading, ElMessage } from "element-plus";
+import { send } from "@/api";
 
 export const useLoginStore = defineStore("login", {
   state: () => ({
@@ -80,8 +81,7 @@ export const useLoginStore = defineStore("login", {
     // ------------ API ------------
     // -----------------------------
     login: async (account: string, password: string) => {
-      const globalStore = useGlobalStore();
-      const data = await globalStore.send("/api/v2/account/login", "POST", {
+      const data = await send("POST", "/api/v2/account/login", {
         email: account,
         password: password,
       });
@@ -98,24 +98,20 @@ export const useLoginStore = defineStore("login", {
           lock: true,
           text: "正在驗證您的身份，這可能會花上30秒甚至更久的時間。",
         });
-        const registerResponse = await useGlobalStore().send(
-          "/api/v2/account/register",
-          "PUT",
-          {
-            email: this.fields.register.email,
-            password: this.fields.register.password,
-            student_no: this.fields.register.student_no,
-            ntust_email_password: this.fields.register.ntust_email_password,
-            ntust_sso_password: this.fields.register.ntust_sso_password,
-          }
-        );
+        const registerResponse = await send("PUT", "/api/v2/account/register", {
+          email: this.fields.register.email,
+          password: this.fields.register.password,
+          student_no: this.fields.register.student_no,
+          ntust_email_password: this.fields.register.ntust_email_password,
+          ntust_sso_password: this.fields.register.ntust_sso_password,
+        });
         loading.close();
         resolve(registerResponse);
       });
     },
     async logout() {
       const loading = ElLoading.service();
-      await useGlobalStore().send("/api/v2/account/logout", "DELETE");
+      await send("DELETE", "/api/v2/account/logout");
       localStorage.removeItem("token");
       localStorage.removeItem("hasLogin");
       loading.close();

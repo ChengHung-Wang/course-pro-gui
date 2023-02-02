@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { useGlobalStore } from "@/store/global";
 import { ElLoading } from "element-plus";
 import { ref } from "vue";
+import { send } from "@/api";
 
 export const useAccountStore = defineStore("account", {
   state: () => {
@@ -11,15 +12,16 @@ export const useAccountStore = defineStore("account", {
   },
   actions: {
     async getAccountInfo() {
+      const globalStore = useGlobalStore();
       const loading = ElLoading.service();
-      useGlobalStore().checkLogin();
-      const response = await useGlobalStore().send("/api/v2/account", "GET");
+      globalStore.checkLogin();
+      const response = await send("GET", "/api/v2/account");
       loading.close();
       if (response.status === 200) {
         this.userData = response.res.data;
       }
       if (response.status === 401) {
-        useGlobalStore().clearAccessSession();
+        globalStore.clearAccessSession();
         window.location.reload();
       }
     },
