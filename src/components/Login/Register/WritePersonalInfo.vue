@@ -122,10 +122,11 @@ import { useLoginStore } from "@/store/login";
 import { storeToRefs } from "pinia";
 import Logo from "@/components/Logo.vue";
 import { defineComponent } from "vue";
+
 export default defineComponent({
   setup() {
     const loginStore = useLoginStore();
-    const { fields, registerFormRule } = storeToRefs(useLoginStore());
+    const { fields, registerFormRule } = storeToRefs(loginStore);
     return {
       fields,
       loginStore,

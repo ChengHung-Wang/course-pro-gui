@@ -21,24 +21,21 @@ import { ElLoading } from "element-plus";
 import { toRaw } from "vue";
 
 export default {
-  data() {
+  setup() {
+    const courseStore = useCourseStore();
+    const { appLoading, schedule } = storeToRefs(courseStore);
+    const loadingObj = {} as any;
     return {
-      loadingObj: {} as any,
+      courseStore,
+      appLoading,
+      schedule,
+      loadingObj,
     };
   },
   components: {
     CourseDashboard,
     CourseSchedule,
     SideMenu,
-  },
-  setup() {
-    const courseStore = useCourseStore();
-    const { appLoading, schedule } = storeToRefs(useCourseStore());
-    return {
-      courseStore,
-      appLoading,
-      schedule,
-    };
   },
   async created() {
     if (toRaw(this.courseStore.schedule).totalCredit === -1) {

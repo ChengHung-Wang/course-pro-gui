@@ -66,7 +66,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   setup() {
     const loginStore = useLoginStore();
-    const { fields } = storeToRefs(useLoginStore());
+    const { fields } = storeToRefs(loginStore);
     return {
       fields,
       loginStore,

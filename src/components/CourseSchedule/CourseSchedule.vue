@@ -43,12 +43,9 @@ import CourseCard from "@/components/CourseSchedule/CourseCard.vue";
 import { useCourseStore } from "@/store/course";
 import { storeToRefs } from "pinia";
 export default {
-  data() {
-    return {};
-  },
   setup() {
     const courseStore = useCourseStore();
-    const { schedule } = storeToRefs(useCourseStore());
+    const { schedule } = storeToRefs(courseStore);
     return {
       courseStore,
       schedule,

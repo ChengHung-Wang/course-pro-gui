@@ -16,15 +16,11 @@ import { useLoginStore } from "@/store/login";
 export default {
   setup() {
     const loginStore = useLoginStore();
-    const { displayStatus } = storeToRefs(useLoginStore());
+    const { displayStatus } = storeToRefs(loginStore);
     return {
       loginStore,
       displayStatus,
     };
-  },
-  async created() {},
-  data() {
-    return {};
   },
   components: {
     LoginForm,

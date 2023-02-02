@@ -27,6 +27,7 @@
 <script lang="ts">
 import { useHomeStore } from "@/store/home";
 import UserCard from "@/components/UserCard.vue";
+
 export default {
   setup() {
     const homeStore = useHomeStore();

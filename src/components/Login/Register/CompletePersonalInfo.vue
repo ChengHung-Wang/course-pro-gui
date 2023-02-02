@@ -48,7 +48,7 @@ export default defineComponent({
   setup() {
     const loginStore = useLoginStore();
     const accountStore = useAccountStore();
-    const { fields } = storeToRefs(useLoginStore());
+    const { fields } = storeToRefs(loginStore);
     return {
       fields,
       loginStore,
@@ -60,6 +60,7 @@ export default defineComponent({
   },
 });
 </script>
+
 <style scoped>
 .col-6:first-child {
   border-right: 0.2px rgba(0, 0, 0, 0.3) solid;

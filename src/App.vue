@@ -17,6 +17,7 @@ body {
 <script lang="ts">
 import { useLoginStore } from "@/store/login";
 import device from "current-device";
+
 export default {
   setup() {
     const loginStore = useLoginStore();
@@ -24,7 +25,6 @@ export default {
       loginStore,
     };
   },
-  created() {},
   mounted() {
     const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);

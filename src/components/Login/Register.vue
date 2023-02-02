@@ -72,14 +72,9 @@ import { useLoginStore } from "@/store/login";
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  data() {
-    return {};
-  },
   setup() {
-    const { displayStatus, fields, registerSteps } = storeToRefs(
-      useLoginStore()
-    );
     const loginStore = useLoginStore();
+    const { displayStatus, fields, registerSteps } = storeToRefs(loginStore);
     return {
       displayStatus,
       fields,

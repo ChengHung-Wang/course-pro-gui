@@ -66,19 +66,17 @@ import Logo from "@/components/Logo.vue";
 // store
 import { storeToRefs } from "pinia";
 import { useLoginStore } from "@/store/login";
+
 export default {
-  data() {
-    return {
-      submitDisable: false,
-    };
-  },
   setup() {
-    const { displayStatus, fields } = storeToRefs(useLoginStore());
     const loginStore = useLoginStore();
+    const { displayStatus, fields } = storeToRefs(loginStore);
+    const submitDisable = false;
     return {
       displayStatus,
       fields,
       loginStore,
+      submitDisable,
     };
   },
   methods: {
