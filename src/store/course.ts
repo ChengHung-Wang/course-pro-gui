@@ -4,6 +4,7 @@ import { useGlobalStore } from "@/store/global";
 import { ElLoading, ElMessage } from "element-plus";
 import router from "@/router";
 import type { MenusConfig } from "@/models/menu";
+import type { Dictionary } from "@/types";
 
 const globalStore = useGlobalStore();
 
@@ -109,12 +110,12 @@ export const useCourseStore = defineStore("course", {
     get_schedule_table() {
       const result: any = [];
       const days = Object.keys(this.schedule.timeline);
-      const momentMap: { [key: string]: number; } = {
+      const momentMap: Dictionary<number> = {
         "10": 10,
-        "A": 11,
-        "B": 12,
-        "C": 13,
-        "D": 14,
+        A: 11,
+        B: 12,
+        C: 13,
+        D: 14,
       };
       toRaw(this.schedule).courses.map((e: any) => {
         const hold_on = e.hold_on.sort((a: String, b: String) => {
@@ -127,8 +128,7 @@ export const useCourseStore = defineStore("course", {
         let cache: any = [];
         hold_on.map((el: any) => {
           if (parseInt(el.substring(1), 16) > 9) {
-            const key: string = String(el).substring(1);
-            el = String(el).charAt(0) + momentMap[key];
+            el = String(el).charAt(0) + momentMap[String(el).substring(1)];
           }
           if (cache.length > 0) {
             const last = cache[cache.length - 1];
