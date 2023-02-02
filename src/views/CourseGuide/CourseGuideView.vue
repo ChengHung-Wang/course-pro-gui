@@ -1,7 +1,7 @@
 <template>
   <div id="app-root">
     <div id="app-nav">
-      <Menu :app-id="1" :menu="CourseGuideStore.menu" />
+      <SideMenu :app-id="1" :menu="CourseGuideStore.menu" />
     </div>
     <div id="app-frame">
       <div class="frame-inner">
@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import Menu from "@/components/CourseSchedule/Menu.vue";
+import SideMenu from "@/components/CourseSchedule/SideMenu.vue";
 import { useCourseGuideStore } from "@/store/courseGuide";
 export default {
   setup() {
@@ -22,7 +22,7 @@ export default {
     };
   },
   components: {
-    Menu,
+    SideMenu,
   },
 };
 </script>

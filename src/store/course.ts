@@ -1,11 +1,11 @@
 import { defineStore } from "pinia";
 import { toRaw } from "vue";
 import { useGlobalStore } from "@/store/global";
-import { useLoginStore } from "@/store/login";
 import { ElLoading, ElMessage } from "element-plus";
-import router from "@/router";
 import { request } from "@/api";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const globalStore = useGlobalStore();
 
 interface Course {
@@ -148,7 +148,8 @@ export const useCourseStore = defineStore("course", {
       const loading = ElLoading.service();
       const result = await request("GET", "/course/my/schedule");
       if (result.status != 200) {
-        useLoginStore().logout();
+        // useLoginStore().logout();
+        // TODO Handle the error
       }
       this.schedule.courses = result.res.data.courses;
       this.schedule.timeline = result.res.data.timeline;

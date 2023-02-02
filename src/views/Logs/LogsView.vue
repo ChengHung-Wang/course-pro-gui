@@ -1,7 +1,7 @@
 <template>
   <div id="app-root">
     <div id="app-nav">
-      <Menu :app-id="3" :menu="logsStore.menu" />
+      <SideMenu :app-id="3" :menu="logsStore.menu" />
     </div>
     <div id="app-frame">
       <div class="frame-inner">
@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import Menu from "@/components/CourseSchedule/Menu.vue";
+import SideMenu from "@/components/CourseSchedule/SideMenu.vue";
 import { useLogsStore } from "@/store/logs";
 
 export default {
@@ -23,7 +23,7 @@ export default {
     };
   },
   components: {
-    Menu,
+    SideMenu,
   },
 };
 </script>

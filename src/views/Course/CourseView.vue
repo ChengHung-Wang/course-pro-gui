@@ -1,7 +1,7 @@
 <template>
   <div id="app-root">
     <div id="app-nav">
-      <Menu :app-id="0" :menu="courseStore.menu" />
+      <SideMenu :app-id="0" :menu="courseStore.menu" />
     </div>
     <div id="app-frame">
       <div class="frame-inner">
@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import Menu from "@/components/CourseSchedule/Menu.vue";
+import SideMenu from "@/components/CourseSchedule/SideMenu.vue";
 import CourseDashboard from "@/components/CourseSchedule/CourseDashboard.vue";
 import CourseSchedule from "@/components/CourseSchedule/CourseSchedule.vue";
 import { useCourseStore } from "@/store/course";
@@ -23,13 +23,13 @@ import { toRaw } from "vue";
 export default {
   data() {
     return {
-      loadingObj: null,
+      loadingObj: {} as any,
     };
   },
   components: {
     CourseDashboard,
     CourseSchedule,
-    Menu,
+    SideMenu,
   },
   setup() {
     const courseStore = useCourseStore();

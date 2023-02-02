@@ -49,7 +49,7 @@ export default {
     },
     menu: {
       type: Object,
-      default: {},
+      required: true,
     },
   },
   created() {},
