@@ -123,7 +123,6 @@ import { storeToRefs } from "pinia";
 import Logo from "@/components/Logo.vue";
 import { defineComponent } from "vue";
 export default defineComponent({
-  name: "WritePersonalInfo",
   setup() {
     const loginStore = useLoginStore();
     const { fields, registerFormRule } = storeToRefs(useLoginStore());

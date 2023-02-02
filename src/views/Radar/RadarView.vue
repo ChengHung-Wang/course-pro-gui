@@ -16,7 +16,6 @@ import Menu from "@/components/CourseSchedule/Menu.vue";
 import { useRadarStore } from "@/store/radar";
 
 export default {
-  name: "radar",
   setup() {
     const radarStore = useRadarStore();
     return {

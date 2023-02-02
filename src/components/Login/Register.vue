@@ -72,7 +72,6 @@ import { useLoginStore } from "@/store/login";
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "Register",
   data() {
     return {};
   },

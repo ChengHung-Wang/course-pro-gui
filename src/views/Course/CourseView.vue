@@ -21,7 +21,6 @@ import { ElLoading } from "element-plus";
 import { toRaw } from "vue";
 
 export default {
-  name: "CourseView",
   data() {
     return {
       loadingObj: null,

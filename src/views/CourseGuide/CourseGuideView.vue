@@ -15,7 +15,6 @@
 import Menu from "@/components/CourseSchedule/Menu.vue";
 import { useCourseGuideStore } from "@/store/courseGuide";
 export default {
-  name: "CourseGuideView",
   setup() {
     const CourseGuideStore = useCourseGuideStore();
     return {

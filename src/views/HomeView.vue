@@ -39,7 +39,6 @@ import Logo from "@/components/Logo.vue";
 import AppItem from "@/components/Home/AppItem.vue";
 
 export default defineComponent({
-  name: "HomeView",
   setup() {
     const homeStore = useHomeStore();
     const globalStore = useGlobalStore();

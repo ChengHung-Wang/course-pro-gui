@@ -12,7 +12,6 @@
 import { useCourseStore } from "@/store/course";
 
 export default {
-  name: "Transfer",
   setup() {
     const courseStore = useCourseStore();
     return {

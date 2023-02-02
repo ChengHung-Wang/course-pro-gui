@@ -26,7 +26,6 @@ import CourseSchedule from "@/components/CourseSchedule/CourseSchedule.vue";
 import { useCourseStore } from "@/store/course";
 
 export default {
-  name: "Summary",
   components: {
     CourseDashboard,
     CourseSchedule,

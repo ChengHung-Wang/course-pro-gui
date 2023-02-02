@@ -47,7 +47,6 @@
 import { useCourseStore } from "@/store/course";
 
 export default {
-  name: "CourseDashboard",
   setup() {
     const courseStore = useCourseStore();
     return {

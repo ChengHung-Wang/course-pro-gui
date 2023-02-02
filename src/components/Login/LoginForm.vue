@@ -67,7 +67,6 @@ import Logo from "@/components/Logo.vue";
 import { storeToRefs } from "pinia";
 import { useLoginStore } from "@/store/login";
 export default {
-  name: "LoginForm",
   data() {
     return {
       submitDisable: false,

@@ -12,7 +12,6 @@
 import { useCourseStore } from "@/store/course";
 
 export default {
-  name: "SelectorConfig",
   setup() {
     const courseStore = useCourseStore();
     return {

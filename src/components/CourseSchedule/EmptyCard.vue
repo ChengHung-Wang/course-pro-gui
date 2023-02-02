@@ -6,7 +6,6 @@
 
 <script lang="ts">
 export default {
-  name: "EmptyCard",
   props: {
     size: Number,
   },

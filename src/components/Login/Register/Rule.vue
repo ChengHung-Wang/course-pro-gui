@@ -64,7 +64,6 @@ import { storeToRefs } from "pinia";
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "Rule",
   setup() {
     const loginStore = useLoginStore();
     const { fields } = storeToRefs(useLoginStore());

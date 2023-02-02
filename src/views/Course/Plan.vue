@@ -12,7 +12,6 @@
 import { useCourseStore } from "@/store/course";
 
 export default {
-  name: "Plan",
   setup() {
     const courseStore = useCourseStore();
     return {

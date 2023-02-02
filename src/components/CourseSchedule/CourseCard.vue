@@ -13,7 +13,6 @@ import { storeToRefs } from "pinia";
 import { toRaw } from "vue";
 
 export default {
-  name: "CourseCard",
   props: {
     size: {
       type: Number,

@@ -14,7 +14,6 @@ import { storeToRefs } from "pinia";
 import { useLoginStore } from "@/store/login";
 
 export default {
-  name: "Login",
   setup() {
     const loginStore = useLoginStore();
     const { displayStatus } = storeToRefs(useLoginStore());

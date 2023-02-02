@@ -28,7 +28,6 @@
 import { useHomeStore } from "@/store/home";
 import UserCard from "@/components/UserCard.vue";
 export default {
-  name: "Menu",
   setup() {
     const homeStore = useHomeStore();
     return {
