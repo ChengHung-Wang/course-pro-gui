@@ -1,13 +1,11 @@
 import { defineStore } from "pinia";
-import { useGlobalStore } from "@/store/global";
-import { ref } from "vue";
 import { ElLoading } from "element-plus";
 import { request } from "@/api";
 
 export const useSystemConfigStore = defineStore("systemConfig", {
   state: () => ({
-    colleges: ref([]),
-    departments: ref([]),
+    colleges: [],
+    departments: [],
   }),
   actions: {
     async get_departments() {

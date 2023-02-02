@@ -1,11 +1,10 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
 import router from "@/router";
 
 export const useHomeStore = defineStore("home", {
   state() {
     return {
-      config: ref({}),
+      config: {},
       apps: [
         {
           name: "Course",

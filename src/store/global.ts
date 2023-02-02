@@ -1,16 +1,15 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
 import router from "@/router";
 
 export const useGlobalStore = defineStore("global", {
   state: () => {
     return {
-      loading: ref(false),
-      userInfo: ref({
+      loading: false,
+      userInfo: {
         name: "",
         avatars: [],
         email: "",
-      }),
+      },
     };
   },
   actions: {

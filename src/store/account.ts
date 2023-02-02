@@ -1,13 +1,12 @@
 import { defineStore } from "pinia";
 import { useGlobalStore } from "@/store/global";
 import { ElLoading } from "element-plus";
-import { ref } from "vue";
 import { request } from "@/api";
 
 export const useAccountStore = defineStore("account", {
   state: () => {
     return {
-      userData: ref<any>({}),
+      userData: {},
     };
   },
   actions: {

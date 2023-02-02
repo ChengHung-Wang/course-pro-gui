@@ -1,16 +1,16 @@
 import { defineStore } from "pinia";
-import { ref, toRaw } from "vue";
+import { toRaw } from "vue";
 import { ElLoading, ElMessage } from "element-plus";
 import { request } from "@/api";
 
 export const useLoginStore = defineStore("login", {
   state: () => ({
-    displayStatus: ref({
+    displayStatus: {
       register: false,
       forget: false,
       login: true,
-    }),
-    fields: ref({
+    },
+    fields: {
       login: {
         account: "",
         password: "",
@@ -27,8 +27,8 @@ export const useLoginStore = defineStore("login", {
       forget: {
         // TODO
       },
-    }),
-    registerSteps: ref({
+    },
+    registerSteps: {
       items: [
         "使用條款",
         "基本註冊資訊",
@@ -39,7 +39,7 @@ export const useLoginStore = defineStore("login", {
         "完成",
       ],
       now: 0,
-    }),
+    },
   }),
   getters: {
     registerFormRule(state) {

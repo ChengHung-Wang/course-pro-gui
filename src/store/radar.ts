@@ -1,9 +1,8 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
 
 export const useRadarStore = defineStore("radar", {
   state: () => ({
-    menu: ref<MenusConfig>({
+    menu: {
       items: [
         {
           icon: "",
@@ -22,7 +21,7 @@ export const useRadarStore = defineStore("radar", {
         },
       ],
       active: 0,
-    }),
+    },
   }),
   actions: {},
 });
