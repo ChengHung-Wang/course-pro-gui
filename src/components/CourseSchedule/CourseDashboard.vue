@@ -30,12 +30,12 @@
         </div>
         <div class="col-4">
           <div class="summary-card">
-            <el-empty image-size="60" size="50" description="開發中..." />
+            <el-empty :image-size="60" size="50" description="開發中..." />
           </div>
         </div>
         <div class="col-4">
           <div class="summary-card">
-            <el-empty image-size="60" size="50" description="開發中..." />
+            <el-empty :image-size="60" size="50" description="開發中..." />
           </div>
         </div>
       </div>
