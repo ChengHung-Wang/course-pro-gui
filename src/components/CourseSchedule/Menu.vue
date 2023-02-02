@@ -5,7 +5,7 @@
       <span>Home</span>
     </router-link>
     <div class="w-100 app-info fcc">
-      <img class="app-icon" :src="getAppInfo().icon" alt="" />
+      <img class="app-icon" :src="getAppInfo().icon.toString()" alt="" />
       <h5 class="app-name">{{ getAppInfo().displayName }}</h5>
     </div>
     <div class="nav-items">
