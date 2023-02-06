@@ -23,7 +23,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../views/Course/CourseView.vue"),
     children: [
       {
-        path: "/course",
+        path: "",
         name: "course-summary",
         component: () => import("../views/Course/Summary.vue"),
       },
