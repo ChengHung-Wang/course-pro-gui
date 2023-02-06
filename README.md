@@ -1,6 +1,25 @@
-# course-pro-gui
+<div align="right">
+<br/><br/>
+<img style="width: 200px; text-align: center" src="https://i.imgur.com/QaZES3Y.png" />
+</div>
 
-<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2F3Uy156OSTesry8QePbLdfG%2FNTUST-CourseSelector%3Fnode-id%3D0%253A1%26t%3D2agrfAeZuVE0sA3W-1" allowfullscreen></iframe>
+# course pro Front-end
+
+[UI設計 (figma)](https://www.figma.com/file/3Uy156OSTesry8QePbLdfG)
+
+[course pro Back-end (Developer only) ](https://github.com/ChengHung-Wang/course-pro-api)
+
+為了確保使用者的隱私與安全、系統未來的發展，course pro 選擇不將後端源碼公開。
+
+## 聲明
+本系統現階段與台科校方無關，不過未來可能會與校方接洽合作。
+
+我們會收集您的 NTUST SSO 帳密與 NTUST Email 用做驗證您的身份、訪問個人信息，course pro 有義務保護、不公開您的個人訊息，包括但不限於：您的電話、真實姓名、性別、出生日期、可連結、對應到個人的成績資料。
+
+## 簡介
+course pro 是專門開發給台科學子的一個系統，目的是為了讓您在台科有更棒的學習體驗，讓您
+
+## 安裝
 
 This template should help get you started developing with Vue 3 in Vite.
 
