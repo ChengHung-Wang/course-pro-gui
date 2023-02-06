@@ -5,21 +5,24 @@
 
 # course pro Front-end
 
-[UI設計 (figma)](https://www.figma.com/file/3Uy156OSTesry8QePbLdfG)
+[UI 設計 (figma)](https://www.figma.com/file/3Uy156OSTesry8QePbLdfG)
 
 [course pro Back-end (Developer only) ](https://github.com/ChengHung-Wang/course-pro-api)
 
 為了確保使用者的隱私與安全、系統未來的發展，course pro 選擇不將後端源碼公開。
 
 ## 聲明
+
 本系統現階段與台科校方無關，不過未來可能會與校方接洽合作。
 
 我們會收集您的 NTUST SSO 帳密與 NTUST Email 用做驗證您的身份、訪問個人信息，course pro 有義務保護、不公開您的個人訊息，包括但不限於：您的電話、真實姓名、性別、出生日期、可連結、對應到個人的成績資料。
 
 ## 簡介
+
 course pro 是專門開發給台科學子的一個系統，目的是為了讓您在台科有更棒的學習體驗。
 
 #### Course APP
+
 選課不知道怎麼選嗎？有想要的課但卻選不到？<br>
 系統可以根據您的科系，你修課的歷史紀錄來自動推薦課程，讓你的課程規劃更加的輕鬆、簡單。
 
@@ -34,8 +37,11 @@ GPA 好難算？<br>
 <strong></strong>
 
 ##### Course Guide APP
+
 ##### Radar APP
+
 ##### Course Guide APP
+
 ##### Course Guide APP
 
 ## 安裝
@@ -53,8 +59,8 @@ TypeScript cannot handle type information for `.vue` imports by default, so we r
 If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
 
 1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
+   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
+   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
 2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
 
 ## Customize configuration
@@ -70,7 +76,7 @@ npm install
 ### Compile and Hot-Reload for Development
 
 ```sh
-npm run dev
+npm run serve
 ```
 
 ### Type-Check, Compile and Minify for Production
