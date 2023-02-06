@@ -1,6 +1,6 @@
 <div align="right">
 <br/><br/>
-<img style="width: 200px; text-align: center" src="https://i.imgur.com/QaZES3Y.png" />
+<img style="width: 200px; text-align: center" src="https://i.imgur.com/TeLDKUs.png" />
 </div>
 
 # course pro Front-end
