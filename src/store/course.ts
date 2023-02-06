@@ -3,9 +3,8 @@ import { toRaw } from "vue";
 import { useGlobalStore } from "@/store/global";
 import { ElLoading, ElMessage } from "element-plus";
 import { request } from "@/api";
-import { useRouter } from "vue-router";
+import router from "@/router";
 
-const router = useRouter();
 const globalStore = useGlobalStore();
 
 interface Course {
