@@ -12,8 +12,8 @@ export const useAccountStore = defineStore("account", {
   actions: {
     async getAccountInfo() {
       const globalStore = useGlobalStore();
+      await globalStore.checkLogin();
       const loading = ElLoading.service();
-      globalStore.checkLogin();
       const response = await request("GET", "/account");
       loading.close();
       if (response.status === 200) {
@@ -24,6 +24,9 @@ export const useAccountStore = defineStore("account", {
         window.location.reload();
       }
     },
-    async uploadAvatar() {},
-  },
+    // TODO: @An-Yang 上傳頭貼
+    async uploadAvatar() {
+
+    }
+  }
 });
