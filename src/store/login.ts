@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { toRaw } from "vue";
 import { ElLoading, ElMessage } from "element-plus";
 import { request } from "@/api";
+import { useAccountStore } from "@/store/account";
 
 export const useLoginStore = defineStore("login", {
   state: () => ({
@@ -42,7 +43,7 @@ export const useLoginStore = defineStore("login", {
     },
   }),
   getters: {
-    registerFormRule(state) {
+    registerFormRule() {
       return {
         email: {
           required: true,
@@ -142,6 +143,10 @@ export const useLoginStore = defineStore("login", {
           const registerResponse = await this.register();
           if (registerResponse.status === 200) {
             this.registerSteps.now++;
+            const accountStore = useAccountStore();
+            registerResponse.res.data.user.avatars = [];
+            accountStore.userData = registerResponse.res.data.user;
+            console.log(registerResponse.res.data.user);
             localStorage.setItem("hasLogin", "1");
             localStorage.setItem("token", registerResponse.res.data.token);
           } else {
