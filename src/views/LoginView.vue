@@ -9,6 +9,7 @@
 // components
 import LoginForm from "@/components/Login/LoginForm.vue";
 import Register from "@/components/Login/Register.vue";
+
 // store
 import { storeToRefs } from "pinia";
 import { useLoginStore } from "@/store/login";
@@ -24,7 +25,7 @@ export default {
   },
   components: {
     LoginForm,
-    Register,
+    Register
   },
 };
 </script>

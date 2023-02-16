@@ -57,12 +57,15 @@
         </div>
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
 <script lang="ts">
 import { ElMessage } from "element-plus";
 import Logo from "@/components/Logo.vue";
+import Footer from "@/components/Login/Footer.vue";
+
 // store
 import { storeToRefs } from "pinia";
 import { useLoginStore } from "@/store/login";
@@ -102,6 +105,7 @@ export default {
   },
   components: {
     Logo,
+    Footer
   },
 };
 </script>
