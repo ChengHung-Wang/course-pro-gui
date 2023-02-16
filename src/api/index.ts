@@ -1,5 +1,5 @@
-const endpoint = "http://10.71.74.4:8000";
-const baseURI = endpoint + "/api/v2";
+const endpoint = import.meta.env.VITE_API_END_POINT;
+const baseURI = endpoint + import.meta.env.VITE_API_BASE_URL;
 
 export async function request(method: string, path: string, body?: {}) {
   const headers = new Headers();
