@@ -15,8 +15,8 @@ export const useGlobalStore = defineStore("global", {
   actions: {
     async checkLogin() {
       if (localStorage.getItem("hasLogin") != "1") {
-        await router.push({ name: "login" });
         this.clearAccessSession();
+        await router.push({ name: "login" });
       }
     },
     clearAccessSession() {

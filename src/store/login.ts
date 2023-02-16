@@ -3,6 +3,7 @@ import { toRaw } from "vue";
 import { ElLoading, ElMessage } from "element-plus";
 import { request } from "@/api";
 import { useAccountStore } from "@/store/account";
+import router from "@/router";
 
 export const useLoginStore = defineStore("login", {
   state: () => ({
@@ -112,7 +113,9 @@ export const useLoginStore = defineStore("login", {
       localStorage.removeItem("token");
       localStorage.removeItem("hasLogin");
       loading.close();
-      window.location.href = "/login";
+      setTimeout(async () => {
+        await router.push("/login");
+      }, 250);
     },
     // -----------------------------
     // ---------- feature ----------
