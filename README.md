@@ -75,13 +75,18 @@ GPA 好難算？<br>
 - Email：
 - 封鎖: 
 
-## 安裝
+## 安裝與執行
+#### 首次安裝
+1. 複製專案目錄下的`.env.example`檔案，將其貼在專案資料夾下，並將名稱改為`.env`
+2. 更改 API-Endpoint, 如果你不具備 API 開發資格請使用這個[連結](https://api-course.ntust.pro/)
 
-This template should help get you started developing with Vue 3 in Vite.
+```shell
+npm install
+npm run serve
+```
 
 ## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+WebStorm
 
 ## Type Support for `.vue` Imports in TS
 
