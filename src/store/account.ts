@@ -25,8 +25,6 @@ export const useAccountStore = defineStore("account", {
       }
     },
     // TODO: @An-Yang 上傳頭貼
-    async uploadAvatar() {
-
-    }
-  }
+    async uploadAvatar() {},
+  },
 });

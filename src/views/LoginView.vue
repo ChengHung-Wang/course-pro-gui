@@ -14,8 +14,6 @@ import { storeToRefs } from "pinia";
 import { useLoginStore } from "@/store/login";
 
 export default {
-  data() {
-  },
   setup() {
     const loginStore = useLoginStore();
     const { displayStatus } = storeToRefs(loginStore);
@@ -28,9 +26,6 @@ export default {
     LoginForm,
     Register,
   },
-  created() {
-    console.log(import.meta.env.VITE_API_END_POINT);
-  }
 };
 </script>
 

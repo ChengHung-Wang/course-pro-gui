@@ -5,35 +5,17 @@
       <div class="row">
         <div class="col-6">
           <span>學院</span>
-          <el-select class="w-100 mt-2" placeholder="Select" size="large">
-            <el-option key="1" label="item.label" value="item.value">
-              <span style="float: left">資訊工程系</span>
-              <span
-                style="
-                  float: right;
-                  color: var(--el-text-color-secondary);
-                  font-size: 12px;
-                "
-              >
-                Department of Computer Science and Information Engineering
-              </span>
+          <el-select class="w-100 mt-2" placeholder="Select" size="large" v-model="accountStore.userData.college.id">
+            <el-option v-for="college in systemConfigStore.colleges" :key="college.id" :label="college.name_zh" :value="college.id">
+              <span style="float: left">{{ college.name_zh }}</span>
             </el-option>
           </el-select>
         </div>
         <div class="col-6">
           <span>科系</span>
-          <el-select class="w-100 mt-2" placeholder="Select" size="large">
-            <el-option key="2" label="item.label" value="item.value">
-              <span style="float: left">資訊工程系</span>
-              <span
-                style="
-                  float: right;
-                  color: var(--el-text-color-secondary);
-                  font-size: 12px;
-                "
-              >
-                Department of Computer Science and Information Engineering
-              </span>
+          <el-select class="w-100 mt-2" placeholder="Select" size="large" v-model="accountStore.userData.department.id">
+            <el-option v-for="department in systemConfigStore.departments" :key="department.id" :label="department.name_zh" :value="department.id">
+              <span style="float: left">{{ department.name_zh }}</span>
             </el-option>
           </el-select>
         </div>
@@ -62,6 +44,7 @@
             :max="31"
             @change="() => {}"
             class="w-100 mt-2"
+            v-model="courseStore.maximumCredits"
           />
         </div>
         <div class="col-3">
@@ -82,22 +65,24 @@
           </div>
           <el-input-number
             size="large"
-            :min="16"
-            :max="31"
+            :min="1"
+            :max="30"
             @change="() => {}"
             class="w-100 mt-2"
+            v-model="maxTryNumber"
           />
         </div>
         <div class="col-6">
           <span>本學期選課時間</span>
           <el-date-picker
-            :editable="false"
+            
             size="large"
             class="w-100 mt-2"
             type="datetimerange"
             range-separator="To"
-            start-placeholder="Start date"
-            end-placeholder="End date"
+            start-placeholder="Start Time"
+            end-placeholder="End Time"
+            v-model="systemConfigStore.nextEvent.timeRange"
           />
         </div>
       </div>
@@ -108,19 +93,41 @@
 <script lang="ts">
 import { useLoginStore } from "@/store/login";
 import { storeToRefs } from "pinia";
-import { defineComponent } from "vue";
+import { defineComponent, toRaw } from "vue";
+import { useSystemConfigStore } from "@/store/systemConfig";
+import { useAccountStore } from "@/store/account"
+import { useCourseStore } from "@/store/course"
 
 export default defineComponent({
   setup() {
     const loginStore = useLoginStore();
     const { fields } = storeToRefs(loginStore);
+    const systemConfigStore = useSystemConfigStore();
+    const accountStore = useAccountStore();
+    const courseStore = useCourseStore();
+
+    let maxCredits = courseStore.maximumCredits;
+    let maxTryNumber = 10;
     return {
-      fields,
       loginStore,
+      fields,
+      systemConfigStore,
+      accountStore,
+      courseStore,
+      maxCredits,
+      maxTryNumber,
     };
   },
-  created() {
+
+  async created() {
     (document.activeElement as HTMLElement).blur();
+    await this.systemConfigStore.getNextEvent();
+    await this.systemConfigStore.getDepartments();
+    await this.courseStore.getMaxiumCredits();
+    this.maxCredits = this.courseStore.maximumCredits;
   },
+
+  
+
 });
 </script>

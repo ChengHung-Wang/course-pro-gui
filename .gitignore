@@ -35,3 +35,4 @@ build
 
 # Example file
 ^*.example
+.env
