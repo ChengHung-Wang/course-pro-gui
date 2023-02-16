@@ -32,3 +32,6 @@ lerna-debug.log*
 # Electron-builder output
 dist_electron
 build
+
+# Example file
+^*.example
