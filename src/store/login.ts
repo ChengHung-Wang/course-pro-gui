@@ -3,6 +3,7 @@ import { toRaw } from "vue";
 import { ElLoading, ElMessage } from "element-plus";
 import { request } from "@/api";
 import { useAccountStore } from "@/store/account";
+import type { Question } from "@/models/identity";
 import router from "@/router";
 
 export const useLoginStore = defineStore("login", {
@@ -42,6 +43,9 @@ export const useLoginStore = defineStore("login", {
       ],
       now: 0,
     },
+    questions: Array<Question>, 
+    answer: Array<String>,
+
   }),
   getters: {
     registerFormRule() {
@@ -133,7 +137,7 @@ export const useLoginStore = defineStore("login", {
       this.displayStatus.register = false;
     },
     async register_next() {
-
+      // this.registerSteps.now = 3;
       if (this.registerSteps.now == 1) {
         // TODO handle error message
         const fields = toRaw(this.fields).register;
@@ -150,10 +154,9 @@ export const useLoginStore = defineStore("login", {
             const accountStore = useAccountStore();
             registerResponse.res.data.user.avatars = [];
             accountStore.userData = registerResponse.res.data.user;
-            // console.log(registerResponse.res.data.user);
             localStorage.setItem("hasLogin", "1");
-            // localStorage.setItem("token", registerResponse.res.data.token);
-            localStorage.setItem("token", "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNjJiNmM2OThiMmI0ODVlZmM5ZjhlZGFjNjI5OTM1MWNlZmQ1MDU4ZDdlNWIxZWEwMzI5ZmI4ZDEwYTQ0ZDc2NDI1MTIyNjZkNzk1NjcyZTIiLCJpYXQiOjE2NzY1NzcwNTguNDE5OTUsIm5iZiI6MTY3NjU3NzA1OC40MTk5NTMsImV4cCI6MTcwODExMzA1OC4zNzIyODQsInN1YiI6IjE4Iiwic2NvcGVzIjpbXX0.Qic1CEd3TC2cDpyScurL1x5f-Nvps3tJlJNmQayhVn8vDobFFHelxW81LF9hVJp_MFfRXbHvPNprnfNwUUbhh6rDY49ysYmWf_ePcBCGb-E59SfVn8VqfobpTOxx2QSuuRiPbto7SzKw8CQCaU_1HG6WcfVMuXiTQeOgWt2jl0UDbhooDk-UkdKSalEHLaVTly9AdKMRWD7dK1IcWDgm11UQzXRyTXV5JXckdnbkEeOiuGC-L8vfZW7dmGInEZzMv95d5cbx5_181ng8jZvRcm_pNAu966yrNZy_5jdToW8xdSl4HBaQZEJPPUXct9ksAto0s8RlOtXklrXCUer-S6fgR92MVU15yl742SfK8kmmy9qZoYC31pcYIrJR7RM-kDdB0i_ynwPOx9J3bT3yadEyxE-kkxQRcm-a1qh9mqGgyJ1HuSAg6Js83ySj2ubUEBiJVR48KNuMZJI4knebupz3QNPrCQH65XHFJWPZkq1SjJKlR-Nb2ivBgIIOUCDoEImAK_Gqzp5bf0gm6TvYN5Rp6ZzRtnTBDzjP_9-9XpBrhm9w-OXq0g3aL_vwPaiFdxtS5ovOWZAjjcoWccNuxsilyXjQ9EoSjiW49wm0OAmJmr0AM_Cld1OI48qTxGo1IjNUUb1CbhJVkXhqHVqlcyc0ESyS7vWjb4m42TG5S5w");
+            localStorage.setItem("token", registerResponse.res.data.token);
+            
           } else {
             ElMessage({
               showClose: true,
@@ -162,10 +165,54 @@ export const useLoginStore = defineStore("login", {
             });
           }
         }
-      } else if (this.registerSteps.now < this.registerSteps.items.length) {
+      } else if(this.registerSteps.now == 4) {
+        if(this.canMoveOn()) {
+          this.returnSecutiryAnswer();
+          this.registerSteps.now++;
+        } else ElMessage({
+          showClose: true,
+          message: "填寫不完全",
+          type: "error"
+        })
+      } 
+      else if (this.registerSteps.now < this.registerSteps.items.length) {
         this.registerSteps.now++;
-      }
+      } 
+      
     },
+
+    async getSecurityQuestion() {
+      let result = await request("GET", "/system/map/languages");
+      if(result.status!=200) return false;
+
+      // TODO: Depends on Header, [0] for instead
+      const langCode = result.res.data[0].name;
+      result = await request("GET", "/account/forget/questions/"+langCode); 
+      if(result.status!=200) return false;
+      this.questions = result.res.data;
+    },
+
+    canMoveOn() {
+      for(let question of this.questions) if(question.reply==undefined) return false;
+      return true;
+    },
+
+    async returnSecutiryAnswer() {
+      let arr = [];
+
+      for(let question of this.questions) {
+        arr.push({
+          "question_id": question.id,
+          "content": question.reply,
+        });
+      }
+
+      const result = await request("PUT", "/account/forget", {
+        "data": arr
+      });
+      
+    },
+
     register_back: () => {},
   },
 });

@@ -7,25 +7,9 @@
     </span>
     <div class="container-fluid m-0 p-0">
       <div class="row mt-4">
-        <div class="col-6">
-          <p>你大學認識的第一位老師/教授是誰？</p>
-          <el-input size="large" class="w-100"></el-input>
-        </div>
-        <div class="col-6">
-          <p>你在大學結交的知音是誰？</p>
-          <el-input size="large" class="w-100"></el-input>
-        </div>
-        <div class="col-6 mt-3">
-          <p>台科學餐最不好吃的攤位</p>
-          <el-input size="large" class="w-100"></el-input>
-        </div>
-        <div class="col-6 mt-3">
-          <p>你絕對不會想修哪位老師的課？</p>
-          <el-input size="large" class="w-100"></el-input>
-        </div>
-        <div class="col-6 mt-3">
-          <p>第一個參加的社團</p>
-          <el-input size="large" class="w-100"></el-input>
+        <div class="col-6" v-for="q in loginStore.questions">
+          <p>{{ q.question_description }}</p>
+          <el-input size="large" class="w-100" v-model="q.reply" :validate-event="true"></el-input>
         </div>
       </div>
     </div>
@@ -34,8 +18,21 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { useLoginStore } from "@/store/login";
+import { toRaw } from "vue";
 
-export default defineComponent({});
+export default defineComponent({
+  setup() {
+    const loginStore = useLoginStore();
+    return {
+      loginStore,
+    }
+  },
+  async created() {
+    if(this.loginStore.questions[0]==undefined)
+      await this.loginStore.getSecurityQuestion();
+  }
+});
 </script>
 
 <style scoped></style>
