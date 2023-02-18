@@ -154,7 +154,7 @@ export const useLoginStore = defineStore("login", {
             registerResponse.res.data.user.avatars = [];
             accountStore.userData = registerResponse.res.data.user;
             localStorage.setItem("hasLogin", "1");
-            // localStorage.setItem("token", registerResponse.res.data.token);
+            localStorage.setItem("token", registerResponse.res.data.token);
             
             
           } else {
