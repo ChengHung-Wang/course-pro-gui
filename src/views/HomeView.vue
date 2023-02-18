@@ -48,7 +48,13 @@ export default defineComponent({
       globalStore,
     };
   },
-  created() {},
+  created() {
+    try {
+      this.globalStore.disableLoading();
+    } catch(err) {
+      
+    }
+  },
   components: {
     UserCard,
     Logo,
