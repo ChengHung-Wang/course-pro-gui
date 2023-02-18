@@ -145,7 +145,6 @@ export const useCourseStore = defineStore("course", {
     // -----------------------------
     async getScheduleSummary() {
       globalStore.checkLogin();
-      const loading = ElLoading.service();
       const result = await request("GET", "/course/my/schedule");
       if (result.status != 200) {
         // useLoginStore().logout();
@@ -154,7 +153,6 @@ export const useCourseStore = defineStore("course", {
       this.schedule.courses = result.res.data.courses;
       this.schedule.timeline = result.res.data.timeline;
       this.schedule.totalCredit = result.res.data.total_credit;
-      loading.close();
       return result;
     },
     getScheduleTable() {
