@@ -1,13 +1,16 @@
 import { defineStore } from "pinia";
 import { request } from "@/api";
 import type { Department, College } from "@/models/identity";
+import moment from "moment";
 
 export const useSystemConfigStore = defineStore("systemConfig", {
   state: () => ({
     colleges: Array<College>,
     departments: Array<Department>,
     nextEvent: {
-      timeRange: [new Date, new Date]
+      timeRange: [new Date, new Date],
+      status: "",
+      closestTime: ""
     },
   }),
   actions: {
@@ -30,6 +33,8 @@ export const useSystemConfigStore = defineStore("systemConfig", {
         if(today > endDate) continue;
         this.nextEvent = timeDate;
         this.nextEvent.timeRange = [startDate, endDate];
+        if(today>startDate) this.nextEvent.status = "結束", this.nextEvent.closestTime = moment(timeDate.end_at);
+        else this.nextEvent.status = "開始", this.nextEvent.closestTime = moment(timeDate.start_at);
         return this.nextEvent;
       }
     },

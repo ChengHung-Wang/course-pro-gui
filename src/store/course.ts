@@ -4,6 +4,7 @@ import { useGlobalStore } from "@/store/global";
 import { ElLoading, ElMessage } from "element-plus";
 import { request } from "@/api";
 import router from "@/router";
+import moment from 'moment'
 
 const globalStore = useGlobalStore();
 
@@ -136,6 +137,8 @@ export const useCourseStore = defineStore("course", {
         active: 0,
       },
       maximumCredits: 0,
+      checkTime: Date(),
+
     };
   },
   getters: {},
@@ -145,6 +148,7 @@ export const useCourseStore = defineStore("course", {
     // -----------------------------
     async getScheduleSummary() {
       globalStore.checkLogin();
+      this.checkTime = moment().format();
       const result = await request("GET", "/course/my/schedule");
       if (result.status != 200) {
         // useLoginStore().logout();
