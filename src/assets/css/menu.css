@@ -52,6 +52,7 @@
 }
 .nav-item-icon {
     width: 18px;
+    height: 18px;
     display: flex;
     align-items: center;
 }
