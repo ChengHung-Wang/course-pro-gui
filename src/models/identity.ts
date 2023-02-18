@@ -13,3 +13,9 @@ export type College = {
     no: number,
 };
   
+export type Question = {
+    id: number, 
+    description: string,
+    reply: string,
+}
+

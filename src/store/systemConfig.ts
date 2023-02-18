@@ -33,7 +33,6 @@ export const useSystemConfigStore = defineStore("systemConfig", {
         this.nextEvent.timeRange = [startDate, endDate];
         return this.nextEvent;
       }
-
-    }
+    },
   },
 });

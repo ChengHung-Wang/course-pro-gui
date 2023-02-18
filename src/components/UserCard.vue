@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useLoginStore } from "@/store/login";
 import { useAccountStore } from "@/store/account";
-import { toRaw, onMounted } from "vue";
+import { toRaw, onMounted, ref, watch } from "vue";
+import { computePosition } from "@floating-ui/core";
 
 interface Props {
   size?: number;
@@ -17,18 +18,25 @@ const props = withDefaults(defineProps<Props>(), {
 
 const loginStore = useLoginStore();
 const accountStore = useAccountStore();
+let avatarURL = ref('');
 
 onMounted(async () => {
   if (accountStore.userData.name === undefined) {
     await accountStore.getAccountInfo();
   }
+  getAvatars();
 });
 
 const getAvatars = () => {
   if (toRaw(accountStore.userData).avatars.length <= 0) return "";
   const avatars = toRaw(accountStore.userData).avatars;
+  avatarURL.value = ref(avatars[avatars.length - 1].avatar);
   return avatars[avatars.length - 1].avatar;
 };
+
+watch(accountStore.userData, () => {
+  getAvatars();
+})
 </script>
 
 <template>
@@ -44,7 +52,8 @@ const getAvatars = () => {
             <el-avatar
               class="avatar"
               shape="circle"
-              :src="getAvatars()"
+              :src="avatarURL.value"
+
               :size="size === undefined ? 80 : size"
             >
               <h3 class="m-0">{{ noAvatarText }}</h3>
@@ -53,7 +62,7 @@ const getAvatars = () => {
         </el-popconfirm>
         <el-avatar
           v-if="!logoutButton"
-          :src="getAvatars()"
+          :src="avatarURL.value"
           class="avatar fcc"
           shape="circle"
           :size="size === undefined ? 80 : size"

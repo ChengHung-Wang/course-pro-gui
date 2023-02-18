@@ -213,11 +213,14 @@ export const useCourseStore = defineStore("course", {
     },
     async getGPA() {
       const result = await request("GET", "/course/my/history/avg");
-      if (result.status != 200) return false;
       return result;
     },
     async getMaxiumCredits() {
       const gpa = await this.getGPA();
+      if(gpa.status!=200) {
+        this.maximumCredits=31;
+        return 31;
+      }  
       const latestGPA = gpa.res.data[gpa.res.data.length-1].avg;
       latestGPA >= 3.38 ? this.maximumCredits = 31 : this.maximumCredits = 25;
       return this.maximumCredits;

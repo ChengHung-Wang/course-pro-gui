@@ -34,15 +34,19 @@
             >
               取消
             </el-button>
-            <el-button
+
+            <!--  -->
+            <!-- <el-button
               type="primary"
               plain
               v-if="registerSteps.now >= 1"
               @click="registerSteps.now--"
             >
               上一步
-            </el-button>
-            <el-button
+            </el-button> -->
+            <!--  -->
+
+            <el-button v-if="loginStore.registerSteps.now<6"
               type="primary"
               :disabled="!fields.register.accept"
               @click="loginStore.register_next()"
