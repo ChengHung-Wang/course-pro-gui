@@ -69,30 +69,36 @@ import Footer from "@/components/Login/Footer.vue";
 // store
 import { storeToRefs } from "pinia";
 import { useLoginStore } from "@/store/login";
+import { useGlobalStore } from "@/store/global";
 
 export default {
   setup() {
     const loginStore = useLoginStore();
     const { displayStatus, fields } = storeToRefs(loginStore);
     const submitDisable = false;
+    const globalStore = useGlobalStore();
     return {
       displayStatus,
       fields,
       loginStore,
       submitDisable,
+      globalStore,
     };
   },
   methods: {
     async login() {
       this.submitDisable = true;
+      this.globalStore.enableLoading();
       if (
         await this.loginStore.login(
           this.fields.login.account,
           this.fields.login.password
         )
       ) {
+        this.globalStore.disableLoading();
         this.$router.push("/");
       } else {
+        this.globalStore.disableLoading();
         ElMessage({
           showClose: true,
           message:

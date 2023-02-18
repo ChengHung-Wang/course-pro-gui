@@ -1,9 +1,11 @@
 import { defineStore } from "pinia";
 import router from "@/router";
+import { ElLoading, ElMessage } from "element-plus";
 
 export const useGlobalStore = defineStore("global", {
   state: () => {
     return {
+      loadingAnimate: ElLoading,
       loading: false,
       userInfo: {
         name: "",
@@ -22,6 +24,12 @@ export const useGlobalStore = defineStore("global", {
     clearAccessSession() {
       localStorage.removeItem("token");
       localStorage.removeItem("hasLogin");
+    },
+    enableLoading(option) {
+      this.loadingAnimate = ElLoading.service(option);
+    },
+    disableLoading() {
+      this.loadingAnimate.close();
     },
   },
 });

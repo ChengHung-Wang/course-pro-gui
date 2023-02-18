@@ -97,6 +97,7 @@ import { defineComponent, toRaw } from "vue";
 import { useSystemConfigStore } from "@/store/systemConfig";
 import { useAccountStore } from "@/store/account"
 import { useCourseStore } from "@/store/course"
+import { useGlobalStore } from "@/store/global";
 
 export default defineComponent({
   setup() {
@@ -105,6 +106,7 @@ export default defineComponent({
     const systemConfigStore = useSystemConfigStore();
     const accountStore = useAccountStore();
     const courseStore = useCourseStore();
+    const globalStore = useGlobalStore();
 
     let maxCredits = courseStore.maximumCredits;
     let maxTryNumber = 10;
@@ -116,14 +118,18 @@ export default defineComponent({
       courseStore,
       maxCredits,
       maxTryNumber,
+      globalStore,
     };
   },
 
   async created() {
     (document.activeElement as HTMLElement).blur();
+    this.globalStore.enableLoading();
     await this.systemConfigStore.getNextEvent();
     await this.systemConfigStore.getDepartments();
     await this.courseStore.getMaxiumCredits();
+    this.globalStore.disableLoading();
+
     this.maxCredits = this.courseStore.maximumCredits;
   },
 

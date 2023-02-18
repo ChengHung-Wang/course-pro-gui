@@ -3,7 +3,8 @@ import { toRaw } from "vue";
 import { ElLoading, ElMessage } from "element-plus";
 import { request } from "@/api";
 import { useAccountStore } from "@/store/account";
-import type { Avatar, Question } from "@/models/identity";
+import { useGlobalStore } from "@/store/global";
+import type { Question } from "@/models/identity";
 import router from "@/router";
 
 export const useLoginStore = defineStore("login", {
@@ -45,6 +46,8 @@ export const useLoginStore = defineStore("login", {
     },
     questions: Array<Question>, 
     answer: Array<String>,
+    
+    // loading: ElLoading
   }),
   getters: {
     registerFormRule() {
@@ -95,8 +98,11 @@ export const useLoginStore = defineStore("login", {
       }
       return (await res.success) === true;
     },
+
+
     async register() {
-      const loading = ElLoading.service({
+      let globalStore = useGlobalStore();
+      globalStore.enableLoading({
         lock: true,
         text: "正在驗證您的身份，這可能會花上30秒甚至更久的時間。",
       });
@@ -107,15 +113,16 @@ export const useLoginStore = defineStore("login", {
         ntust_email_password: this.fields.register.ntust_email_password,
         ntust_sso_password: this.fields.register.ntust_sso_password,
       });
-      loading.close();
+      globalStore.disableLoading();
       return registerResponse;
     },
     async logout() {
-      const loading = ElLoading.service();
+      let globalStore = useGlobalStore();
+      globalStore.enableLoading();
       await request("DELETE", "/account/logout");
       localStorage.removeItem("token");
       localStorage.removeItem("hasLogin");
-      loading.close();
+      globalStore.disableLoading();
       setTimeout(async () => {
         await router.push("/login");
       }, 250);
@@ -154,8 +161,7 @@ export const useLoginStore = defineStore("login", {
             registerResponse.res.data.user.avatars = [];
             accountStore.userData = registerResponse.res.data.user;
             localStorage.setItem("hasLogin", "1");
-            // localStorage.setItem("token", registerResponse.res.data.token);
-            
+            localStorage.setItem("token", registerResponse.res.data.token);
             
           } else {
             ElMessage({
@@ -182,12 +188,15 @@ export const useLoginStore = defineStore("login", {
     },
 
     async getSecurityQuestion() {
+      let globalStore = useGlobalStore();
+      globalStore.enableLoading();
       let result = await request("GET", "/system/map/languages");
       if(result.status!=200) return false;
 
       // TODO: Depends on Header, [0] for instead
       const langCode = result.res.data[0].name;
       result = await request("GET", "/account/forget/questions/"+langCode); 
+      globalStore.disableLoading();
       if(result.status!=200) return false;
       this.questions = result.res.data;
     },
@@ -217,6 +226,8 @@ export const useLoginStore = defineStore("login", {
       const endpoint = import.meta.env.VITE_API_END_POINT;
       const baseURI = endpoint + import.meta.env.VITE_API_BASE_URL;
 
+      let globalStore = useGlobalStore();
+      globalStore.enableLoading();
       let fileData=e.target.files[0];
       let url = baseURI + "/account/avatar";
       let xhr = new XMLHttpRequest();
@@ -233,6 +244,8 @@ export const useLoginStore = defineStore("login", {
       let data = JSON.parse(event.target.responseText);
       this.avatarURL = data.data.avatar;
       let accountStore = useAccountStore();
+      let globalStore = useGlobalStore();
+      globalStore.disableLoading();
 
       accountStore.userData.avatars = [];
       accountStore.userData.avatars.push(data.data);

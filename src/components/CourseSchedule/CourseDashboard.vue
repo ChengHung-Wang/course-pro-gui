@@ -7,14 +7,17 @@
             <div class="badge-header">
               <div class="left-text">
                 <div class="title">
-                  31 / {{ courseStore.schedule.totalCredit }}
+                  {{ courseStore.maximumCredits }} / {{ courseStore.schedule.totalCredit }}
                 </div>
                 <span class="description">可選學分 / 已選學分</span>
               </div>
-              <div class="right-text">
+              <div class="right-text" v-if="Object.keys(systemConfigStore.nextEvent).length>3">
                 <strong>
-                  距離選課結束還剩<br />
-                  3天 12小時 1分鐘 23秒
+                  距離 {{ systemConfigStore.nextEvent.name_zh }} {{ systemConfigStore.nextEvent.status }} 還剩<br />
+                  {{ (Math.floor(diffSec / 60 / 60 / 24)) }}天
+                  {{ ("0" + Math.floor(diffSec / 60 / 60) % 24).slice(-2) }}小時 
+                  {{ ("0" + Math.floor(diffSec / 60) % 60).slice(-2) }}分鐘
+                  {{ ("0" + Math.floor(diffSec) % 60).slice(-2) }}秒
                 </strong>
               </div>
             </div>
@@ -23,7 +26,7 @@
               <el-icon class="icon" size="24"><SuccessFilled /></el-icon>
               <span class="badge-description">
                 <strong>課程模塊運作正常</strong><br />
-                檢查時間: 2023-05-20 10:03:02
+                檢查時間: {{ date.split("T")[0] }} {{ date.split("T")[1].split("+")[0] }}
               </span>
             </div>
           </div>
@@ -45,14 +48,44 @@
 
 <script lang="ts">
 import { useCourseStore } from "@/store/course";
+import { useSystemConfigStore } from "@/store/systemConfig";
+import { useGlobalStore } from "@/store/global";
+import moment from 'moment'
 
 export default {
+  data() {
+    return {
+      diffSec: 0,
+    }
+  },
   setup() {
+
     const courseStore = useCourseStore();
+    const systemConfigStore = useSystemConfigStore();
+    const globalStore = useGlobalStore();
+    const date = courseStore.checkTime.toString();
+    
+    globalStore.enableLoading();
     return {
       courseStore,
+      systemConfigStore,
+      globalStore,
+      date,
     };
   },
+  async created() {
+    this.countDown();
+    this.courseStore.getMaxiumCredits();
+    this.courseStore.getScheduleSummary();
+    await this.systemConfigStore.getNextEvent();
+    setInterval(this.countDown, 500);
+    this.globalStore.disableLoading();
+  }, 
+  methods: {
+    countDown() {
+      this.diffSec = moment(this.systemConfigStore.nextEvent.closestTime).diff(moment())/1000;
+    },
+  }
 };
 </script>
 
