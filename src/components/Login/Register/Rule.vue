@@ -2,7 +2,7 @@
   <div class="register-contain">
     <h3 class="text-dark">服務條款 & 隱私權保護政策</h3>
     <div class="box mt-3">
-      <h5 class="text-dark">【服務條款】</h5>
+      <h4 class="text-dark">服務條款</h4>
       <p>
         歡迎您造訪 course pro for NTUST（以下簡成為「本網站」），
         為了確保您與本平台的使用體驗與權益，本文件將為您說明本網站的服務條款與隱私權政策，
@@ -135,7 +135,8 @@
 
       <p>最後更新日期：2023/02/19</p>
 
-      <h5 class="text-dark">【隱私權保護政策】</h5>
+      <br />
+      <h4 class="text-dark">隱私權保護政策</h4>
       <p>
         對於您於course pro for NTUST（以下簡成為「本網站」）所提供的一切資料，將以下列條款保護之。
       </p>
