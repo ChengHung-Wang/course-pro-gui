@@ -3,7 +3,7 @@ import { toRaw } from "vue";
 import { ElLoading, ElMessage } from "element-plus";
 import { request } from "@/api";
 import { useAccountStore } from "@/store/account";
-import type { Question } from "@/models/identity";
+import type { Avatar, Question } from "@/models/identity";
 import router from "@/router";
 
 export const useLoginStore = defineStore("login", {
@@ -45,7 +45,6 @@ export const useLoginStore = defineStore("login", {
     },
     questions: Array<Question>, 
     answer: Array<String>,
-
   }),
   getters: {
     registerFormRule() {
@@ -137,7 +136,7 @@ export const useLoginStore = defineStore("login", {
       this.displayStatus.register = false;
     },
     async register_next() {
-      // this.registerSteps.now = 3;
+      // this.registerSteps.now = 4;
       if (this.registerSteps.now == 1) {
         // TODO handle error message
         const fields = toRaw(this.fields).register;
@@ -155,7 +154,8 @@ export const useLoginStore = defineStore("login", {
             registerResponse.res.data.user.avatars = [];
             accountStore.userData = registerResponse.res.data.user;
             localStorage.setItem("hasLogin", "1");
-            localStorage.setItem("token", registerResponse.res.data.token);
+            // localStorage.setItem("token", registerResponse.res.data.token);
+            
             
           } else {
             ElMessage({
@@ -211,6 +211,31 @@ export const useLoginStore = defineStore("login", {
         "data": arr
       });
       
+    },
+
+    async uploadAvatar(e) {
+      const endpoint = import.meta.env.VITE_API_END_POINT;
+      const baseURI = endpoint + import.meta.env.VITE_API_BASE_URL;
+
+      let fileData=e.target.files[0];
+      let url = baseURI + "/account/avatar";
+      let xhr = new XMLHttpRequest();
+      let form = new FormData();
+      form.append("file", fileData);
+
+      xhr.onload = this.uploadComplete;
+      xhr.open("POST", url, true);
+      xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token"));
+      xhr.send(form);
+    },
+
+    async uploadComplete(event) {
+      let data = JSON.parse(event.target.responseText);
+      this.avatarURL = data.data.avatar;
+      let accountStore = useAccountStore();
+
+      accountStore.userData.avatars = [];
+      accountStore.userData.avatars.push(data.data);
     },
 
     register_back: () => {},

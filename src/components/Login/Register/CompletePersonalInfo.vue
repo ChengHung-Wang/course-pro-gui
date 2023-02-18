@@ -6,7 +6,17 @@
     <div class="container-fluid m-0 p-0">
       <div class="row">
         <div class="col-6">
-          <UserCard></UserCard>
+          <input 
+          id="uploadBtn" 
+          accept=".jpg,.jpeg,.png,.gif,"
+          type="file" 
+          :class="{ invisible: true }" 
+          @change="loginStore.uploadAvatar"
+          >
+
+          <UserCard
+          v-on:click="triggerUploadBtn()"
+          ></UserCard>
         </div>
         <div class="col-6">
           <div class="fsc">
@@ -57,6 +67,11 @@ export default defineComponent({
   },
   components: {
     UserCard,
+  },
+  methods: {
+    triggerUploadBtn() {
+      window.document.getElementById("uploadBtn").click();
+    },
   },
 });
 </script>
