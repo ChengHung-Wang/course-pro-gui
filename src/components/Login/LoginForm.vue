@@ -8,7 +8,7 @@
           <span>&nbsp;&nbsp;for NTUST</span>
         </div>
         <div class="col-4">
-          <div class="small-form">
+          <div class="small-form" @keyup.enter="login()">
             <div class="inner-form">
               <h1 class="title mb-3 text-dark">登入系統</h1>
               <el-form label-position="top" label-width="100px">

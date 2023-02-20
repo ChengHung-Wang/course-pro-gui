@@ -12,6 +12,7 @@ export const useGlobalStore = defineStore("global", {
         avatars: [],
         email: "",
       },
+      radarStart: false,
     };
   },
   actions: {

@@ -21,8 +21,8 @@
 </template>
 
 <script lang="ts">
-import CourseDashboard from "@/components/CourseSchedule/CourseDashboard.vue";
-import CourseSchedule from "@/components/CourseSchedule/CourseSchedule.vue";
+import CourseDashboard from "@/components/Course/CourseDashboard.vue";
+import CourseSchedule from "@/components/Course/CourseSchedule/CourseSchedule.vue";
 import { useCourseStore } from "@/store/course";
 
 export default {

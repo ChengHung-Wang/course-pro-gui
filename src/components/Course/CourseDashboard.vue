@@ -73,14 +73,28 @@ export default {
       date,
     };
   },
-  async created() {
-    this.countDown();
-    this.courseStore.getMaxiumCredits();
-    this.courseStore.getScheduleSummary();
-    await this.systemConfigStore.getNextEvent();
-    setInterval(this.countDown, 500);
-    this.globalStore.disableLoading();
-  }, 
+  created: async function () {
+    let resolve = 0;
+    const loadingEvents = [
+      this.courseStore.getMaxiumCredits().then(() => {
+        resolve ++;
+      }),
+      this.courseStore.getScheduleSummary().then(() => {
+        resolve ++;
+      }),
+      this.systemConfigStore.getNextEvent().then(() => {
+        resolve ++;
+      })
+    ];
+    setInterval(() => {
+      if (resolve >= 3) {
+        resolve = 0;
+        this.countDown();
+        setInterval(this.countDown, 500);
+        this.globalStore.disableLoading();
+      }
+    })
+  },
   methods: {
     countDown() {
       this.diffSec = moment(this.systemConfigStore.nextEvent.closestTime).diff(moment())/1000;

@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import SideMenu from "@/components/CourseSchedule/SideMenu.vue";
+import SideMenu from "@/components/Course/SideMenu.vue";
 import { useRadarStore } from "@/store/radar";
 
 export default {

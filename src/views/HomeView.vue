@@ -6,10 +6,7 @@
           <div class="col-6">
             <UserCard :logout-button="true" :size="60" />
           </div>
-          <div class="weight-count col-6 fec">
-            <h1 class="text-dark w-100">0000,000</h1>
-            <p class="m-0">1234</p>
-          </div>
+          <RadarWeight />
         </div>
         <div class="row w-100">
           <div class="col-12 home-apps">
@@ -37,6 +34,7 @@ import { useHomeStore } from "@/store/home";
 import UserCard from "@/components/UserCard.vue";
 import Logo from "@/components/Logo.vue";
 import AppItem from "@/components/Home/AppItem.vue";
+import RadarWeight from "@/components/Home/RadarWeight.vue";
 
 export default defineComponent({
   setup() {
@@ -59,6 +57,7 @@ export default defineComponent({
     UserCard,
     Logo,
     AppItem,
+    RadarWeight
   },
 });
 </script>

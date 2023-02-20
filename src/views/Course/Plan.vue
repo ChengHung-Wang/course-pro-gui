@@ -4,6 +4,9 @@
       <div class="col-12 mt-5">
         <h2>課程規劃</h2>
       </div>
+      <div class="col-12 mt-3">
+        <el-input></el-input>
+      </div>
     </div>
   </div>
 </template>
