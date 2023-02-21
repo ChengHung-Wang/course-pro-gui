@@ -1,8 +1,8 @@
 <template>
   <div class="course-dashboard component-padding">
     <div class="container-fluid m-0 p-0">
-      <div class="row">
-        <div class="col-4">
+      <div class="row d-flex">
+        <div class="col-auto left-container">
           <div class="summary-card summary-success-card">
             <div class="badge-header">
               <div class="left-text">
@@ -13,9 +13,9 @@
               </div>
               <div class="right-text" v-if="Object.keys(systemConfigStore.nextEvent).length>3">
                 <strong>
-                  距離 {{ systemConfigStore.nextEvent.name_zh }} {{ systemConfigStore.nextEvent.status }} 還剩<br />
+                  距離 {{ systemConfigStore.nextEvent.name_zh }} {{ systemConfigStore.nextEvent.status }} 還剩<br/>
                   {{ (Math.floor(diffSec / 60 / 60 / 24)) }}天
-                  {{ ("0" + Math.floor(diffSec / 60 / 60) % 24).slice(-2) }}小時 
+                  {{ ("0" + Math.floor(diffSec / 60 / 60) % 24).slice(-2) }}小時
                   {{ ("0" + Math.floor(diffSec / 60) % 60).slice(-2) }}分鐘
                   {{ ("0" + Math.floor(diffSec) % 60).slice(-2) }}秒
                 </strong>
@@ -23,22 +23,19 @@
             </div>
 
             <div class="summary-badge fsc">
-              <el-icon class="icon" size="24"><SuccessFilled /></el-icon>
+              <el-icon class="icon" size="24">
+                <SuccessFilled/>
+              </el-icon>
               <span class="badge-description">
-                <strong>課程模塊運作正常</strong><br />
+                <strong>課程模塊運作正常</strong><br/>
                 檢查時間: {{ date.split("T")[0] }} {{ date.split("T")[1].split("+")[0] }}
               </span>
             </div>
           </div>
         </div>
-        <div class="col-4">
+        <div class="right-container">
           <div class="summary-card">
-            <el-empty :image-size="60" size="50" description="開發中..." />
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="summary-card">
-            <el-empty :image-size="60" size="50" description="開發中..." />
+            <el-empty :image-size="60" size="50" description="開發中..."/>
           </div>
         </div>
       </div>
@@ -47,9 +44,9 @@
 </template>
 
 <script lang="ts">
-import { useCourseStore } from "@/store/course";
-import { useSystemConfigStore } from "@/store/systemConfig";
-import { useGlobalStore } from "@/store/global";
+import {useCourseStore} from "@/store/course";
+import {useSystemConfigStore} from "@/store/systemConfig";
+import {useGlobalStore} from "@/store/global";
 import moment from 'moment'
 
 export default {
@@ -64,7 +61,7 @@ export default {
     const systemConfigStore = useSystemConfigStore();
     const globalStore = useGlobalStore();
     const date = courseStore.checkTime.toString();
-    
+
     globalStore.enableLoading();
     return {
       courseStore,
@@ -77,13 +74,13 @@ export default {
     let resolve = 0;
     const loadingEvents = [
       this.courseStore.getMaxiumCredits().then(() => {
-        resolve ++;
+        resolve++;
       }),
       this.courseStore.getScheduleSummary().then(() => {
-        resolve ++;
+        resolve++;
       }),
       this.systemConfigStore.getNextEvent().then(() => {
-        resolve ++;
+        resolve++;
       })
     ];
     setInterval(() => {
@@ -97,7 +94,7 @@ export default {
   },
   methods: {
     countDown() {
-      this.diffSec = moment(this.systemConfigStore.nextEvent.closestTime).diff(moment())/1000;
+      this.diffSec = moment(this.systemConfigStore.nextEvent.closestTime).diff(moment()) / 1000;
     },
   }
 };
@@ -115,10 +112,12 @@ export default {
   justify-content: space-between;
   align-items: flex-start;
 }
+
 .summary-success-card {
   background-color: var(--el-color-success) !important;
   color: white;
 }
+
 .summary-badge {
   width: 90%;
   position: absolute;
@@ -130,20 +129,24 @@ export default {
   background-color: var(--el-color-success-light-8);
   padding: 12px;
 }
+
 .summary-badge .icon {
   margin-right: 6px;
 }
+
 .summary-badge .badge-description {
   font-size: 14px;
   color: var(--el-color-success);
   line-height: 1.4;
 }
+
 .badge-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
+
 .summary-success-card .title {
   font-size: 40px;
   font-weight: 700;
@@ -151,11 +154,26 @@ export default {
   margin: 0;
   line-height: 1.1;
 }
+
 .summary-success-card .description {
   font-size: 14px;
 }
+
 .summary-card .right-text {
   text-align: right;
   font-size: 13px;
+}
+
+.left-container {
+  width: 400px;
+}
+
+.right-container {
+  width: calc(100% - 400px);
+}
+
+.right-container .summary-card {
+  align-items: center;
+  justify-content: center;
 }
 </style>

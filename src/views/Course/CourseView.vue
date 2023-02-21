@@ -17,19 +17,15 @@ import CourseDashboard from "@/components/Course/CourseDashboard.vue";
 import CourseSchedule from "@/components/Course/CourseSchedule/CourseSchedule.vue";
 import { useCourseStore } from "@/store/course";
 import { storeToRefs } from "pinia";
-import { ElLoading } from "element-plus";
 import { toRaw } from "vue";
 
 export default {
   setup() {
     const courseStore = useCourseStore();
-    const { appLoading, schedule } = storeToRefs(courseStore);
-    const loadingObj = {} as any;
+    const { schedule } = storeToRefs(courseStore);
     return {
       courseStore,
-      appLoading,
-      schedule,
-      loadingObj,
+      schedule
     };
   },
   components: {
@@ -43,20 +39,12 @@ export default {
     }
   },
   methods: {
-    openLoading() {
-      this.loadingObj = ElLoading.service({
-        lock: true,
-      });
-    },
   },
   watch: {
-    appLoading() {
-      if (this.appLoading) {
-        this.openLoading();
-      } else {
-        this.loadingObj.close();
-      }
-    },
   },
 };
 </script>
+
+<style>
+  @import "/src/assets/css/course.css";
+</style>

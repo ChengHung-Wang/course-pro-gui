@@ -5,8 +5,8 @@ import moment from "moment";
 
 export const useSystemConfigStore = defineStore("systemConfig", {
   state: () => ({
-    colleges: Array<College>,
-    departments: Array<Department>,
+    colleges: Array<College>(),
+    departments: Array<Department>(),
     nextEvent: {
       timeRange: [new Date, new Date],
       status: "",

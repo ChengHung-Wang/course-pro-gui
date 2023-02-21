@@ -12,9 +12,9 @@ export type College = {
     name_zh: string,
     no: number,
 };
-  
+
 export type Question = {
-    id: number, 
+    id: number,
     description: string,
     reply: string,
 }
