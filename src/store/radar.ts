@@ -9,7 +9,7 @@ export const useRadarStore = defineStore("radar", {
     scanNum: 0,
     scanAvg: 0,
     lastUpdateAvg: moment(),
-    radarInterval: 250,
+    radarInterval: 200,
     ssoRefreshInterval: 1000 * 60 * 9.5,
     maxPending: 4,
     pendingNow: 0,
