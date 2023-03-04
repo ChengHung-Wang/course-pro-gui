@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { useCourseStore } from "@/store/course";
+import { useCourseStore } from "@/store/course/course";
 import { storeToRefs } from "pinia";
 import { toRaw } from "vue";
 

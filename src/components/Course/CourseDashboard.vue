@@ -44,7 +44,7 @@
 </template>
 
 <script lang="ts">
-import {useCourseStore} from "@/store/course";
+import {useCourseStore} from "@/store/course/course";
 import {useSystemConfigStore} from "@/store/systemConfig";
 import {useGlobalStore} from "@/store/global";
 import moment from 'moment'

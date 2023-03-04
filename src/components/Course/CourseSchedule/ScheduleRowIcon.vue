@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useCourseStore } from "@/store/course";
+import { useCourseStore } from "@/store/course/course";
 
 const courseStore = useCourseStore();
 </script>

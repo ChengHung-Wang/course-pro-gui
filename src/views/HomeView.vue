@@ -29,7 +29,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useGlobalStore } from "@/store/global";
-import { useHomeStore } from "@/store/home";
+import { useHomeStore } from "@/store/home/home";
 // components
 import UserCard from "@/components/UserCard.vue";
 import Logo from "@/components/Logo.vue";

@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { useHomeStore } from "@/store/home";
+import { useHomeStore } from "@/store/home/home";
 import UserCard from "@/components/UserCard.vue";
 
 export default {

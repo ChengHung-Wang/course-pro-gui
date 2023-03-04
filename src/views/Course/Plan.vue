@@ -76,7 +76,7 @@
 
 <script lang="ts" setup>
 import { onMounted, ref, toRaw } from 'vue'
-import { useCourseStore } from "@/store/course";
+import { useCourseStore } from "@/store/course/course";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { useGlobalStore } from "@/store/global";
 import { Delete, Search } from "@element-plus/icons-vue";

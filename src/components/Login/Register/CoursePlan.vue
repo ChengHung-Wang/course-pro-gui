@@ -96,7 +96,7 @@ import { storeToRefs } from "pinia";
 import { defineComponent, toRaw } from "vue";
 import { useSystemConfigStore } from "@/store/systemConfig";
 import { useAccountStore } from "@/store/account"
-import { useCourseStore } from "@/store/course"
+import { useCourseStore } from "@/store/course/course"
 import { useGlobalStore } from "@/store/global";
 
 export default defineComponent({

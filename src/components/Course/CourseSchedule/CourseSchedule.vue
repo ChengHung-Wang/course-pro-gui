@@ -40,7 +40,7 @@ import Column from "@/components/Course/CourseSchedule/Column.vue";
 import ScheduleRowIcon from "@/components/Course/CourseSchedule/ScheduleRowIcon.vue";
 import EmptyCard from "@/components/Course/CourseSchedule/EmptyCard.vue";
 import CourseCard from "@/components/Course/CourseSchedule/CourseCard.vue";
-import { useCourseStore } from "@/store/course";
+import { useCourseStore } from "@/store/course/course";
 import { storeToRefs } from "pinia";
 export default {
   setup() {

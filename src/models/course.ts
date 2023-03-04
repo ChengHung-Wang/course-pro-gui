@@ -1,4 +1,4 @@
-import type { Teacher } from "@/store/teacher";
+import type { Teacher } from "@/models/teacher";
 
 export interface Course {
     id: number;

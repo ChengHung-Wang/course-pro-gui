@@ -6,27 +6,29 @@
       </div>
     </div>
   </div>
-  <div>
-    <div v-if="!history.isLoading" class="semester-frame" v-for="(table, index) in history.tableData" :key="index">
+  <div class="row component-padding" v-if="!historyStore.isLoading" v-for="(table, index) in historyStore.tableData" :key="index">
+    <div class="col-1">
       <h2 class="semester-title">{{ table.semester }}</h2>
-      <el-row v-if="history.creditLists[index] != undefined" :gutter="12">
+    </div>
+    <div class="col-11">
+      <el-row v-if="historyStore.creditLists[index] !== undefined" :gutter="12">
         <el-col :span="8">
-          <el-card shadow="always"> 被當學分數 {{ history.creditLists[index].credit.failedCredit }} </el-card>
+          <el-card class="mb-5" shadow="always"> 被當學分數 {{ historyStore.creditLists[index].credit.failedCredit }} </el-card>
         </el-col>
         <el-col :span="8">
-          <el-card shadow="always"> 低於平均學分數 {{ history.creditLists[index].credit.lowerAverageCredit }}</el-card>
+          <el-card class="mb-5" shadow="always"> 低於平均學分數 {{ historyStore.creditLists[index].credit.lowerAverageCredit }}</el-card>
         </el-col>
         <el-col :span="8">
-          <el-card shadow="always"> 安全學分數 {{ history.creditLists[index].credit.safeCredit }}</el-card>
+          <el-card class="mb-5" shadow="always"> 安全學分數 {{ historyStore.creditLists[index].credit.safeCredit }}</el-card>
         </el-col>
         <el-col :span="8">
-          <el-card shadow="always"> 二退學分數 {{ history.creditLists[index].credit.secondDropCredit }} </el-card>
+          <el-card class="mb-5" shadow="always"> 二退學分數 {{ historyStore.creditLists[index].credit.secondDropCredit }} </el-card>
         </el-col>
         <el-col :span="8">
-          <h3> 平均GPA {{ history.creditLists[index].credit.GPAAverage.toFixed(2) }}</h3>
+          <h3> 平均GPA {{ historyStore.creditLists[index].credit.GPAAverage.toFixed(2) }}</h3>
         </el-col>
         <el-col :span="8">
-          <h3> 失分 {{ history.creditLists[index].credit.lostScoreTotal.toFixed(2) }}</h3>
+          <h3> 失分 {{ historyStore.creditLists[index].credit.lostScoreTotal.toFixed(2) }}</h3>
         </el-col>
       </el-row>
       <el-table :data="table.data" class="semester-table">
@@ -38,30 +40,26 @@
         ></el-table-column>
       </el-table>
     </div>
-    <div v-else>
-      <div v-loading="history.isLoading">Loading...</div>
-    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { useCourseStore } from "@/store/course";
-import { useHistoryStore } from "@/store/history";
+import { useCourseStore } from "@/store/course/course";
+import { useHistoryStore } from "@/store/course/history";
 
 export default {
   setup() {
     const courseStore = useCourseStore();
-    const history = useHistoryStore();
+    const historyStore = useHistoryStore();
     return {
       courseStore,
-      history,
+      historyStore,
     };
   },
-  mounted() {
+  async mounted() {
     this.courseStore.menu.active = 3;
-    this.history.getSemesterCreditInformation();
-    this.history.isLoading = false;
-    
+    await this.historyStore.getSemesterCreditInformation();
+    this.historyStore.isLoading = false;
   },
 };
 

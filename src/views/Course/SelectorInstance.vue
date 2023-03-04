@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { useCourseStore } from "@/store/course";
+import { useCourseStore } from "@/store/course/course";
 
 export default {
   setup() {
