@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { useGlobalStore } from "@/store/global";
 import { ElLoading } from "element-plus";
 import { request } from "@/api";
-import {useLoginStore} from "@/store/login";
+import { useLoginStore } from "@/store/login";
 
 export const useAccountStore = defineStore("account", {
   state: () => {

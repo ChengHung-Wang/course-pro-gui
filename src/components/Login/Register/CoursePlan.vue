@@ -5,16 +5,36 @@
       <div class="row">
         <div class="col-6">
           <span>學院</span>
-          <el-select class="w-100 mt-2" placeholder="Select" size="large" v-model="accountStore.userData.college.id">
-            <el-option v-for="college in systemConfigStore.colleges" :key="college.id" :label="college.name_zh" :value="college.id">
+          <el-select
+            class="w-100 mt-2"
+            placeholder="Select"
+            size="large"
+            v-model="accountStore.userData.college.id"
+          >
+            <el-option
+              v-for="college in systemConfigStore.colleges"
+              :key="college.id"
+              :label="college.name_zh"
+              :value="college.id"
+            >
               <span style="float: left">{{ college.name_zh }}</span>
             </el-option>
           </el-select>
         </div>
         <div class="col-6">
           <span>科系</span>
-          <el-select class="w-100 mt-2" placeholder="Select" size="large" v-model="accountStore.userData.department.id">
-            <el-option v-for="department in systemConfigStore.departments" :key="department.id" :label="department.name_zh" :value="department.id">
+          <el-select
+            class="w-100 mt-2"
+            placeholder="Select"
+            size="large"
+            v-model="accountStore.userData.department.id"
+          >
+            <el-option
+              v-for="department in systemConfigStore.departments"
+              :key="department.id"
+              :label="department.name_zh"
+              :value="department.id"
+            >
               <span style="float: left">{{ department.name_zh }}</span>
             </el-option>
           </el-select>
@@ -75,7 +95,6 @@
         <div class="col-6">
           <span>本學期選課時間</span>
           <el-date-picker
-            
             size="large"
             class="w-100 mt-2"
             type="datetimerange"
@@ -95,8 +114,8 @@ import { useLoginStore } from "@/store/login";
 import { storeToRefs } from "pinia";
 import { defineComponent, toRaw } from "vue";
 import { useSystemConfigStore } from "@/store/systemConfig";
-import { useAccountStore } from "@/store/account"
-import { useCourseStore } from "@/store/course/course"
+import { useAccountStore } from "@/store/account";
+import { useCourseStore } from "@/store/course/course";
 import { useGlobalStore } from "@/store/global";
 
 export default defineComponent({
@@ -132,8 +151,5 @@ export default defineComponent({
 
     this.maxCredits = this.courseStore.maximumCredits;
   },
-
-  
-
 });
 </script>

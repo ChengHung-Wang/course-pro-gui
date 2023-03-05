@@ -49,15 +49,13 @@ export default defineComponent({
   created() {
     try {
       this.globalStore.disableLoading();
-    } catch(err) {
-      
-    }
+    } catch (err) {}
   },
   components: {
     UserCard,
     Logo,
     AppItem,
-    RadarWeight
+    RadarWeight,
   },
 });
 </script>

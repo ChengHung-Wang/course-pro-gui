@@ -61,7 +61,7 @@ export default {
 @import "/src/assets/css/menu.css";
 </style>
 <style>
-  .nav-item-icon> svg {
-      width: 18px;
-  }
+.nav-item-icon > svg {
+  width: 18px;
+}
 </style>

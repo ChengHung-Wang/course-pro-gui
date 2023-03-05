@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const loginStore = useLoginStore();
 const accountStore = useAccountStore();
-let avatarURL = ref('');
+let avatarURL = ref("");
 
 onMounted(async () => {
   if (accountStore.userData.name === undefined) {
@@ -36,7 +36,7 @@ const getAvatars = () => {
 
 watch(accountStore.userData, () => {
   getAvatars();
-})
+});
 </script>
 
 <template>
@@ -53,7 +53,6 @@ watch(accountStore.userData, () => {
               class="avatar"
               shape="circle"
               :src="avatarURL.value"
-
               :size="size === undefined ? 80 : size"
             >
               <h3 class="m-0">{{ noAvatarText }}</h3>

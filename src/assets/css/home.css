@@ -1,50 +1,50 @@
 #home {
-    height: calc(var(--vh, 1vh) * 100);
-    max-height: calc(var(--vh, 1vh) * 100);
-    overflow-y: hidden;
-    display: flex;
-    justify-content: center;
-    background-image: linear-gradient(to top, #DEDEDE 20%, #FFFFFF 80%);
+  height: calc(var(--vh, 1vh) * 100);
+  max-height: calc(var(--vh, 1vh) * 100);
+  overflow-y: hidden;
+  display: flex;
+  justify-content: center;
+  background-image: linear-gradient(to top, #dedede 20%, #ffffff 80%);
 }
 #home .inner {
-    width: 1140px;
-    margin-top: -24px;
+  width: 1140px;
+  margin-top: -24px;
 }
 #home footer {
-    position: absolute;
-    left: 50%;
-    bottom: 24px;
-    transform: translateX(-50%);
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
 }
-#home footer> .logo{
-    width: 180px;
+#home footer > .logo {
+  width: 180px;
 }
 #home .weight-count {
-    text-align: right;
+  text-align: right;
 }
 #home .home-apps {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 #home .home-app-item {
-    margin: 24px;
-    padding: 12px 0;
-    width: 96px;
-    cursor: pointer;
+  margin: 24px;
+  padding: 12px 0;
+  width: 96px;
+  cursor: pointer;
 }
 #home .home-app-item:first-child {
-    margin-left: 0!important;
-    padding-left: 0!important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
 }
 #home .home-app-item:last-child {
-    margin-right: 0!important;
-    padding-right: 0!important;
+  margin-right: 0 !important;
+  padding-right: 0 !important;
 }
 #home .home-app-item img {
-    width: 96px;
+  width: 96px;
 }
 #home .home-app-item p {
-    text-align: center;
-    margin-top: 6px;
-    width: 100%;
+  text-align: center;
+  margin-top: 6px;
+  width: 100%;
 }

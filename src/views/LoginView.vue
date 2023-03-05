@@ -25,7 +25,7 @@ export default {
   },
   components: {
     LoginForm,
-    Register
+    Register,
   },
 };
 </script>

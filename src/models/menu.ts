@@ -1,9 +1,9 @@
 export type MenuItem = {
-    icon: string;
-    displayName: string;
-    click: object;
+  icon: string;
+  displayName: string;
+  click: object;
 };
 export type MenusConfig = {
-    items: Array<MenuItem>;
-    active: Number;
+  items: Array<MenuItem>;
+  active: Number;
 };

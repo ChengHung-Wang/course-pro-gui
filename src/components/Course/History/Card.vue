@@ -1,20 +1,23 @@
 <template>
   <div class="col-xxl-3 col-lg-6 col-xl-4 mb-5">
     <div class="card">
-      <img class="icon" :src="icon" alt="">
+      <img class="icon" :src="icon" alt="" />
       <div class="card-container">
         <div class="left w-100 h-100">
-            <div class="item-container">
-              <el-scrollbar max-height="125px">
-                <div v-for="item in 12" class="el-alert el-alert--info is-light">
-                  <div class="el-alert__content"><span class="el-alert__title" style="cursor: default;">Course Name</span>
-                    <div class="el-alert__close-btn">Credit</div>
-                  </div>
+          <div class="item-container">
+            <el-scrollbar max-height="125px">
+              <div v-for="item in 12" class="el-alert el-alert--info is-light">
+                <div class="el-alert__content">
+                  <span class="el-alert__title" style="cursor: default"
+                    >Course Name</span
+                  >
+                  <div class="el-alert__close-btn">Credit</div>
                 </div>
-              </el-scrollbar>
-            </div>
+              </div>
+            </el-scrollbar>
+          </div>
         </div>
-        <div class="right" v-bind:style="{color: color}">
+        <div class="right" v-bind:style="{ color: color }">
           <div class="top">
             <div class="title">{{ title }}</div>
             <div class="sub-title">{{ subTitle }}</div>
@@ -33,12 +36,12 @@ export default {
   name: "Card",
   props: {
     icon: String,
-    num: String|Number,
+    num: String | Number,
     title: String,
     subTitle: String,
-    color: String
-  }
-}
+    color: String,
+  },
+};
 </script>
 
 <style scoped>
@@ -49,7 +52,7 @@ export default {
   margin: 0;
   padding: 0 15px;
 }
-.card> .icon {
+.card > .icon {
   width: 60px;
   position: absolute;
   left: 12px;

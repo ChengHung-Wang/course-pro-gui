@@ -46,7 +46,8 @@
             </el-button> -->
             <!--  -->
 
-            <el-button v-if="loginStore.registerSteps.now<6"
+            <el-button
+              v-if="loginStore.registerSteps.now < 6"
               type="primary"
               :disabled="!fields.register.accept"
               @click="loginStore.register_next()"

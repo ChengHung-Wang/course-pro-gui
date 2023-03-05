@@ -9,7 +9,12 @@
       <div class="row mt-4">
         <div class="col-6" v-for="q in loginStore.questions">
           <p>{{ q.question_description }}</p>
-          <el-input size="large" class="w-100" v-model="q.reply" :validate-event="true"></el-input>
+          <el-input
+            size="large"
+            class="w-100"
+            v-model="q.reply"
+            :validate-event="true"
+          ></el-input>
         </div>
       </div>
     </div>
@@ -26,12 +31,12 @@ export default defineComponent({
     const loginStore = useLoginStore();
     return {
       loginStore,
-    }
+    };
   },
   async created() {
-    if(this.loginStore.questions[0]==undefined)
+    if (this.loginStore.questions[0] == undefined)
       await this.loginStore.getSecurityQuestion();
-  }
+  },
 });
 </script>
 

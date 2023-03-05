@@ -1,42 +1,42 @@
-.register-model
-{
-    width: 100%;
-    height: 70vh;
-    max-height: 640px;
-    position: relative;
+.register-model {
+  width: 100%;
+  height: 70vh;
+  max-height: 640px;
+  position: relative;
 }
 .register-model .menu-inner {
-    height: 100%;
-    padding-bottom: 60px;
-    margin-left: -24px;
-    margin-bottom: -48px;
-    position: relative;
+  height: 100%;
+  padding-bottom: 60px;
+  margin-left: -24px;
+  margin-bottom: -48px;
+  position: relative;
 }
 .register-model .menu {
-    height: 100%;
-    position: absolute;
-    left: 0;
-    width: 220px;
-    border-right: .1px rgba(0, 0, 0, .2) solid;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  width: 220px;
+  border-right: 0.1px rgba(0, 0, 0, 0.2) solid;
 }
 
-.register-model .footer, .register-model .contain {
-    position: relative;
+.register-model .footer,
+.register-model .contain {
+  position: relative;
 }
 .register-model .contain {
-    left: 220px;
-    right: 0;
-    width: calc(100% - 220px);
-    height: 100%;
-    position: relative;
+  left: 220px;
+  right: 0;
+  width: calc(100% - 220px);
+  height: 100%;
+  position: relative;
 }
 .register-model .register-contain {
-    height: 100%;
-    padding-left: 24px;
-    padding-top: 12px;
+  height: 100%;
+  padding-left: 24px;
+  padding-top: 12px;
 }
 .register-model .footer {
-    width: 100%;
-    bottom: 24px;
-    height: auto;
+  width: 100%;
+  bottom: 24px;
+  height: auto;
 }

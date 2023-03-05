@@ -111,7 +111,7 @@ export default {
   },
   components: {
     Logo,
-    Footer
+    Footer,
   },
 };
 </script>

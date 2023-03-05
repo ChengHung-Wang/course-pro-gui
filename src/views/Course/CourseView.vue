@@ -25,7 +25,7 @@ export default {
     const { schedule } = storeToRefs(courseStore);
     return {
       courseStore,
-      schedule
+      schedule,
     };
   },
   components: {
@@ -38,13 +38,11 @@ export default {
       const data = await this.courseStore.getScheduleSummary();
     }
   },
-  methods: {
-  },
-  watch: {
-  },
+  methods: {},
+  watch: {},
 };
 </script>
 
 <style>
-  @import "/src/assets/css/course.css";
+@import "/src/assets/css/course.css";
 </style>

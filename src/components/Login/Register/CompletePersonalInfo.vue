@@ -6,17 +6,15 @@
     <div class="container-fluid m-0 p-0">
       <div class="row">
         <div class="col-6">
-          <input 
-          id="uploadBtn" 
-          accept=".jpg,.jpeg,.png,.gif,"
-          type="file" 
-          :class="{ invisible: true }" 
-          @change="loginStore.uploadAvatar"
-          >
+          <input
+            id="uploadBtn"
+            accept=".jpg,.jpeg,.png,.gif,"
+            type="file"
+            :class="{ invisible: true }"
+            @change="loginStore.uploadAvatar"
+          />
 
-          <UserCard
-          v-on:click="triggerUploadBtn()"
-          ></UserCard>
+          <UserCard v-on:click="triggerUploadBtn()"></UserCard>
         </div>
         <div class="col-6">
           <div class="fsc">

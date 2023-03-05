@@ -1,47 +1,56 @@
 <template>
   <el-scrollbar max-height="100vh">
     <div class="container-fluid component-padding m-0 pb-0">
-        <div class="row">
-          <div class="col-12 mt-5">
-            <h2 class="mb-0">歷史</h2>
-          </div>
+      <div class="row">
+        <div class="col-12 mt-5">
+          <h2 class="mb-0">歷史</h2>
         </div>
-      <div class="row mt-5" v-if="!historyStore.isLoading" v-for="(table, index) in historyStore.tableData" :key="index">
+      </div>
+      <div
+        class="row mt-5"
+        v-if="!historyStore.isLoading"
+        v-for="(table, index) in historyStore.tableData"
+        :key="index"
+      >
         <div class="col-1">
           <h3 class="semester-title">{{ table.semester }}</h3>
           <span>XX/XX</span>
         </div>
         <div class="col-11">
-        <div class="container-fluid m-0 p-0">
-          <div class="row">
-            <HistoryCard
+          <div class="container-fluid m-0 p-0">
+            <div class="row">
+              <HistoryCard
                 icon="/src/assets/icons/icons8-high_priority.svg"
                 :num="historyStore.creditLists[index].credit.failedCredit"
                 title="被當"
                 color="#F44F5A"
-                sub-title="學分數" />
-            <HistoryCard
+                sub-title="學分數"
+              />
+              <HistoryCard
                 icon="/src/assets/icons/icons8-warning_shield.svg"
                 :num="historyStore.creditLists[index].credit.lowerAverageCredit"
                 title="低於平均"
                 color="#FEB705"
-                sub-title="學分數" />
-            <HistoryCard
+                sub-title="學分數"
+              />
+              <HistoryCard
                 icon="/src/assets/icons/icons8-ok.svg"
                 :num="historyStore.creditLists[index].credit.safeCredit"
                 title="安全"
                 color="#21AD64"
-                sub-title="學分數" />
-            <HistoryCard
+                sub-title="學分數"
+              />
+              <HistoryCard
                 icon="/src/assets/icons/icons8-headstone.svg"
                 :num="historyStore.creditLists[index].credit.secondDropCredit"
                 title="二退"
                 color="#888888"
-                sub-title="學分數" />
+                sub-title="學分數"
+              />
+            </div>
           </div>
+          <HistoryTable class="mb-3" :table="table" />
         </div>
-        <HistoryTable class="mb-3" :table="table" />
-      </div>
       </div>
     </div>
   </el-scrollbar>
@@ -69,19 +78,16 @@ export default {
   },
   components: {
     HistoryCard: Card,
-    HistoryTable: Table
-  }
+    HistoryTable: Table,
+  },
 };
-
 </script>
 
-
 <style scoped>
-
-.semester-frame{
+.semester-frame {
   padding: 30px;
 }
-.semester-table{
+.semester-table {
   /* margin: 30px; */
 }
 </style>

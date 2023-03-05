@@ -25,17 +25,16 @@ export default defineComponent({
     const router = useRouter();
     const globalStore = useGlobalStore();
     return {
-      router, 
+      router,
       globalStore,
     };
-  }, 
+  },
   methods: {
     enterSystem() {
       this.globalStore.enableLoading();
-      this.router.push('/');
-    }
-  }
-
+      this.router.push("/");
+    },
+  },
 });
 </script>
 

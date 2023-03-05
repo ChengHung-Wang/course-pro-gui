@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import {request} from "@/api";
-import {useGlobalStore} from "@/store/global";
+import { request } from "@/api";
+import { useGlobalStore } from "@/store/global";
 import moment from "moment";
 
 export const useRadarStore = defineStore("radar", {
@@ -39,35 +39,35 @@ export const useRadarStore = defineStore("radar", {
       return await request("GET", "/system/auth");
     },
     async scan() {
-      return await request('GET', '/radar/scan');
+      return await request("GET", "/radar/scan");
     },
     async refreshSSO() {
-      return await request("PUT", '/account/sso');
+      return await request("PUT", "/account/sso");
     },
     async startScan() {
       // sso service
       await this.refreshSSO();
       setInterval(() => {
-        this.pendingNow ++;
-        this.scanNum ++;
-        this.refreshSSO().then(e => {
-          this.pendingNow --;
+        this.pendingNow++;
+        this.scanNum++;
+        this.refreshSSO().then((e) => {
+          this.pendingNow--;
         });
       }, this.ssoRefreshInterval);
       setInterval(() => {
         if (this.pendingNow <= this.maxPending) {
-          this.pendingNow ++;
-          this.scanNum ++;
+          this.pendingNow++;
+          this.scanNum++;
           this.scan().then((e) => {
-            this.pendingNow --;
+            this.pendingNow--;
             if (moment().valueOf() - this.lastUpdateAvg.valueOf() > 500) {
               this.lastUpdateAvg = moment();
               this.scanAvg = e.endAt.valueOf() - e.startAt.valueOf();
             }
-          })
+          });
         }
-      }, this.radarInterval)
+      }, this.radarInterval);
       useGlobalStore().disableLoading();
-    }
+    },
   },
 });

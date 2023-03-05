@@ -7,35 +7,43 @@
             <div class="badge-header">
               <div class="left-text">
                 <div class="title">
-                  {{ courseStore.maximumCredits }} / {{ courseStore.schedule.totalCredit }}
+                  {{ courseStore.maximumCredits }} /
+                  {{ courseStore.schedule.totalCredit }}
                 </div>
                 <span class="description">可選學分 / 已選學分</span>
               </div>
-              <div class="right-text" v-if="Object.keys(systemConfigStore.nextEvent).length>3">
+              <div
+                class="right-text"
+                v-if="Object.keys(systemConfigStore.nextEvent).length > 3"
+              >
                 <strong>
-                  距離 {{ systemConfigStore.nextEvent.name_zh }} {{ systemConfigStore.nextEvent.status }} 還剩<br/>
-                  {{ (Math.floor(diffSec / 60 / 60 / 24)) }}天
-                  {{ ("0" + Math.floor(diffSec / 60 / 60) % 24).slice(-2) }}小時
-                  {{ ("0" + Math.floor(diffSec / 60) % 60).slice(-2) }}分鐘
-                  {{ ("0" + Math.floor(diffSec) % 60).slice(-2) }}秒
+                  距離 {{ systemConfigStore.nextEvent.name_zh }}
+                  {{ systemConfigStore.nextEvent.status }} 還剩<br />
+                  {{ Math.floor(diffSec / 60 / 60 / 24) }}天
+                  {{
+                    ("0" + (Math.floor(diffSec / 60 / 60) % 24)).slice(-2)
+                  }}小時
+                  {{ ("0" + (Math.floor(diffSec / 60) % 60)).slice(-2) }}分鐘
+                  {{ ("0" + (Math.floor(diffSec) % 60)).slice(-2) }}秒
                 </strong>
               </div>
             </div>
 
             <div class="summary-badge fsc">
               <el-icon class="icon" size="24">
-                <SuccessFilled/>
+                <SuccessFilled />
               </el-icon>
               <span class="badge-description">
-                <strong>課程模塊運作正常</strong><br/>
-                檢查時間: {{ date.split("T")[0] }} {{ date.split("T")[1].split("+")[0] }}
+                <strong>課程模塊運作正常</strong><br />
+                檢查時間: {{ date.split("T")[0] }}
+                {{ date.split("T")[1].split("+")[0] }}
               </span>
             </div>
           </div>
         </div>
         <div class="right-container">
           <div class="summary-card">
-            <el-empty :image-size="60" size="50" description="開發中..."/>
+            <el-empty :image-size="60" size="50" description="開發中..." />
           </div>
         </div>
       </div>
@@ -44,19 +52,18 @@
 </template>
 
 <script lang="ts">
-import {useCourseStore} from "@/store/course/course";
-import {useSystemConfigStore} from "@/store/systemConfig";
-import {useGlobalStore} from "@/store/global";
-import moment from 'moment'
+import { useCourseStore } from "@/store/course/course";
+import { useSystemConfigStore } from "@/store/systemConfig";
+import { useGlobalStore } from "@/store/global";
+import moment from "moment";
 
 export default {
   data() {
     return {
       diffSec: 0,
-    }
+    };
   },
   setup() {
-
     const courseStore = useCourseStore();
     const systemConfigStore = useSystemConfigStore();
     const globalStore = useGlobalStore();
@@ -81,7 +88,7 @@ export default {
       }),
       this.systemConfigStore.getNextEvent().then(() => {
         resolve++;
-      })
+      }),
     ];
     setInterval(() => {
       if (resolve >= 3) {
@@ -90,13 +97,15 @@ export default {
         setInterval(this.countDown, 500);
         this.globalStore.disableLoading();
       }
-    })
+    });
   },
   methods: {
     countDown() {
-      this.diffSec = moment(this.systemConfigStore.nextEvent.closestTime).diff(moment()) / 1000;
+      this.diffSec =
+        moment(this.systemConfigStore.nextEvent.closestTime).diff(moment()) /
+        1000;
     },
-  }
+  },
 };
 </script>
 
