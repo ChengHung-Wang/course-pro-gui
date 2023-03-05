@@ -21,7 +21,7 @@
       </div>
     </div>
     <footer>
-      <Logo color="#303333" class="logo" />
+      <Logo color="#505555" class="logo" />
     </footer>
   </div>
 </template>

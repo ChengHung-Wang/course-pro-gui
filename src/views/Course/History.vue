@@ -1,51 +1,57 @@
 <template>
-  <div class="container-fluid component-padding m-0">
-    <div class="row">
-      <div class="col-12 mt-5">
-        <h2>歷史</h2>
+  <el-scrollbar max-height="100vh">
+    <div class="container-fluid component-padding m-0 pb-0">
+        <div class="row">
+          <div class="col-12 mt-5">
+            <h2 class="mb-0">歷史</h2>
+          </div>
+        </div>
+      <div class="row mt-5" v-if="!historyStore.isLoading" v-for="(table, index) in historyStore.tableData" :key="index">
+        <div class="col-1">
+          <h3 class="semester-title">{{ table.semester }}</h3>
+          <span>XX/XX</span>
+        </div>
+        <div class="col-11">
+        <div class="container-fluid m-0 p-0">
+          <div class="row">
+            <HistoryCard
+                icon="/src/assets/icons/icons8-high_priority.svg"
+                :num="historyStore.creditLists[index].credit.failedCredit"
+                title="被當"
+                color="#F44F5A"
+                sub-title="學分數" />
+            <HistoryCard
+                icon="/src/assets/icons/icons8-warning_shield.svg"
+                :num="historyStore.creditLists[index].credit.lowerAverageCredit"
+                title="低於平均"
+                color="#FEB705"
+                sub-title="學分數" />
+            <HistoryCard
+                icon="/src/assets/icons/icons8-ok.svg"
+                :num="historyStore.creditLists[index].credit.safeCredit"
+                title="安全"
+                color="#21AD64"
+                sub-title="學分數" />
+            <HistoryCard
+                icon="/src/assets/icons/icons8-headstone.svg"
+                :num="historyStore.creditLists[index].credit.secondDropCredit"
+                title="二退"
+                color="#888888"
+                sub-title="學分數" />
+          </div>
+        </div>
+        <HistoryTable class="mb-3" :table="table" />
+      </div>
       </div>
     </div>
-  </div>
-  <div class="row component-padding" v-if="!historyStore.isLoading" v-for="(table, index) in historyStore.tableData" :key="index">
-    <div class="col-1">
-      <h2 class="semester-title">{{ table.semester }}</h2>
-    </div>
-    <div class="col-11">
-      <el-row v-if="historyStore.creditLists[index] !== undefined" :gutter="12">
-        <el-col :span="8">
-          <el-card class="mb-5" shadow="always"> 被當學分數 {{ historyStore.creditLists[index].credit.failedCredit }} </el-card>
-        </el-col>
-        <el-col :span="8">
-          <el-card class="mb-5" shadow="always"> 低於平均學分數 {{ historyStore.creditLists[index].credit.lowerAverageCredit }}</el-card>
-        </el-col>
-        <el-col :span="8">
-          <el-card class="mb-5" shadow="always"> 安全學分數 {{ historyStore.creditLists[index].credit.safeCredit }}</el-card>
-        </el-col>
-        <el-col :span="8">
-          <el-card class="mb-5" shadow="always"> 二退學分數 {{ historyStore.creditLists[index].credit.secondDropCredit }} </el-card>
-        </el-col>
-        <el-col :span="8">
-          <h3> 平均GPA {{ historyStore.creditLists[index].credit.GPAAverage.toFixed(2) }}</h3>
-        </el-col>
-        <el-col :span="8">
-          <h3> 失分 {{ historyStore.creditLists[index].credit.lostScoreTotal.toFixed(2) }}</h3>
-        </el-col>
-      </el-row>
-      <el-table :data="table.data" class="semester-table">
-        <el-table-column
-          v-for="(column, index) in table.columns"
-          :key="index"
-          :prop="column.prop"
-          :label="column.label"
-        ></el-table-column>
-      </el-table>
-    </div>
-  </div>
+  </el-scrollbar>
 </template>
 
 <script lang="ts">
 import { useCourseStore } from "@/store/course/course";
 import { useHistoryStore } from "@/store/course/history";
+import Card from "@/components/Course/History/Card.vue";
+import Table from "@/components/Course/History/Table.vue";
 
 export default {
   setup() {
@@ -61,6 +67,10 @@ export default {
     await this.historyStore.getSemesterCreditInformation();
     this.historyStore.isLoading = false;
   },
+  components: {
+    HistoryCard: Card,
+    HistoryTable: Table
+  }
 };
 
 </script>

@@ -3,6 +3,7 @@ import { useGlobalStore } from "@/store/global";
 import { request } from "@/api";
 import { useRouter } from "vue-router";
 import type { CreditList } from "@/models/course/creditList";
+import type { HistoryTable } from "@/models/course/historyTable";
 
 const router = useRouter();
 const globalStore = useGlobalStore();
@@ -13,7 +14,7 @@ export const useHistoryStore = defineStore("history", {
         return {
             courseHistory: [], // All the semester history
             semesterList: [], // list of semester
-            tableData: Array<CreditList>(), // All history for fronted-end Table
+            tableData: Array<HistoryTable>(), // All history for fronted-end Table
             creditLists: Array<CreditList>(), // list all credit categories by semester
             isLoading: true,
             map_gpa: {},

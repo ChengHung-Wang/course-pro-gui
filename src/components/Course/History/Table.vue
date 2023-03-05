@@ -9,11 +9,11 @@
   </el-table>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: "Table",
   props: {
-    table: Hos
+    table: Object
   }
 }
 </script>

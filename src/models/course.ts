@@ -11,7 +11,7 @@ export interface Course {
     serial: string;
     points: string;
     classroom_on: never[];
-    restrict: {
+    restrict?: {
         all: number;
         choose_students: number;
         three_students: number;
