@@ -171,7 +171,7 @@ export const useLoginStore = defineStore("login", {
         }
       } else if (this.registerSteps.now == 4) {
         if (this.canMoveOn()) {
-          this.returnSecutiryAnswer();
+          this.returnSecurityAnswer();
           this.registerSteps.now++;
         } else
           ElMessage({
@@ -204,7 +204,7 @@ export const useLoginStore = defineStore("login", {
       return true;
     },
 
-    async returnSecutiryAnswer() {
+    async returnSecurityAnswer() {
       let arr = [];
 
       for (let question of this.questions) {
