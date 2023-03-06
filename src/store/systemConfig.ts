@@ -3,14 +3,24 @@ import { request } from "@/api";
 import type { Department, College } from "@/models/identity";
 import moment from "moment";
 
+interface State {
+  colleges: College[];
+  departments: Department[];
+  nextEvent: {
+    timeRange: [Date, Date];
+    status: string;
+    closestTime: Date;
+  };
+}
+
 export const useSystemConfigStore = defineStore("systemConfig", {
-  state: () => ({
-    colleges: Array<College>(),
-    departments: Array<Department>(),
+  state: (): State => ({
+    colleges: [],
+    departments: [],
     nextEvent: {
       timeRange: [new Date(), new Date()],
       status: "",
-      closestTime: "",
+      closestTime: new Date(),
     },
   }),
   actions: {
@@ -34,10 +44,10 @@ export const useSystemConfigStore = defineStore("systemConfig", {
         this.nextEvent.timeRange = [startDate.toDate(), endDate.toDate()];
         if (today > startDate)
           (this.nextEvent.status = "結束"),
-            (this.nextEvent.closestTime = moment(timeDate.end_at));
+            (this.nextEvent.closestTime = moment(timeDate.end_at).toDate());
         else
           (this.nextEvent.status = "開始"),
-            (this.nextEvent.closestTime = moment(timeDate.start_at));
+            (this.nextEvent.closestTime = moment(timeDate.start_at).toDate());
         return this.nextEvent;
       }
     },

@@ -1,99 +1,123 @@
 import { defineStore } from "pinia";
-import { useGlobalStore } from "@/store/global";
 import { request } from "@/api";
-import { useRouter } from "vue-router";
-import type { CreditList } from "@/models/course/creditList";
-import type { HistoryTable } from "@/models/course/historyTable";
+import type { SystemMapScoreApi } from "@/models/api/system/map/score";
+import type { CourseMyHistoryApi } from "@/models/api/course/my/history";
+import type { GpaNames } from "@/models/api";
 
-const router = useRouter();
-const globalStore = useGlobalStore();
+interface Credit {
+  failedCredit: number;
+  lowerAverageCredit: number;
+  safeCredit: number;
+  secondDropCredit: number;
+  lostScoreTotal: number;
+  GPAAverage: number; // totalGPAScore / totalCountableCredit
+  totalGPAScore: number; // sum of (rating * credit)
+  totalCountableCredit: number; // sum of credit
+}
+
+interface CreditList {
+  semester: string;
+  credit?: Credit;
+  columns: Array<{
+    prop: string;
+    label: string;
+  }>;
+  data: Array<any>;
+}
+
+interface State {
+  courseHistory: CourseMyHistoryApi["data"] | null;
+  semesterList: any[]; // TODO CourseMyHistoryApi.data does not contain original
+  creditLists: CreditList[];
+  tableData: CreditList[] | null;
+  isLoading: boolean;
+  gpaMap: SystemMapScoreApi["map_gpa"] | null;
+}
 
 export const useHistoryStore = defineStore("history", {
-  state() {
+  state: (): State => ({
     // History Information
-    return {
-      courseHistory: [], // All the semester history
-      semesterList: [], // list of semester
-      tableData: Array<HistoryTable>(), // All history for fronted-end Table
-      creditLists: Array<CreditList>(), // list all credit categories by semester
-      isLoading: true,
-      map_gpa: {},
-    };
-  },
+    courseHistory: null, // All the semester history
+    semesterList: [], // list of semester
+    tableData: [], // All history for fronted-end Table
+    creditLists: [], // list all credit categories by semester
+    isLoading: true,
+    gpaMap: null,
+  }),
   getters: {},
   actions: {
     // API
     async getCourseHistory() {
-      const data = await request("GET", `/course/my/history`);
-      const GPAtransformAPI = await request("GET", `/system/map/score`);
-      this.map_gpa = GPAtransformAPI.res.data.map_gpa;
-      const result: any = data.res.data; // result = [{ course 1 , course 2, ...}];
-      this.courseHistory = result;
-      result.forEach((element) => {
+      const scoreMapRequest = await request("GET", `/system/map/score`);
+      this.gpaMap = scoreMapRequest.res.data.map_gpa;
+
+      const historyRequest = await request("GET", `/course/my/history`);
+      const history = (historyRequest.res as CourseMyHistoryApi).data;
+      this.courseHistory = history;
+
+      // TODO ???
+      history.forEach((entry) => {
         if (
           !this.semesterList.find(
             (e) =>
-              e === element.original.semester || this.semesterList.length === 0
+              e === entry.original.semester || this.semesterList.length === 0
           )
         ) {
-          this.semesterList.push(element.original.semester);
+          this.semesterList.push(entry.original.semester);
         }
       });
 
-      this.semesterList.forEach((currSemester) => {
-        let courseData: Array<any> = [];
-        result.forEach((element) => {
-          if (element.original.semester === currSemester) {
-            let course = {
-              name: "",
-              rating: "",
-              teacher: "",
-              serial: "",
-              dimension: "",
-              notes: "",
+      this.semesterList.forEach((semester) => {
+        let courseData: {
+          name: any;
+          rating: any;
+          teacher: string;
+          serial: any;
+          dimension: any;
+          notes: any;
+          ratingNumber: number;
+          credit: number;
+          countable: boolean; // is countable for GPA score
+          secondDrop: boolean;
+        }[] = [];
+
+        history.forEach((element) => {
+          if (element.original.semester === semester) {
+            // course is an element of courseData
+            let course: (typeof courseData)[number] = {
+              name: element.original.name,
+              rating: element.original.rating,
+              teacher: element.course.teacher?.name_zh ?? "Not Found",
+              serial: element.original.serial,
+              dimension: element.original.dimension ?? "-",
+              notes: element.original.notes,
               ratingNumber: -1,
-              credit: 0,
+              credit: element.course.points ?? 0,
               countable: true, // is countable for GPA score
               secondDrop: false, // is second drop course
             };
-            course.name = element.original.name;
-            course.rating = element.original.rating;
-            course.credit = 0;
-            if (element.course) {
-              course.teacher = element.course.teacher.name_zh;
-              if (element.course.points !== null) {
-                course.credit = Number(element.course.points);
-              }
-            } else {
-              course.teacher = "Not Found";
-            }
-            course.serial = element.original.serial;
-            if (element.original.dimension === null) {
-              course.dimension = "-";
-            } else {
-              course.dimension = element.original.dimension;
-            }
-            const rating = element.original.rating;
+
+            const rating: GpaNames | "通過" = element.original.rating;
             if (rating === "通過") {
               course.countable = false;
               course.ratingNumber = -1;
             } else {
-              course.ratingNumber = this.map_gpa[rating];
+              course.ratingNumber = this.gpaMap![rating];
             }
 
-            const note = element.original.notes;
-            if (note === "抵免" || note === "免修") {
+            if (course.notes === "抵免" || course.notes === "免修") {
               course.countable = false;
-            } else if (note === "二次退選") {
+            } else if (course.notes === "二次退選") {
               course.countable = false;
               course.secondDrop = true;
             }
-            course.notes = note;
+
             courseData.push(course);
           }
         });
+
         let table: CreditList = {
-          semester: currSemester,
+          semester: semester,
           columns: [
             { prop: "name", label: "課程名稱" },
             { prop: "credit", label: "學分" },
@@ -107,10 +131,13 @@ export const useHistoryStore = defineStore("history", {
         };
         this.tableData.push(table);
       });
-      return result;
     },
+
     async getSemesterCreditInformation() {
-      await this.getCourseHistory();
+      if (!this.courseHistory) {
+        await this.getCourseHistory();
+      }
+
       for (let index = 0; index < this.semesterList.length; index++) {
         let creditList = {
           semester: this.semesterList[index],

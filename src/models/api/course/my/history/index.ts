@@ -9,5 +9,6 @@ export interface CourseMyHistoryApi extends Omit<BaseApi, "data"> {
     course_id: string;
     notes: string | null; // TODO no examples
     course: Course;
+    original: Record<string, any>;
   }[];
 }

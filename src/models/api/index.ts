@@ -5,20 +5,19 @@ export interface BaseApi {
   data: Record<string, any>;
 }
 
-export enum GpaNames {
-  "A+",
-  "A",
-  "A-",
-  "B+",
-  "B",
-  "B-",
-  "C+",
-  "C",
-  "C-",
-  "D",
-  "E",
-  "X",
-}
+export type GpaNames =
+  | "A+"
+  | "A"
+  | "A-"
+  | "B+"
+  | "B"
+  | "B-"
+  | "C+"
+  | "C"
+  | "C-"
+  | "D"
+  | "E"
+  | "X";
 
 export interface College {
   id: number;

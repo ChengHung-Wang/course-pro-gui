@@ -15,17 +15,15 @@ export interface PersonalInfo {
 
 export interface AccountApi extends Omit<BaseApi, "data"> {
   data: {
-    user: {
-      id: number;
-      name: string;
-      student_no: string;
-      department_id: number;
-      personal_info: PersonalInfo;
-      original?: {};
-      running_config?: any[];
-      avatars?: any[];
-      created_at: string;
-      updated_at: string;
-    };
+    id: number;
+    name: string;
+    student_no: string;
+    department_id: number;
+    personal_info: PersonalInfo;
+    original?: {};
+    running_config?: any[];
+    avatars?: any[]; // TODO no example
+    created_at: string;
+    updated_at: string;
   };
 }

@@ -44,8 +44,8 @@ export const useLoginStore = defineStore("login", {
       ],
       now: 0,
     },
-    questions: Array<Question>(),
-    answer: Array<String>(),
+    questions: [] as Question[],
+    answer: [] as string[],
 
     // loading: ElLoading
   }),
@@ -244,6 +244,7 @@ export const useLoginStore = defineStore("login", {
       let data = JSON.parse(event.target.responseText);
       let accountStore = useAccountStore();
       let globalStore = useGlobalStore();
+      if (!accountStore.userData) return;
       accountStore.userData.avatars = [];
       accountStore.userData.avatars.push(data.data);
       globalStore.disableLoading();
