@@ -13,7 +13,7 @@
 export default {
   name: "Table",
   props: {
-    table: Object,
+    table: { type: Object, required: true },
   },
 };
 </script>

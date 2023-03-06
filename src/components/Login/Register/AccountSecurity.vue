@@ -8,7 +8,7 @@
     <div class="container-fluid m-0 p-0">
       <div class="row mt-4">
         <div class="col-6" v-for="q in loginStore.questions">
-          <p>{{ q.question_description }}</p>
+          <p>{{ q.description }}</p>
           <el-input
             size="large"
             class="w-100"
