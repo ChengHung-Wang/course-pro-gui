@@ -6,31 +6,8 @@ import { ElMessage } from "element-plus";
 import { request } from "@/api";
 import router from "@/router";
 import moment from "moment";
-import type { Course } from "@/models/course";
 
 const globalStore = useGlobalStore();
-
-interface TimelineSession {
-  id: number;
-  name: string;
-  start_at: string;
-  end_at: string;
-  hold_on: string;
-}
-
-interface Schedule {
-  totalCredit: number;
-  courses: Course[];
-  timeline: {
-    M: TimelineSession[];
-    T: TimelineSession[];
-    W: TimelineSession[];
-    R: TimelineSession[];
-    F: TimelineSession[];
-    S: TimelineSession[];
-    U: TimelineSession[];
-  };
-}
 
 export const useCourseStore = defineStore("course", {
   state() {
