@@ -13,8 +13,9 @@
             :class="{ invisible: true }"
             @change="loginStore.uploadAvatar"
           />
-
-          <UserCard v-on:click="triggerUploadBtn()"></UserCard>
+          <Suspense>
+            <UserCard v-on:click="triggerUploadBtn()"></UserCard>
+          </Suspense>
         </div>
         <div class="col-6">
           <div class="fsc">

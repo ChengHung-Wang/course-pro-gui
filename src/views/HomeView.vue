@@ -4,7 +4,9 @@
       <div class="container">
         <div class="row w-100">
           <div class="col-6">
-            <UserCard :logout-button="true" :size="60" />
+            <Suspense>
+              <UserCard :logout-button="true" :size="60" />
+            </Suspense>
           </div>
           <RadarWeight />
         </div>

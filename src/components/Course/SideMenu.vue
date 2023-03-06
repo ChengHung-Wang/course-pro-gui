@@ -20,7 +20,9 @@
         <span class="nav-item-text">{{ item.displayName }}</span>
       </div>
     </div>
-    <UserCard :logout-button="true" :size="50" font-size="16px" />
+    <Suspense>
+      <UserCard :logout-button="true" :size="50" font-size="16px" />
+    </Suspense>
   </div>
 </template>
 

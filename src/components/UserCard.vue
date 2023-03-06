@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useLoginStore } from "@/store/login";
 import { useAccountStore } from "@/store/account";
-import { toRaw, onMounted, ref, watch } from "vue";
-import { computePosition } from "@floating-ui/core";
+import { ref } from "vue";
+import { storeToRefs } from "pinia";
 
 interface Props {
   size?: number;
@@ -19,28 +19,24 @@ const props = withDefaults(defineProps<Props>(), {
 const loginStore = useLoginStore();
 const accountStore = useAccountStore();
 let avatarURL = ref("");
-
-onMounted(async () => {
-  if (accountStore.userData.name === undefined) {
-    await accountStore.getAccountInfo();
-  }
-  getAvatars();
-});
+const { userData: user } = storeToRefs(accountStore);
 
 const getAvatars = () => {
-  if (toRaw(accountStore.userData).avatars.length <= 0) return "";
-  const avatars = toRaw(accountStore.userData).avatars;
-  avatarURL.value = ref(avatars[avatars.length - 1].avatar);
-  return avatars[avatars.length - 1].avatar;
+  if (!user.value!.avatars) return;
+  if (user.value!.avatars.length <= 0) return;
+
+  const avatars = user.value!.avatars;
+  avatarURL.value = avatars[avatars.length - 1].avatar;
 };
 
-watch(accountStore.userData, () => {
-  getAvatars();
-});
+if (!user.value) {
+  await accountStore.getAccountInfo();
+}
+getAvatars();
 </script>
 
 <template>
-  <div class="user-card" v-if="accountStore.userData.name !== undefined">
+  <div class="user-card" v-if="user!.name !== undefined">
     <div class="inner fsc">
       <div class="avatar">
         <el-popconfirm
@@ -52,7 +48,7 @@ watch(accountStore.userData, () => {
             <el-avatar
               class="avatar"
               shape="circle"
-              :src="avatarURL.value"
+              :src="avatarURL"
               :size="size === undefined ? 80 : size"
             >
               <h3 class="m-0">{{ noAvatarText }}</h3>
@@ -61,7 +57,7 @@ watch(accountStore.userData, () => {
         </el-popconfirm>
         <el-avatar
           v-if="!logoutButton"
-          :src="avatarURL.value"
+          :src="avatarURL"
           class="avatar fcc"
           shape="circle"
           :size="size === undefined ? 80 : size"
@@ -71,9 +67,9 @@ watch(accountStore.userData, () => {
       </div>
       <div class="description">
         <h5 v-bind:style="{ fontSize: props.fontSize }">
-          {{ accountStore.userData.name }}
+          {{ user!.name }}
         </h5>
-        <p>{{ accountStore.userData.student_no }}</p>
+        <p>{{ user!.student_no }}</p>
       </div>
     </div>
   </div>
