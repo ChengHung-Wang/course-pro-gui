@@ -5,7 +5,7 @@
       <p class="m-0">平均掃描時間: {{ radarStore.scanAvg }} /ms</p>
     </div>
     <div class="fec" v-if="!radarStore.radarStart">
-      <el-button @click="start()" type="primary" size="big" icon="Aim"
+      <el-button @click="start()" type="primary" size="large" icon="Aim"
         >啟動雷達</el-button
       >
     </div>
