@@ -1,5 +1,5 @@
 import type { BaseApi } from "@/models/api";
-import type { Course } from "@/models/course";
+import type { Course } from "@/models/api/course";
 
 export interface CourseSearchApi extends Omit<BaseApi, "data"> {
   // The data is an Course array without some information

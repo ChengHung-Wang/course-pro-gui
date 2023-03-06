@@ -1,9 +1,6 @@
 import type { BaseApi } from "@/models/api";
+import type { Question } from ".";
 
 export interface AccountForgetQuestionsApi extends Omit<BaseApi, "data"> {
-  data: {
-    id: number;
-    question_description: string;
-    updated_at: string;
-  }[];
+  data: Pick<Question, "id" | "question_description" | "updated_at">[];
 }

@@ -1,5 +1,5 @@
-import type { Course } from "@/models/course";
 import type { BaseApi, GpaNames } from "@/models/api";
+import type { Course } from "@/models/api/course";
 
 interface TimelineSession {
   id: number;

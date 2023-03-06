@@ -1,4 +1,17 @@
-import type { BaseApi } from "@/models/api";
+import type { BaseApi, College, Department } from "@/models/api";
+
+export interface PersonalInfo {
+  name: string;
+  name_en: string;
+  student_id: string;
+  ntust_email: string;
+  mobile_phone: string;
+  sex: string;
+  grade: string;
+  birthday: string;
+  college: College;
+  department: Department;
+}
 
 export interface AccountApi extends Omit<BaseApi, "data"> {
   data: {
@@ -7,18 +20,7 @@ export interface AccountApi extends Omit<BaseApi, "data"> {
       name: string;
       student_no: string;
       department_id: number;
-      personal_info: {
-        name: string;
-        name_en: string;
-        student_id: string;
-        ntust_email: string;
-        mobile_phone: string;
-        sex: string;
-        college_name: string;
-        department_name: string;
-        grade: string;
-        birthday: string;
-      };
+      personal_info: PersonalInfo;
       original?: {};
       running_config?: any[];
       avatars?: any[];

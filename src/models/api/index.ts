@@ -19,3 +19,18 @@ export enum GpaNames {
   "E",
   "X",
 }
+
+export interface College {
+  id: number;
+  name_en: string;
+  name_zh: string;
+  no: number;
+}
+
+export interface Department {
+  college_id: number;
+  id: number;
+  name_en: string;
+  name_zh: string;
+  prefix_no: number;
+}
