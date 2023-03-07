@@ -68,7 +68,7 @@ export const useHistoryStore = defineStore("history", {
       });
 
       this.semesterList.forEach((semester) => {
-        let courseData: {
+        const courseData: {
           name: any;
           rating: any;
           teacher: string;
@@ -84,7 +84,7 @@ export const useHistoryStore = defineStore("history", {
         history.forEach((element) => {
           if (element.original.semester === semester) {
             // course is an element of courseData
-            let course: (typeof courseData)[number] = {
+            const course: (typeof courseData)[number] = {
               name: element.original.name,
               rating: element.original.rating,
               teacher: element.course.teacher?.name_zh ?? "Not Found",
@@ -116,7 +116,7 @@ export const useHistoryStore = defineStore("history", {
           }
         });
 
-        let table: CreditList = {
+        const table: CreditList = {
           semester: semester,
           columns: [
             { prop: "name", label: "課程名稱" },
@@ -139,7 +139,7 @@ export const useHistoryStore = defineStore("history", {
       }
 
       for (let index = 0; index < this.semesterList.length; index++) {
-        let creditList = {
+        const creditList = {
           semester: this.semesterList[index],
           credit: {
             failedCredit: 0,

@@ -36,7 +36,7 @@ export const useSystemConfigStore = defineStore("systemConfig", {
       const result = await request("GET", "/system/map/time/registration");
       if (result.status != 200) return false;
       const today = moment();
-      for (let timeDate of result.res.data) {
+      for (const timeDate of result.res.data) {
         const startDate = moment(timeDate.start_at);
         const endDate = moment(timeDate.end_at);
         if (today > endDate) continue;

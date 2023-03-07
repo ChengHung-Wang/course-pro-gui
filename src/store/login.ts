@@ -100,7 +100,7 @@ export const useLoginStore = defineStore("login", {
     },
 
     async register() {
-      let globalStore = useGlobalStore();
+      const globalStore = useGlobalStore();
       globalStore.enableLoading({
         lock: true,
         text: "正在驗證您的身份，這可能會花上30秒甚至更久的時間。",
@@ -116,7 +116,7 @@ export const useLoginStore = defineStore("login", {
       return registerResponse;
     },
     async logout() {
-      let globalStore = useGlobalStore();
+      const globalStore = useGlobalStore();
       globalStore.enableLoading();
       await request("DELETE", "/account/logout");
       localStorage.removeItem("token");
@@ -185,7 +185,7 @@ export const useLoginStore = defineStore("login", {
     },
 
     async getSecurityQuestion() {
-      let globalStore = useGlobalStore();
+      const globalStore = useGlobalStore();
       globalStore.enableLoading();
       let result = await request("GET", "/system/map/languages");
       if (result.status != 200) return false;
@@ -199,15 +199,15 @@ export const useLoginStore = defineStore("login", {
     },
 
     canMoveOn() {
-      for (let question of this.questions)
+      for (const question of this.questions)
         if (question.reply == undefined) return false;
       return true;
     },
 
     async returnSecurityAnswer() {
-      let arr = [];
+      const arr = [];
 
-      for (let question of this.questions) {
+      for (const question of this.questions) {
         arr.push({
           question_id: question.id,
           content: question.reply,
@@ -223,12 +223,12 @@ export const useLoginStore = defineStore("login", {
       const endpoint = import.meta.env.VITE_API_END_POINT;
       const baseURI = endpoint + import.meta.env.VITE_API_BASE_URL;
 
-      let globalStore = useGlobalStore();
+      const globalStore = useGlobalStore();
       globalStore.enableLoading();
-      let fileData = e.target.files[0];
-      let url = baseURI + "/account/avatar";
-      let xhr = new XMLHttpRequest();
-      let form = new FormData();
+      const fileData = e.target.files[0];
+      const url = baseURI + "/account/avatar";
+      const xhr = new XMLHttpRequest();
+      const form = new FormData();
       form.append("file", fileData);
 
       xhr.onload = this.uploadComplete;
@@ -241,9 +241,9 @@ export const useLoginStore = defineStore("login", {
     },
 
     async uploadComplete(event: any) {
-      let data = JSON.parse(event.target.responseText);
-      let accountStore = useAccountStore();
-      let globalStore = useGlobalStore();
+      const data = JSON.parse(event.target.responseText);
+      const accountStore = useAccountStore();
+      const globalStore = useGlobalStore();
       if (!accountStore.userData) return;
       accountStore.userData.avatars = [];
       accountStore.userData.avatars.push(data.data);

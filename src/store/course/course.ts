@@ -160,7 +160,7 @@ export const useCourseStore = defineStore("course", {
       return await request("GET", "/course/my/history/avg");
     },
     async searchCourse(semester: string, keyword: string, key: string) {
-      let params: any = {};
+      const params: any = {};
       params.Semester = semester;
       params[key] = keyword;
       return await request("POST", "/course/search", params);
