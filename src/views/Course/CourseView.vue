@@ -17,7 +17,6 @@ import CourseDashboard from "@/components/Course/CourseDashboard.vue";
 import CourseSchedule from "@/components/Course/CourseSchedule/CourseSchedule.vue";
 import { useCourseStore } from "@/store/course/course";
 import { storeToRefs } from "pinia";
-import { toRaw } from "vue";
 
 export default {
   setup() {
@@ -34,7 +33,7 @@ export default {
     SideMenu,
   },
   async created() {
-    if (toRaw(this.courseStore.schedule).total_credit === -1) {
+    if (this.courseStore.schedule.total_credit === -1) {
       const data = await this.courseStore.getScheduleSummary();
     }
   },

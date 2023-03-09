@@ -10,7 +10,6 @@
 <script lang="ts">
 import { useCourseStore } from "@/store/course/course";
 import { storeToRefs } from "pinia";
-import { toRaw } from "vue";
 
 export default {
   props: {
@@ -43,7 +42,7 @@ export default {
   },
   methods: {
     getStyle() {
-      const colAmount = toRaw(this.schedule).colAmount;
+      const colAmount = this.schedule.colAmount;
       const componentPadding = 24;
       return {
         width: `calc((((100% - ${

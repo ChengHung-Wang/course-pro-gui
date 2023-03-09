@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import { toRaw } from "vue";
 import { ElMessage } from "element-plus";
 import { omit } from "lodash";
 import { useAccountStore } from "@/store/account";
@@ -152,7 +151,7 @@ export const useLoginStore = defineStore("login", {
       // this.registerSteps.now = 4;
       if (this.registerSteps.now == 1) {
         // TODO handle error message
-        const fields = toRaw(this.fields).register;
+        const fields = this.fields.register;
         if (fields.password !== fields.re_password && fields.password !== "") {
           ElMessage({
             showClose: true,

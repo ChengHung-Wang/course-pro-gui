@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import { toRaw } from "vue";
 import { useGlobalStore } from "@/store/global";
 import { ElMessage } from "element-plus";
 import { request } from "@/api";
@@ -141,7 +140,7 @@ export const useCourseStore = defineStore("course", {
         C: 13,
         D: 14,
       };
-      toRaw(this.schedule).courses.map((e: any) => {
+      this.schedule.courses.map((e: any) => {
         const hold_on = e.hold_on.sort((a: String, b: String) => {
           if (days.indexOf(a.charAt(0)) == days.indexOf(b.charAt(0))) {
             return parseInt(a.substring(1)) - parseInt(b.substring(1));

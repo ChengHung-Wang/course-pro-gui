@@ -130,7 +130,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, toRaw } from "vue";
+import { onMounted, ref } from "vue";
 import { useCourseStore } from "@/store/course/course";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { useGlobalStore } from "@/store/global";
@@ -161,7 +161,7 @@ const remoteMethod = async (query: string) => {
     loading.value = true;
     // TODO: clean up hard code
     await courseStore
-      .searchCourse("1112", query, toRaw(searchKey).value)
+      .searchCourse("1112", query, searchKey.value)
       .then((res) => {
         loading.value = false;
         if (res.status != 200) {
@@ -189,7 +189,7 @@ const remoteMethod = async (query: string) => {
 const pushTarget = async () => {
   useGlobalStore().enableLoading();
   let success: number[] = [];
-  for (const courseID of toRaw(selected).value) {
+  for (const courseID of selected.value) {
     const res = await courseStore.pushTarget(courseID);
     if (res.status != 200) {
       ElMessage({
@@ -201,7 +201,7 @@ const pushTarget = async () => {
       success.push(courseID);
     }
   }
-  // selected = ref(toRaw(selected).value.filter(e => {
+  // selected = ref(selected.value.filter(e => {
   //   return !success.includes(e);
   // }));
   useGlobalStore().disableLoading();
