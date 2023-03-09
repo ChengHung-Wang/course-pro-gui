@@ -11,7 +11,7 @@
       <div class="menu fcc">
         <div class="menu-inner">
           <el-steps direction="vertical" :active="registerSteps.now">
-            <el-step v-for="el in registerSteps.items" :title="el" />
+            <el-step v-for="el in registerSteps.items" :key="el" :title="el" />
           </el-steps>
         </div>
       </div>

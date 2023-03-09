@@ -49,7 +49,7 @@ getAvatars();
               class="avatar"
               shape="circle"
               :src="avatarURL"
-              :size="size === undefined ? 80 : size"
+              :size="size && 80"
             >
               <h3 class="m-0">{{ noAvatarText }}</h3>
             </el-avatar>
@@ -60,7 +60,7 @@ getAvatars();
           :src="avatarURL"
           class="avatar fcc"
           shape="circle"
-          :size="size === undefined ? 80 : size"
+          :size="size && 80"
         >
           <h3 class="m-0">{{ noAvatarText }}</h3>
         </el-avatar>

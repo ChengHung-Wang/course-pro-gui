@@ -14,6 +14,7 @@
           <div class="col-12 home-apps">
             <AppItem
               v-for="item in homeStore.apps"
+              :key="item.name"
               @click="item.click"
               :icon="item.icon"
               :app-name="item.displayName"
@@ -49,9 +50,7 @@ export default defineComponent({
     };
   },
   created() {
-    try {
-      this.globalStore.disableLoading();
-    } catch (err) {}
+    this.globalStore.disableLoading();
   },
   components: {
     UserCard,

@@ -15,7 +15,7 @@
 <script>
 import { useGlobalStore } from "@/store/global";
 import { useRadarStore } from "@/store/radar";
-import { ElMessage, ElMessageBox } from "element-plus";
+import { ElMessageBox } from "element-plus";
 
 export default {
   name: "RadarWeight.vue",

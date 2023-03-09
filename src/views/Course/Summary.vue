@@ -31,7 +31,7 @@
             </el-tooltip>
           </div>
         </div>
-        <div class="col-3" v-for="item in 4">
+        <div class="col-3" v-for="index in 4" :key="index">
           <el-skeleton :animated="true">
             <template #template>
               <el-skeleton-item style="height: 180px" variant="p" />
@@ -61,7 +61,7 @@
             </el-tooltip>
           </div>
         </div>
-        <div class="col-3" v-for="item in 2">
+        <div class="col-3" v-for="index in 2" :key="index">
           <el-skeleton :animated="true">
             <template #template>
               <el-skeleton-item style="height: 180px" variant="p" />

@@ -7,7 +7,7 @@
     </span>
     <div class="container-fluid m-0 p-0">
       <div class="row mt-4">
-        <div class="col-6" v-for="q in loginStore.questions">
+        <div class="col-6" v-for="q in loginStore.questions" :key="q.id">
           <p>{{ q.description }}</p>
           <el-input
             size="large"
@@ -24,7 +24,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useLoginStore } from "@/store/login";
-import { toRaw } from "vue";
 
 export default defineComponent({
   setup() {

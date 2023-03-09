@@ -6,7 +6,11 @@
         <div class="left w-100 h-100">
           <div class="item-container">
             <el-scrollbar max-height="125px">
-              <div v-for="item in 12" class="el-alert el-alert--info is-light">
+              <div
+                v-for="index in 12"
+                :key="index"
+                class="el-alert el-alert--info is-light"
+              >
                 <div class="el-alert__content">
                   <span class="el-alert__title" style="cursor: default"
                     >Course Name</span
@@ -33,10 +37,9 @@
 
 <script>
 export default {
-  name: "Card",
   props: {
     icon: String,
-    num: String | Number,
+    num: [String, Number],
     title: String,
     subTitle: String,
     color: String,

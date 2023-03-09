@@ -17,7 +17,11 @@
             class="d-flex empty-card-row"
             v-for="thisDay in schedule.timeline"
           >
-            <EmptyCard :size="thisDay.length" v-for="data in thisDay" />
+            <EmptyCard
+              :size="thisDay.length"
+              v-for="data in thisDay"
+              :key="data.id"
+            />
           </div>
           <div class="course-card-container" v-if="schedule.courses.length > 0">
             <CourseCard

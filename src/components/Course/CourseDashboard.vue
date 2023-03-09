@@ -76,19 +76,15 @@ export default {
       date,
     };
   },
-  created: async function () {
+  async created() {
     let resolve = 0;
-    const loadingEvents = [
-      this.courseStore.getMaximumCredits().then(() => {
-        resolve++;
-      }),
-      this.courseStore.getScheduleSummary().then(() => {
-        resolve++;
-      }),
-      this.systemConfigStore.getNextEvent().then(() => {
-        resolve++;
-      }),
-    ];
+    await this.courseStore.getMaximumCredits();
+    resolve++;
+    await this.courseStore.getScheduleSummary();
+    resolve++;
+    await this.systemConfigStore.getNextEvent();
+    resolve++;
+
     setInterval(() => {
       if (resolve >= 3) {
         resolve = 0;

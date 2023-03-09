@@ -1,8 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import type { RouteRecordRaw } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
-import { useAccountStore } from "@/store/account";
-import { useGlobalStore } from "@/store/global";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -73,7 +71,7 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach(async (to, from) => {
+router.beforeEach(async (to) => {
   const isLogin = localStorage.getItem("hasLogin") == "1";
   if (to.fullPath === "/login" || isLogin) return;
   return {

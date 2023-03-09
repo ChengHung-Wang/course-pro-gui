@@ -49,7 +49,7 @@ export const useRadarStore = defineStore("radar", {
       setInterval(() => {
         this.pendingNow++;
         this.scanNum++;
-        this.refreshSSO().then((e) => {
+        this.refreshSSO().then(() => {
           this.pendingNow--;
         });
       }, this.ssoRefreshInterval);

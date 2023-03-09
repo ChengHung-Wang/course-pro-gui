@@ -6,52 +6,55 @@
           <h2 class="mb-0">歷史</h2>
         </div>
       </div>
-      <div
-        class="row mt-5"
-        v-if="!historyStore.isLoading"
-        v-for="(table, index) in historyStore.tableData"
-        :key="index"
-      >
-        <div class="col-1">
-          <h3 class="semester-title">{{ table.semester }}</h3>
-          <span>XX/XX</span>
-        </div>
-        <div class="col-11">
-          <div class="container-fluid m-0 p-0">
-            <div class="row">
-              <HistoryCard
-                icon="/src/assets/icons/icons8-high_priority.svg"
-                :num="historyStore.creditLists[index].credit.failedCredit"
-                title="被當"
-                color="#F44F5A"
-                sub-title="學分數"
-              />
-              <HistoryCard
-                icon="/src/assets/icons/icons8-warning_shield.svg"
-                :num="historyStore.creditLists[index].credit.lowerAverageCredit"
-                title="低於平均"
-                color="#FEB705"
-                sub-title="學分數"
-              />
-              <HistoryCard
-                icon="/src/assets/icons/icons8-ok.svg"
-                :num="historyStore.creditLists[index].credit.safeCredit"
-                title="安全"
-                color="#21AD64"
-                sub-title="學分數"
-              />
-              <HistoryCard
-                icon="/src/assets/icons/icons8-headstone.svg"
-                :num="historyStore.creditLists[index].credit.secondDropCredit"
-                title="二退"
-                color="#888888"
-                sub-title="學分數"
-              />
-            </div>
+      <template v-if="!historyStore.isLoading">
+        <div
+          class="row mt-5"
+          v-for="(table, index) in historyStore.tableData"
+          :key="index"
+        >
+          <div class="col-1">
+            <h3 class="semester-title">{{ table.semester }}</h3>
+            <span>XX/XX</span>
           </div>
-          <HistoryTable class="mb-3" :table="table" />
+          <div class="col-11">
+            <div class="container-fluid m-0 p-0">
+              <div class="row">
+                <HistoryCard
+                  icon="/src/assets/icons/icons8-high_priority.svg"
+                  :num="historyStore.creditLists[index].credit.failedCredit"
+                  title="被當"
+                  color="#F44F5A"
+                  sub-title="學分數"
+                />
+                <HistoryCard
+                  icon="/src/assets/icons/icons8-warning_shield.svg"
+                  :num="
+                    historyStore.creditLists[index].credit.lowerAverageCredit
+                  "
+                  title="低於平均"
+                  color="#FEB705"
+                  sub-title="學分數"
+                />
+                <HistoryCard
+                  icon="/src/assets/icons/icons8-ok.svg"
+                  :num="historyStore.creditLists[index].credit.safeCredit"
+                  title="安全"
+                  color="#21AD64"
+                  sub-title="學分數"
+                />
+                <HistoryCard
+                  icon="/src/assets/icons/icons8-headstone.svg"
+                  :num="historyStore.creditLists[index].credit.secondDropCredit"
+                  title="二退"
+                  color="#888888"
+                  sub-title="學分數"
+                />
+              </div>
+            </div>
+            <HistoryTable class="mb-3" :table="table" />
+          </div>
         </div>
-      </div>
+      </template>
     </div>
   </el-scrollbar>
 </template>
