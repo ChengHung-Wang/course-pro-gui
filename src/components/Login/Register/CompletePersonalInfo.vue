@@ -69,7 +69,7 @@ export default defineComponent({
   },
   methods: {
     triggerUploadBtn() {
-      window.document.getElementById("uploadBtn").click();
+      window.document.getElementById("uploadBtn")!.click();
     },
   },
 });
