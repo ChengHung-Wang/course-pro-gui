@@ -11,7 +11,7 @@ import type { SystemMapLanguagesApi } from "@/models/api/system/map/languages";
 import type { AccountForgetApi } from "@/models/api/account/forget";
 import type { AccountAvatarApi } from "@/models/api/account/avatar";
 import type { AccountLoginApi } from "@/models/api/account/login";
-import { AccountRegisterApi } from "@/models/api/account/register";
+import type { AccountRegisterApi } from "@/models/api/account/register";
 
 export const useLoginStore = defineStore("login", {
   state: () => ({

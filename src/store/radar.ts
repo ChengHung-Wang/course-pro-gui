@@ -1,14 +1,13 @@
 import { defineStore } from "pinia";
 import { request } from "@/api";
 import { useGlobalStore } from "@/store/global";
-import moment from "moment";
 
 export const useRadarStore = defineStore("radar", {
   state: () => ({
     startScan: false,
     scanNum: 0,
     scanAvg: 0,
-    lastUpdateAvg: moment(),
+    lastUpdateAvg: Date.now(),
     radarInterval: 200,
     ssoRefreshInterval: 1000 * 60 * 9.5,
     maxPending: 4,
@@ -60,9 +59,9 @@ export const useRadarStore = defineStore("radar", {
           this.scanNum++;
           this.scan().then((e) => {
             this.pendingNow--;
-            if (moment().valueOf() - this.lastUpdateAvg.valueOf() > 500) {
-              this.lastUpdateAvg = moment();
-              this.scanAvg = e.endAt.valueOf() - e.startAt.valueOf();
+            if (Date.now() - this.lastUpdateAvg > 500) {
+              this.lastUpdateAvg = Date.now();
+              this.scanAvg = e.time;
             }
           });
         }

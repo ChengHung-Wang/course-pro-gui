@@ -1,5 +1,4 @@
 import type { BaseApi } from "@/models/api";
-import moment from "moment";
 
 const endpoint = import.meta.env.VITE_API_END_POINT;
 const baseURI = endpoint + import.meta.env.VITE_API_BASE_URL;
@@ -10,7 +9,7 @@ export async function request<T = BaseApi>(
   body?: {}
 ) {
   const headers = new Headers();
-  const startAt = moment();
+  const start = Date.now();
   headers.append("Content-Type", "application/json");
   headers.append("Accept", "application/json");
   if (
@@ -27,8 +26,7 @@ export async function request<T = BaseApi>(
   });
 
   return {
-    startAt: startAt,
-    endAt: moment(),
+    time: Date.now() - start,
     status: response.status,
     res: (await response.json()) as T,
   };

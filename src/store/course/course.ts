@@ -4,7 +4,6 @@ import { useGlobalStore } from "@/store/global";
 import { ElMessage } from "element-plus";
 import { request } from "@/api";
 import router from "@/router";
-import moment from "moment";
 import type { Course } from "@/models/api/course";
 import type { CourseMyTargetApi } from "@/models/api/course/my/target";
 import type { CourseMyScheduleApi } from "@/models/api/course/my/schedule";
@@ -109,7 +108,7 @@ export const useCourseStore = defineStore("course", {
       active: 0,
     },
     maximumCredits: 0,
-    checkTime: moment().format(),
+    checkTime: new Date().toISOString(),
   }),
   getters: {},
   actions: {
@@ -118,7 +117,7 @@ export const useCourseStore = defineStore("course", {
     // -----------------------------
     async getScheduleSummary() {
       globalStore.checkLogin();
-      this.checkTime = moment().format();
+      this.checkTime = new Date().toISOString();
       const result = await request<CourseMyScheduleApi>(
         "GET",
         "/course/my/schedule"

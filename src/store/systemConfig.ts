@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import { request } from "@/api";
-import moment from "moment";
 import type { SystemMapDepartmentsApi } from "@/models/api/system/map/departments";
 import type { SystemMapTimeRegistrationApi } from "@/models/api/system/map/time/registration";
 
@@ -41,19 +40,19 @@ export const useSystemConfigStore = defineStore("systemConfig", {
         "/system/map/time/registration"
       );
       if (result.status != 200) return;
-      const today = moment();
+      const now = new Date();
       for (const timeDate of result.res.data) {
-        const startDate = moment(timeDate.start_at);
-        const endDate = moment(timeDate.end_at);
-        if (today > endDate) continue;
+        const startDate = new Date(timeDate.start_at);
+        const endDate = new Date(timeDate.end_at);
+        if (now > endDate) continue;
         this.nextEvent = timeDate; // FIXME these are completely different
-        this.nextEvent.timeRange = [startDate.toDate(), endDate.toDate()];
-        if (today > startDate) {
+        this.nextEvent.timeRange = [startDate, endDate];
+        if (now > startDate) {
           this.nextEvent.status = "結束";
-          this.nextEvent.closestTime = moment(timeDate.end_at).toDate();
+          this.nextEvent.closestTime = startDate;
         } else {
           this.nextEvent.status = "開始";
-          this.nextEvent.closestTime = moment(timeDate.start_at).toDate();
+          this.nextEvent.closestTime = endDate;
         }
       }
     },

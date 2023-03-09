@@ -55,7 +55,6 @@
 import { useCourseStore } from "@/store/course/course";
 import { useSystemConfigStore } from "@/store/systemConfig";
 import { useGlobalStore } from "@/store/global";
-import moment from "moment";
 
 export default {
   data() {
@@ -102,7 +101,7 @@ export default {
   methods: {
     countDown() {
       this.diffSec =
-        moment(this.systemConfigStore.nextEvent.closestTime).diff(moment()) /
+        (this.systemConfigStore.nextEvent.closestTime.getTime() - Date.now()) /
         1000;
     },
   },
