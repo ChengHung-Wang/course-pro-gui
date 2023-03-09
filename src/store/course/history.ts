@@ -48,10 +48,16 @@ export const useHistoryStore = defineStore("history", {
   actions: {
     // API
     async getCourseHistory() {
-      const scoreMapRequest = await request("GET", `/system/map/score`);
+      const scoreMapRequest = await request<SystemMapScoreApi>(
+        "GET",
+        `/system/map/score`
+      );
       this.gpaMap = scoreMapRequest.res.data.map_gpa;
 
-      const historyRequest = await request("GET", `/course/my/history`);
+      const historyRequest = await request<CourseMyHistoryApi>(
+        "GET",
+        `/course/my/history`
+      );
       const history = (historyRequest.res as CourseMyHistoryApi).data;
       this.courseHistory = history;
 

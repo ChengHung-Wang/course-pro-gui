@@ -146,7 +146,7 @@ export default defineComponent({
     this.globalStore.enableLoading();
     await this.systemConfigStore.getNextEvent();
     await this.systemConfigStore.getDepartments();
-    await this.courseStore.getMaxiumCredits();
+    await this.courseStore.getMaximumCredits();
     this.globalStore.disableLoading();
 
     this.maxCredits = this.courseStore.maximumCredits;

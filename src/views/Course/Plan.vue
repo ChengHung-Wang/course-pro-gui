@@ -188,7 +188,7 @@ const remoteMethod = async (query: string) => {
 
 const pushTarget = async () => {
   useGlobalStore().enableLoading();
-  let success = <number[]>[];
+  let success: number[] = [];
   for (const courseID of toRaw(selected).value) {
     const res = await courseStore.pushTarget(courseID);
     if (res.status != 200) {

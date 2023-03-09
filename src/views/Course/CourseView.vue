@@ -34,7 +34,7 @@ export default {
     SideMenu,
   },
   async created() {
-    if (toRaw(this.courseStore.schedule).totalCredit === -1) {
+    if (toRaw(this.courseStore.schedule).total_credit === -1) {
       const data = await this.courseStore.getScheduleSummary();
     }
   },

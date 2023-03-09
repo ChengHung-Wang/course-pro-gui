@@ -1,11 +1,12 @@
 import { defineStore } from "pinia";
 import { request } from "@/api";
-import type { Department, College } from "@/models/identity";
 import moment from "moment";
+import type { SystemMapDepartmentsApi } from "@/models/api/system/map/departments";
+import type { SystemMapTimeRegistrationApi } from "@/models/api/system/map/time/registration";
 
 interface State {
-  colleges: College[];
-  departments: Department[];
+  colleges: SystemMapDepartmentsApi["data"]["colleges"];
+  departments: SystemMapDepartmentsApi["data"]["departments"];
   nextEvent: {
     timeRange: [Date, Date];
     status: string;
@@ -25,30 +26,35 @@ export const useSystemConfigStore = defineStore("systemConfig", {
   }),
   actions: {
     async getDepartments() {
-      const result = await request("GET", "/system/map/departments");
-      if (result.status != 200) return false;
+      const result = await request<SystemMapDepartmentsApi>(
+        "GET",
+        "/system/map/departments"
+      );
+      if (result.status != 200) return;
       this.colleges = result.res.data.colleges;
       this.departments = result.res.data.departments;
-      return result.res.data;
     },
 
     async getNextEvent() {
-      const result = await request("GET", "/system/map/time/registration");
-      if (result.status != 200) return false;
+      const result = await request<SystemMapTimeRegistrationApi>(
+        "GET",
+        "/system/map/time/registration"
+      );
+      if (result.status != 200) return;
       const today = moment();
       for (const timeDate of result.res.data) {
         const startDate = moment(timeDate.start_at);
         const endDate = moment(timeDate.end_at);
         if (today > endDate) continue;
-        this.nextEvent = timeDate;
+        this.nextEvent = timeDate; // FIXME these are completely different
         this.nextEvent.timeRange = [startDate.toDate(), endDate.toDate()];
-        if (today > startDate)
-          (this.nextEvent.status = "結束"),
-            (this.nextEvent.closestTime = moment(timeDate.end_at).toDate());
-        else
-          (this.nextEvent.status = "開始"),
-            (this.nextEvent.closestTime = moment(timeDate.start_at).toDate());
-        return this.nextEvent;
+        if (today > startDate) {
+          this.nextEvent.status = "結束";
+          this.nextEvent.closestTime = moment(timeDate.end_at).toDate();
+        } else {
+          this.nextEvent.status = "開始";
+          this.nextEvent.closestTime = moment(timeDate.start_at).toDate();
+        }
       }
     },
   },

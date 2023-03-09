@@ -1,7 +1,7 @@
 import type { BaseApi } from "@/models/api";
 import type { Course } from "@/models/api/course";
 
-export interface CourseSearchApi extends Omit<BaseApi, "data"> {
+export interface CourseMyTargetApi extends Omit<BaseApi, "data"> {
   data: {
     id: number;
     user_id: number;
@@ -10,7 +10,7 @@ export interface CourseSearchApi extends Omit<BaseApi, "data"> {
     created_at: string;
     updated_at: string;
     course: Course;
-  };
+  }[];
 }
 
 // TODO post and delete

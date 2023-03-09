@@ -8,7 +8,7 @@
               <div class="left-text">
                 <div class="title">
                   {{ courseStore.maximumCredits }} /
-                  {{ courseStore.schedule.totalCredit }}
+                  {{ courseStore.schedule.total_credit }}
                 </div>
                 <span class="description">可選學分 / 已選學分</span>
               </div>
@@ -80,7 +80,7 @@ export default {
   created: async function () {
     let resolve = 0;
     const loadingEvents = [
-      this.courseStore.getMaxiumCredits().then(() => {
+      this.courseStore.getMaximumCredits().then(() => {
         resolve++;
       }),
       this.courseStore.getScheduleSummary().then(() => {

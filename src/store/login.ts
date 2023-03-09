@@ -1,11 +1,17 @@
 import { defineStore } from "pinia";
 import { toRaw } from "vue";
-import { ElLoading, ElMessage } from "element-plus";
-import { request } from "@/api";
+import { ElMessage } from "element-plus";
+import { omit } from "lodash";
 import { useAccountStore } from "@/store/account";
 import { useGlobalStore } from "@/store/global";
-import type { Question } from "@/models/identity";
 import router from "@/router";
+import { request } from "@/api";
+import type { AccountForgetQuestionsApi } from "@/models/api/account/forget/questions";
+import type { SystemMapLanguagesApi } from "@/models/api/system/map/languages";
+import type { AccountForgetApi } from "@/models/api/account/forget";
+import type { AccountAvatarApi } from "@/models/api/account/avatar";
+import type { AccountLoginApi } from "@/models/api/account/login";
+import { AccountRegisterApi } from "@/models/api/account/register";
 
 export const useLoginStore = defineStore("login", {
   state: () => ({
@@ -44,7 +50,7 @@ export const useLoginStore = defineStore("login", {
       ],
       now: 0,
     },
-    questions: [] as Question[],
+    questions: [] as AccountForgetQuestionsApi["data"], // TODO make this default to null
     answer: [] as string[],
 
     // loading: ElLoading
@@ -86,17 +92,15 @@ export const useLoginStore = defineStore("login", {
     // -----------------------------
     // ------------ API ------------
     // -----------------------------
-    login: async (account: string, password: string) => {
-      const data = await request("POST", "/account/login", {
+    async login(account: string, password: string) {
+      const data = await request<AccountLoginApi>("POST", "/account/login", {
         email: account,
         password: password,
       });
-      const res = await data.res;
-      if ((await res.success) === true) {
-        localStorage.setItem("hasLogin", "1");
-        localStorage.setItem("token", await res.data.access_token);
-      }
-      return (await res.success) === true;
+      if (!data.res.success) return;
+
+      localStorage.setItem("hasLogin", "1");
+      localStorage.setItem("token", data.res.access_token);
     },
 
     async register() {
@@ -105,16 +109,19 @@ export const useLoginStore = defineStore("login", {
         lock: true,
         text: "正在驗證您的身份，這可能會花上30秒甚至更久的時間。",
       });
-      const registerResponse = await request("PUT", "/account/register", {
-        email: this.fields.register.email,
-        password: this.fields.register.password,
-        student_no: this.fields.register.student_no,
-        ntust_email_password: this.fields.register.ntust_email_password,
-        ntust_sso_password: this.fields.register.ntust_sso_password,
-      });
+
+      // The request body is this.fields.register
+      // without the accept and re_password properties
+      const registerResponse = await request<AccountRegisterApi>(
+        "PUT",
+        "/account/register",
+        omit(this.fields.register, ["accept", "re_password"])
+      );
+
       globalStore.disableLoading();
       return registerResponse;
     },
+
     async logout() {
       const globalStore = useGlobalStore();
       globalStore.enableLoading();
@@ -187,20 +194,26 @@ export const useLoginStore = defineStore("login", {
     async getSecurityQuestion() {
       const globalStore = useGlobalStore();
       globalStore.enableLoading();
-      let result = await request("GET", "/system/map/languages");
-      if (result.status != 200) return false;
-
+      const languagesRequest = await request<SystemMapLanguagesApi>(
+        "GET",
+        "/system/map/languages"
+      );
+      if (languagesRequest.status != 200) return false;
       // TODO: Depends on Header, [0] for instead
-      const langCode = result.res.data[0].name;
-      result = await request("GET", "/account/forget/questions/" + langCode);
+      const langCode = languagesRequest.res.data[0].name;
+
+      const questionsRequest = await request<AccountForgetQuestionsApi>(
+        "GET",
+        "/account/forget/questions/" + langCode
+      );
       globalStore.disableLoading();
-      if (result.status != 200) return false;
-      this.questions = result.res.data;
+      if (questionsRequest.status != 200) return false;
+      this.questions = questionsRequest.res.data;
     },
 
     canMoveOn() {
       for (const question of this.questions)
-        if (question.reply == undefined) return false;
+        if (!("reply" in question)) return false;
       return true;
     },
 
@@ -214,30 +227,20 @@ export const useLoginStore = defineStore("login", {
         });
       }
 
-      const result = await request("PUT", "/account/forget", {
+      await request<AccountForgetApi>("PUT", "/account/forget", {
         data: arr,
       });
     },
 
     async uploadAvatar(e: any) {
-      const endpoint = import.meta.env.VITE_API_END_POINT;
-      const baseURI = endpoint + import.meta.env.VITE_API_BASE_URL;
-
       const globalStore = useGlobalStore();
       globalStore.enableLoading();
+
       const fileData = e.target.files[0];
-      const url = baseURI + "/account/avatar";
-      const xhr = new XMLHttpRequest();
       const form = new FormData();
       form.append("file", fileData);
 
-      xhr.onload = this.uploadComplete;
-      xhr.open("POST", url, true);
-      xhr.setRequestHeader(
-        "Authorization",
-        "Bearer " + localStorage.getItem("token")
-      );
-      xhr.send(form);
+      await request<AccountAvatarApi>("POST", "/account/avatar", form);
     },
 
     async uploadComplete(event: any) {
