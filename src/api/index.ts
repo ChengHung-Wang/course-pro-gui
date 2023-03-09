@@ -4,7 +4,7 @@ const endpoint = import.meta.env.VITE_API_END_POINT;
 const baseURI = endpoint + import.meta.env.VITE_API_BASE_URL;
 
 export async function request<T = BaseApi>(
-  method: string,
+  method: "GET" | "POST" | "PUT" | "DELETE",
   path: string,
   body?: {}
 ) {
@@ -22,7 +22,7 @@ export async function request<T = BaseApi>(
   const response = await fetch(baseURI + path, {
     method,
     headers,
-    body: body ? JSON.stringify(body) : undefined,
+    body: body && JSON.stringify(body),
   });
 
   return {
