@@ -22,7 +22,10 @@ export interface AccountApi extends Omit<BaseApi, "data"> {
     personal_info: PersonalInfo;
     original?: {};
     running_config?: any[];
-    avatars?: any[]; // TODO no example
+    avatars: {
+      avatar: string;
+      avatar_hd: string;
+    }[];
     created_at: string;
     updated_at: string;
   };

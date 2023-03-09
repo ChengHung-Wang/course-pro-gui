@@ -31,7 +31,7 @@ interface State {
   creditLists: CreditList[];
   tableData: CreditList[] | null;
   isLoading: boolean;
-  gpaMap: SystemMapScoreApi["map_gpa"] | null;
+  gpaMap: SystemMapScoreApi["data"]["map_gpa"] | null;
 }
 
 export const useHistoryStore = defineStore("history", {
