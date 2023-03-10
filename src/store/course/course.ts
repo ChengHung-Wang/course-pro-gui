@@ -31,6 +31,7 @@ interface State {
       icon: string;
       click: () => void;
     }[];
+    active: number;
   };
   maximumCredits: number;
   checkTime: string;

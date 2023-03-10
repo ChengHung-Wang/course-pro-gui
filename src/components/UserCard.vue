@@ -22,8 +22,7 @@ let avatarURL = ref("");
 const { userData: user } = storeToRefs(accountStore);
 
 const getAvatars = () => {
-  if (!user.value!.avatars) return;
-  if (user.value!.avatars.length <= 0) return;
+  if (user.value!.avatars.length == 0) return;
 
   const avatars = user.value!.avatars;
   avatarURL.value = avatars[avatars.length - 1].avatar;
