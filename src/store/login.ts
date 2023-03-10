@@ -96,10 +96,11 @@ export const useLoginStore = defineStore("login", {
         email: account,
         password: password,
       });
-      if (!data.res.success) return;
+      if (!data.res.success) return false;
 
       localStorage.setItem("hasLogin", "1");
-      localStorage.setItem("token", data.res.access_token);
+      localStorage.setItem("token", data.res.data.access_token);
+      return true;
     },
 
     async register() {
@@ -163,8 +164,7 @@ export const useLoginStore = defineStore("login", {
           if (registerResponse.status === 200) {
             this.registerSteps.now++;
             const accountStore = useAccountStore();
-            registerResponse.res.data.user.avatars = [];
-            accountStore.userData = registerResponse.res.data.user;
+            await accountStore.getAccountInfo();
             localStorage.setItem("hasLogin", "1");
             localStorage.setItem("token", registerResponse.res.data.token);
           } else {

@@ -1,12 +1,15 @@
 import { defineStore } from "pinia";
-import { useGlobalStore } from "@/store/global";
 import { ElLoading } from "element-plus";
-import { request } from "@/api";
+import { pick } from "lodash";
+import { useGlobalStore } from "@/store/global";
 import { useLoginStore } from "@/store/login";
-import type { AccountApi } from "@/models/api/account";
+import { request } from "@/api";
+import type { AccountApi, PersonalInfo } from "@/models/api/account";
 
 interface State {
-  userData: AccountApi["data"] | null;
+  userData:
+    | (PersonalInfo & Pick<AccountApi["data"], "avatars" | "student_no">)
+    | null;
 }
 
 export const useAccountStore = defineStore("account", {
@@ -21,14 +24,17 @@ export const useAccountStore = defineStore("account", {
       const loading = ElLoading.service();
       const response = await request<AccountApi>("GET", "/account");
       loading.close();
+
       if (response.status === 200) {
-        this.userData = response.res.data;
+        const responseData = response.res.data;
+        this.userData = {
+          ...responseData.personal_info,
+          ...pick(responseData, ["avatars", "student_no"]),
+        };
       }
       if (response.status === 401) {
         useLoginStore().logout();
       }
     },
-    // TODO: @An-Yang 上傳頭貼
-    async uploadAvatar() {},
   },
 });
