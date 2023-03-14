@@ -64,29 +64,30 @@ course pro 是專門開發給台科學子的一個系統，目的是為了讓您
        </div>
       </div>
    
-      <p class="text-info text-small">
-          點擊「轉送給別人」後彈出轉讓操作視窗
-      </p>
-      
-      <div class="flex-img">
-          <div>
-              <img src="https://i.imgur.com/s82z9iM.png" width="480" />
-              <p class="text-info text-small">
-                  確認資訊後系統會發送通知給對方
-              </p>
-          </div>
-          <div>
-              <img src="https://i.imgur.com/P9gtVp2.png" class="shadow" style="margin-bottom: 12px;" width="280" />
-              <p class="text-info text-small">
-                  課程轉讓請求通知
-              </p>
-          </div>
-      </div>
+<p class="text-info text-small">
+    點擊「轉送給別人」後彈出轉讓操作視窗
+</p>
+
+<div class="flex-img">
+    <div>
+        <img src="https://i.imgur.com/s82z9iM.png" width="480" />
+        <p class="text-info text-small">
+            確認資訊後系統會發送通知給對方
+        </p>
+    </div>
+    <div>
+        <img src="https://i.imgur.com/P9gtVp2.png" class="shadow" style="margin-bottom: 12px;" width="280" />
+        <p class="text-info text-small">
+            課程轉讓請求通知
+        </p>
+    </div>
+</div>
 
 
-      <img src="https://i.imgur.com/oxQYwHB.png" />
-   
-      > 對方進入系統中查看之畫面
+<img src="https://i.imgur.com/oxQYwHB.png" />
+
+> 對方進入系統中查看之畫面
+
    </details>
    
    #### 剛分手？試試看<strong class="text-primary">我不想見到的同學</strong>
