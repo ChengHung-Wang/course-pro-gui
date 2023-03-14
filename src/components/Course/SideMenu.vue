@@ -21,7 +21,7 @@
       </div>
     </div>
     <Suspense>
-      <UserCard :logout-button="true" :size="50" font-size="16px" />
+      <UserCard :logout-button="true" :size="60" font-size="16px" />
     </Suspense>
   </div>
 </template>

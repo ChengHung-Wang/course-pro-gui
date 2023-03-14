@@ -13,6 +13,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   fontSize: "20px",
+  size: 80,
   noAvatarText: "?",
 });
 
@@ -48,7 +49,7 @@ getAvatars();
               class="avatar"
               shape="circle"
               :src="avatarURL"
-              :size="size && 80"
+              :size="size"
             >
               <h3 class="m-0">{{ noAvatarText }}</h3>
             </el-avatar>
@@ -59,7 +60,7 @@ getAvatars();
           :src="avatarURL"
           class="avatar fcc"
           shape="circle"
-          :size="size && 80"
+          :size="size"
         >
           <h3 class="m-0">{{ noAvatarText }}</h3>
         </el-avatar>
